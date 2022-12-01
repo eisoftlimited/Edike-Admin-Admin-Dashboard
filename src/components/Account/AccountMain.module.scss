@@ -1,0 +1,11 @@
+.account-main {
+    border-top-right-radius: 2.4rem;
+    border-bottom-right-radius: 2.4rem;
+    background-color: #FAFAFA;
+    display: flex;
+
+    &__inner {
+        margin: auto;
+        width: 40rem;
+    }
+}

@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+@import './sass/main.scss';
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-weight: 400;
+  line-height: 1;
+}
+
+input,
+textarea,
+label,
+button {
+  font: inherit;
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
+
+

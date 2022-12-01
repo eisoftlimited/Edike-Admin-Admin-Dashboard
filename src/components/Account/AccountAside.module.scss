@@ -1,0 +1,42 @@
+@import './../../sass/main.scss';
+
+.account-aside {
+    background-color: $bg-color1;
+    color: $color-white;
+    border-top-left-radius: 2.4rem;
+    border-bottom-left-radius: 2.4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    &__img {
+        display: inline-block;
+        width: 6rem;
+        height: 3rem;
+        background-color: $color-dark-grey;
+    }
+
+    h4 {
+        margin-top: 1.5rem;
+    }
+
+    span {
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-top: 4rem;
+        margin-bottom: 2rem;
+    }
+
+    &__wecome-text {
+        font-size: 3rem;
+        font-weight: 700;
+    }
+  
+
+    p {
+        max-width: 28rem;
+        color: #CCCCCC;
+    }
+}

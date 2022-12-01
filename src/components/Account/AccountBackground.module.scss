@@ -1,0 +1,8 @@
+@import './../../sass/main.scss';
+
+.account-background {
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(to bottom left, rgba($primary-color, .8), rgba($primary-color, 1));
+    display: flex;
+}
