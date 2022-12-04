@@ -11,6 +11,15 @@
     justify-content: center;
     text-align: center;
 
+    @media screen and (max-width: 62.5em) {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    @media screen and (max-width: 56.25em) {
+        display: none;
+    }
+
     &__img {
         display: inline-block;
         width: 6rem;

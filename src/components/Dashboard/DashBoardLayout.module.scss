@@ -1,0 +1,22 @@
+@import './../../sass/main.scss';
+
+.dashboard-layout {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 27rem 1fr;
+    grid-template-rows: 12.8rem 1fr;
+
+    &__aside {
+        grid-column: 1/2;
+        grid-row: 1 / -1;
+        border-right: 1px solid #aaa;
+        background-color: #fff;
+        
+    }
+
+    &__nav,
+    &__main {
+        
+        grid-column: 2/3;
+    }
+}

@@ -26,6 +26,10 @@
         border: 1px solid $color-light-grey;
         padding: .8rem 1.6rem;
         border-radius: 1rem;
+
+        &--invalid {
+            color: red
+        }
     }
 
     &__icon {

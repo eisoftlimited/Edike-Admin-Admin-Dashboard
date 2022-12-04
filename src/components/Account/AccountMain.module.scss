@@ -7,5 +7,18 @@
     &__inner {
         margin: auto;
         width: 40rem;
+
+        @media screen and (max-width: 37.5em) {
+            width: 90%;
+        }
+    }
+
+    @media screen and (max-width: 62.5em) {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    @media screen and (max-width: 56.25em) {
+        height: 100vh;
     }
 }

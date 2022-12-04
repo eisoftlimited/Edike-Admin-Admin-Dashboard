@@ -1,0 +1,44 @@
+@import './../../sass/main';
+
+.logo {
+    padding: 3rem 3rem 4rem 3rem;
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: #3F434A;
+}
+
+.dashboard-menu {
+    list-style: none;
+
+    &__link {
+        padding: 1.5rem 3rem;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        transition: all .2s;
+
+        &:hover {
+            background-color: #47B88F;
+            padding-left: 2.5rem;
+        }
+
+        &-icon {
+            font-size: 2rem;
+            color: rgba(#3F434A, .6);
+            margin-right: 1rem;
+            transition: all .2s;
+        }
+
+        &-text {
+            font-size: 1.6rem;
+            color: #3F434A;
+            transition: all .2s;
+        }
+
+        &:hover &-text,
+        &:hover &-icon {
+            color: $color-white;
+            font-weight: 600;
+        }
+    }
+}
