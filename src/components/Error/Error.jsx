@@ -1,6 +1,12 @@
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import classes from './Error.module.scss';
 
 function Error() {
+
+    const token = useSelector(state => state.auth.token);
+
+
     return ( 
         <div className={classes['error']}>
             <div className={classes['error-nav']}>
@@ -12,7 +18,7 @@ function Error() {
                     <span>404 Page</span>
                     <h3>Page not found</h3>
                     <p>You don’t have access the permissions to view this page. Please contact support for more information.</p>
-                    <a href='#a'>Go to Dashboard</a>
+                    <Link to={token ? '/dashboard/schools' : '/sign-in'}>Go to Dashboard</Link>
                     <a href='#a' className={`text`}>Contact Support</a>
                 </div>
                 <div className={classes['erro-col']}></div>

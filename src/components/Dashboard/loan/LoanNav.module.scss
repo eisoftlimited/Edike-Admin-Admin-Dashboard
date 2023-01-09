@@ -1,0 +1,29 @@
+.loan-nav {
+    margin-bottom: 2rem;
+
+
+    &__link {
+        text-decoration: none;
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #3F434A;
+        margin-right: 2rem;
+        padding-bottom: .6rem;
+        display: inline-block;
+        border-bottom: .25rem solid transparent;
+        cursor: pointer;
+
+        &.active {
+        border-bottom: .25rem solid #47B88F;
+        }
+
+        span {
+            font-size: 1rem;
+            display: inline-block;
+            background-color: #E8E9EB;
+            color: #8A9099;
+            padding: .3rem .6rem;
+            border-radius: .4rem;
+        }
+    }
+}

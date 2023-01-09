@@ -26,6 +26,22 @@
         border: 1px solid $color-light-grey;
         padding: .8rem 1.6rem;
         border-radius: 1rem;
+        color: #120A00;
+        
+        /* Chrome, Safari, Edge, Opera */
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        &[type=number] {
+            -moz-appearance: textfield;
+        }
+
+
+
 
         &--invalid {
             color: red
@@ -36,13 +52,57 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 2rem;
-        height: 2rem;
+        // width: 2rem;
+        // height: 2rem;
         color: #120A00;
         position: absolute;
         top: 50%;
         right: 1.6rem;
         transform: translateY(-50%);
         cursor: pointer;
+    }
+}
+
+.form-phone {
+    &__input {
+        width: 100%;
+        display: block;
+        border: 1px solid $color-light-grey;
+        padding: .8rem 1.6rem !important;
+    }
+
+    &__prefix {
+        position: absolute;
+        top: 50%;
+        left: 1px;
+        transform: translateY(-50%);
+        height: calc(100% - 2px);
+        width: 5rem;
+        border-top-left-radius: 1rem;
+        border-bottom-left-radius: 1rem;
+        font-size: 1.5rem;
+        color: #120A00;
+        background-color: #fafafa;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.form-select {
+
+    &__input {
+        appearance: none;
+        outline: none;
+        // padding: 3rem;
+
+        option {
+            appearance: none;
+            padding: 1rem;
+        }
+    }
+
+    &__icon {
+        pointer-events: none;
     }
 }

@@ -1,0 +1,120 @@
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
+import { singleLoan } from '../../../store/loan/getLoanSlice';
+import DashBoardNav from '../DashBoardNav';
+import LoanApproveModal from './LoanApproveModal';
+import LoanDeclineModal from './LoanDeclineModal';
+import classes from './LoanDetail.module.scss';
+import avatar from './../../../img/avatar.svg';
+
+function LoanDetail() {
+
+    const { loanId, loanmainId } = useParams();
+    const { token } = useSelector(state => state.auth);
+    const { loan, user } = useSelector(state => state.getSingleLoan);
+    const { beneficiaryDetails, beneficiary_amount, status, beneficiary_duration } = (loan && loan[0]) || [];
+    const ben = (beneficiaryDetails && beneficiaryDetails[0]) || [];
+    // const secureUrl = beneficiary_file_results;
+
+    // console.log({user});
+
+
+
+    const dispatch = useDispatch();
+
+    const [showActivateModal, setActivateModal] = useState(false);
+    const [showDeclineModal, setDeclineModal] = useState(false);
+
+    // console.log({token});
+
+    useEffect(() => {
+        dispatch(singleLoan({ token, id: loanId, idMain: loanmainId }));
+    }, [dispatch, token, loanId]);
+
+
+
+    return (
+        <div className={classes['loan-detail']}>
+            <h1 className={classes['loan-detail__heading']}><Link to='/dashboard/loans'>Back</Link> Customer Details</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {user && user.length !== 0 &&  user.map(user => <tr key={user._id}>
+                        <td>
+                            <div>
+                                <span style={{backgroundColor: 'transparent'}}>
+                                    <img src={user.beneficiaryImage} alt={user.firstname} />
+                                </span>
+                                <h3>{user.firstname} {user.lastname}</h3>
+                            </div>
+                        </td>
+                        <td>1, Olaleye Street, Gbagada, La..</td>
+                        <td>{user.phone}</td>
+                        <td>{user.email}</td>
+                    </tr>)}
+                </tbody>
+            </table>
+            <h1 className={classes['loan-detail__heading']}>Loan Details</h1>
+            <ul>
+                <li>
+                    <strong>Loan Amount</strong>
+                    N {beneficiary_amount ? beneficiary_amount : 'N/A'}
+                    {/* N {loan ? loan.beneficiary_amount : 'N/A'} */}
+                </li>
+                <li>
+                    <strong>Beneficiary</strong>
+                    {ben.firstname} {ben.lastname}
+                </li>
+                <li>
+                    <strong>School</strong>
+                    {ben.school}
+                </li>
+                <li>
+                    <strong>Class</strong>
+                    {ben.studentClass}
+                </li>
+                <li>
+                    <strong>Loan Duration</strong>
+                    {beneficiary_duration ? beneficiary_duration : 'N/A' } Months
+                </li>
+                <li>
+                    <strong>Loan Status</strong>
+                    <span>{status ? status : ''}</span>
+                </li>
+            </ul>
+            <h1 className={classes['loan-detail__heading']}>Cred Rails Report</h1>
+            <div className={classes['loan-detail__box']}>
+                <div className={classes['loan-detail__box--item1']}>Credrails Report</div>
+            </div>
+            <h1 className={classes['loan-detail__heading']}>Admin Comment</h1>
+            <div className={classes['loan-detail__box']}>
+                <div className={classes['loan-detail__box--item2']}>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                </div>
+            </div>
+            <div className={classes['loan-detail__btns']}>
+                <button onClick={()=> setDeclineModal(true)} type='button'>Decline</button>
+                <button onClick={()=> setActivateModal(true)} type='button'>Approve</button>
+            </div>
+            <LoanDeclineModal 
+            onCloseModal={()=> setDeclineModal(false)}
+                isModalVisible={showDeclineModal}
+            />
+            <LoanApproveModal 
+            onCloseModal={()=> setActivateModal(false)}
+                isModalVisible={showActivateModal}
+            />
+        </div>
+    );
+}
+
+export default LoanDetail;

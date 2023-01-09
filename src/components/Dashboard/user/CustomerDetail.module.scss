@@ -1,0 +1,76 @@
+.customer-detail {
+    background-color: #fafafa;
+    padding: 2.4rem;
+    margin-top: 7.2rem;
+    min-height: calc(100vh - 7.2rem);
+
+    &__inner {
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: .5rem;
+    }
+
+    &__group {
+        margin-top: 3rem;
+
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+
+    &__heading {
+        margin-bottom: 1rem;
+        font-size: 2rem;
+        font-weight: 700;
+        color: #3F434A;
+    }
+
+    
+}
+
+
+table {
+    border-collapse: collapse;
+
+    th{
+        border-bottom: 1px solid #E8E9EB;
+        text-align: left;
+    }
+
+    th, td {
+        font-weight: 500;
+        font-size: 1.4rem;
+        padding: 1rem 0;
+        color: #8A9099;
+    }
+
+
+    .td__fullname {
+        display: flex;
+        align-items: center;
+
+        img {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 2rem;
+        }
+    }
+
+    .active-loan {
+        padding: .6rem 1rem;
+        display: inline-block;
+        font-size: 1.2rem;
+        color: #49C96D;
+        background-color: rgba(#49C96D, .05);
+    }
+
+    &.loan__table {
+        width: 100%;
+
+        th, td {
+            width: calc(100% / 6);
+        }
+    }
+}

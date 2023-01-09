@@ -1,12 +1,40 @@
 .dashboard-nav {
     padding: 0 2.4rem;
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+    left: 27rem;
+    z-index: 10;
+    width: calc(100% - 27rem);
 
+    @media screen and (max-width: 71.875em) {
+        left: 0;
+        width: 100%;
+    }
+
+    
 
     &__top {
         display: flex;
         align-items: center;
         justify-content: space-between;
         height: 7.2rem;
+
+        &-cont {
+            display: flex;
+            align-items: center;
+        }
+    
+        &-toggler {
+            font-size: 2.5rem;
+            margin-right: 1.5rem;
+            cursor: pointer;
+            display: none;
+
+            @media screen and (max-width: 71.875em) { 
+                display: block;
+            }
+        }
 
         h3 {
             font-weight: 500;
@@ -39,8 +67,13 @@
                 width: 3.5rem;
                 height: 3.5rem;
                 border-radius: 50%;
-                background-color: yellow;
                 margin-right: 1rem;
+
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
             }
 
             h4 {
@@ -55,7 +88,7 @@
     .dash-search {
         display: flex;
         align-items: center;
-        height: 5.6rem;
+        height: 5.6rem; //7.2
 
         .form {
             flex: 1;
@@ -99,6 +132,12 @@
                 margin-left: 2rem;
                 width: 16.4rem;
                 cursor: pointer;
+
+                @media screen and (max-width: 37.5em) {
+                    width: 13rem;
+                    font-size: 1.4rem;
+                    padding: .8rem 1.4rem;
+                }
             }
         }
     }

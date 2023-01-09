@@ -1,12 +1,15 @@
 import classes from './FormButton.module.scss';
 
-function FormButton({ children, onClick, disabled }) {
+function FormButton({ type='submit',children, onClick, disabled, className }) {
+
+    const btnClass = `${classes['form-button']} ${className ? className : ''}`;
+
     return (
         <button
-            type='submit'
+            type={type}
             disabled={disabled}
             style={{ opacity: `${disabled ? '.5' : '1'}` }}
-            className={classes['form-button']}
+            className={btnClass}
             onClick={onClick}
         >
             {children}

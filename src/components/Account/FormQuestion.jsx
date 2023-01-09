@@ -2,13 +2,13 @@ import classes from './FormQuestion.module.scss';
 
 export function FormQuestionSmall({children}) {
     return ( 
-        <p className={classes['form-question-small']}>{children}</p>
+        <div className={classes['form-question-small']}>{children}</div>
      );
 }
 
 function FormQuestion({children}) {
     return ( 
-        <p className={classes['form-question']}>{children}</p>
+        <div className={classes['form-question']}>{children}</div>
      );
 }
 

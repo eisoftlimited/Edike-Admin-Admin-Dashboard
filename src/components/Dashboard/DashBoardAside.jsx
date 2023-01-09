@@ -1,37 +1,92 @@
 import classes from './DashBoardAside.module.scss';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import EdikeLogo from '../UI/EdikeLogo';
+import user from './../../img/user.svg';
+import moneystack from './../../img/money-stack.svg';
+import logout from './../../img/logout.svg';
+import grid from './../../img/Grid.svg';
+import childrenOnTeer from './../../img/children-on-teer.svg';
+// import vector from './../../img/Vector.svg';
+import vector1 from './../../img/vector1.svg';
+import debitcard from './../../img/debit-card.svg';
+import { useDispatch } from 'react-redux';
+import { authActions } from '../../store/auth/authSlice';
 
 
-function DashMenuItem({ icon, text, link = '#a' }) {
+function DashMenuItem({ icon, text, link, onLogout }) {
     return (
         <li className={classes['dashboard-menu__item']}>
-            <a href={link} className={classes['dashboard-menu__link']}>
+            {!onLogout && <Link to={link} className={classes['dashboard-menu__link']}>
                 <span className={classes['dashboard-menu__link-icon']}>
-                    {icon}
+                    <img src={icon} alt='' />
                 </span>
                 <span className={classes['dashboard-menu__link-text']}>
                     {text}
                 </span>
-            </a>
+            </Link>}
+            {/* {!onLogout &&
+                <NavLink to={link}
+                    className={({ isActive }) =>
+                        isActive ? `${classes['dashboard-menu__link']} ${classes['active']}` : classes['dashboard-menu__link']
+                    }
+                >
+                    <span className={classes['dashboard-menu__link-icon']}>
+                        <img src={icon} alt='' />
+                    </span>
+                    <span className={classes['dashboard-menu__link-text']}>
+                        {text}
+                    </span>
+                </NavLink>} */}
+            {onLogout && <button onClick={onLogout} className={classes['dashboard-menu__link']}>
+                <span className={classes['dashboard-menu__link-icon']}>
+                    <img src={icon} alt='' />
+                </span>
+                <span className={classes['dashboard-menu__link-text']}>
+                    {text}
+                </span>
+            </button>}
         </li>
     );
 }
 
-function DashBoardAside() {
+function DashBoardAside({ onSidebarClose }) {
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+
+    const onLogout = () => {
+        dispatch(authActions.clearToken());
+        localStorage.removeItem('edike-admin-token');
+        navigate('/sign-in');
+    };
+
+
     return (
         <>
-            <div className={classes['logo']}>Edike</div>
+            <div className={classes['logo']}>
+                <EdikeLogo className={classes['logo__img']} />
+                <span onClick={onSidebarClose}><i className={`fas fa-bars`} /></span>
+            </div>
             <ul className={classes['dashboard-menu']}>
                 <DashMenuItem
                     text={'Dashboard'}
-                    icon={<i className={`fas fa-columns`} />}
+                    icon={grid}
+                // link={'/dashboard/main'}
                 />
                 <DashMenuItem
                     text={'Schools'}
-                    icon={<i className={`fal fa-university`} />}
+                    icon={childrenOnTeer}
+                    link={'/dashboard/schools'}
+                />
+                <DashMenuItem
+                    text={'Loan Management'}
+                    icon={moneystack}
+                    link={'/dashboard/loans'}
                 />
                 <DashMenuItem
                     text={'Debit Cards'}
-                    icon={<i className={`fas fa-columns`} />}
+                    icon={debitcard}
                 />
                 <DashMenuItem
                     text={'Fees Payment'}
@@ -39,7 +94,18 @@ function DashBoardAside() {
                 />
                 <DashMenuItem
                     text={'Users'}
-                    icon={<i className={`fas fa-columns`} />}
+                    icon={user}
+                    link={'/dashboard/users'}
+                />
+                <DashMenuItem
+                    text={'Customers'}
+                    icon={user}
+                    link={'/dashboard/customers'}
+                />
+                <DashMenuItem
+                    text={'Logout'}
+                    icon={logout}
+                    onLogout={onLogout}
                 />
             </ul>
         </>

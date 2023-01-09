@@ -1,8 +1,8 @@
 import classes from './FormDescription.module.scss';
 
-function FormDescription({children}) {
+function FormDescription({children, className}) {
     return ( 
-        <p className={classes['form-description']}>{children}</p>
+        <p className={`${classes['form-description']} ${className ? className : ''}`}>{children}</p>
      );
 }
 

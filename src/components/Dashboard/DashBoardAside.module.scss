@@ -5,10 +5,39 @@
     font-weight: 700;
     font-size: 1.8rem;
     color: #3F434A;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
+
+    @media screen and (max-width: 71.875em) {
+        justify-content: space-between;
+    }
+
+    &__img {
+        width: 10.6rem;
+    }
+
+    span {
+        font-size: 2.5rem;
+        cursor: pointer;
+        display: none;
+
+        @media screen and (max-width: 71.875em) {
+            display: block;
+
+        }
+    }
 }
 
 .dashboard-menu {
     list-style: none;
+
+    &__item:last-of-type {
+        position: absolute;
+        width: 100%;
+        bottom: 3rem;
+    }
 
     &__link {
         padding: 1.5rem 3rem;
@@ -17,16 +46,30 @@
         text-decoration: none;
         transition: all .2s;
 
+        
+        &.active,
         &:hover {
             background-color: #47B88F;
             padding-left: 2.5rem;
         }
 
         &-icon {
-            font-size: 2rem;
+            // font-size: 2rem;
             color: rgba(#3F434A, .6);
             margin-right: 1rem;
             transition: all .2s;
+
+            img {
+                transition: all .3s;
+            }
+        }
+
+        &.active &-icon,
+        &:hover &-icon {
+            
+            img {
+                filter: invert(100%);
+            }
         }
 
         &-text {
@@ -35,10 +78,33 @@
             transition: all .2s;
         }
 
+        &.active &-text,
         &:hover &-text,
+        &.active &-icon,
         &:hover &-icon {
             color: $color-white;
             font-weight: 600;
         }
     }
+
+    &__item:last-of-type &__link {
+        cursor: pointer;
+        width: 100%;
+
+        &:hover {
+            background-color: $color-white;
+        }
+
+        &-icon,
+        &-text {
+            color: $color-error;
+        }
+
+        &:hover &-text,
+        &:hover &-icon {
+            color: $color-error;
+        }
+    }
 }
+
+
