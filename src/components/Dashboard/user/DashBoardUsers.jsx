@@ -91,7 +91,20 @@ function DashBoardUsers() {
     // USEEFFECT CODES
     useEffect(() => {
         dispatch(getAllUsers({ token }));
+    }, [dispatch, token]);
+
+    useEffect(() => {
+        if((createdUser.data) || 
+        (blockedUser.blockMsg && blockedUser.blockMsg.length > 0) ||
+        (activatedUser.activateMsg && activatedUser.activateMsg.length > 0) ||
+        (deletedUser.deleteMsg && deletedUser.deleteMsg.length > 0)
+        ) {
+            dispatch(getAllUsers({ token }));
+        }
     }, [dispatch, token, createdUser.data, blockedUser.blockMsg, activatedUser.activateMsg, deletedUser.deleteMsg]);
+
+
+
 
     useEffect(() => {
 

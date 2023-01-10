@@ -23,7 +23,7 @@ const getLoansSlice = createSlice({
     initialState: {
         loading: false,
         error: '',
-        loans: null,
+        allLoans: null,
         ongoingLoans: null,
         pendingLoans: null,
         declinedLoans: null,
@@ -35,7 +35,7 @@ const getLoansSlice = createSlice({
         });
         builder.addCase(loanManagement.fulfilled, (state, action)=> {
             state.loading = false;
-            state.loans = action.payload && action.payload.loans;
+            state.allLoans = action.payload && action.payload.loans;
 
             const ongoingLns = action.payload && action.payload.loans && action.payload.loans.filter(loan => {
                 return loan.status === 'ongoing';

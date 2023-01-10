@@ -40,21 +40,6 @@ function LoanDetail() {
 
 
     useEffect(() => {
-        // if (approvedLoan.error && approvedLoan.error.length > 0) {
-        //     toast.error(approvedLoan.error);
-        // }
-
-        // if (approvedLoan.loanApprovedMsg && approvedLoan.loanApprovedMsg.length > 0) {
-        //     toast.success(approvedLoan.loanApprovedMsg);
-        // }
-
-        // if (declinedLoan.error && declinedLoan.error.length > 0) {
-        //     toast.error(declinedLoan.error);
-        // }
-
-        // if (declinedLoan.declineLoanMsg && declinedLoan.declineLoanMsg.length > 0) {
-        //     toast.success(declinedLoan.declineLoanMsg);
-        // }
 
         let interval;
 
@@ -101,7 +86,7 @@ function LoanDetail() {
 
     useEffect(() => {
         dispatch(singleLoan({ token, id: loanId, idMain: loanmainId }));
-    }, [dispatch, token, loanId]);
+    }, [dispatch, token, loanId, loanmainId]);
 
     const approveLoanHandler = () => {
         setActivateModal(false);
@@ -124,7 +109,7 @@ function LoanDetail() {
 
             {/* APPROVE LOANS TOAST COMPONENTS */}
             {approvedLoan.error && approvedLoan.error.length > 0 && <ToastComponent />}
-            {approvedLoan.activateMsg && <ToastComponent />}
+            {approvedLoan.loanApprovedMsg && <ToastComponent />}
             {approvedLoan.loading && <LoadingScreen />}
 
 

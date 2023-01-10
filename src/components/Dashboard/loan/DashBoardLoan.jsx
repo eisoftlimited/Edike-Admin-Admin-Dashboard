@@ -30,7 +30,7 @@ function LoanCard({ state, image }) {
             <div className={classes['dashboard-loan__icon-box']}>
                 <img src={image} alt='' />
             </div>
-            
+
         </div>
     );
 }
@@ -51,6 +51,8 @@ function DashBoardLoan() {
     const token = useSelector(state => state.auth.token);
     const approvedLoan = useSelector(state => state.approveLoan); // approveLoan
     const declinedLoan = useSelector(state => state.declineLoan);
+
+    // console.log({allLoans, ongoingLoans, pendingLoans, completedLoans, declinedLoans});
 
     // TOGGLE ALL AND DETAIL STATE
     const [showDetail, setShowDetail] = useState(false);
@@ -79,8 +81,6 @@ function DashBoardLoan() {
         }
 
     }, [filterBy, ongoingLoans, pendingLoans, completedLoans, declinedLoans, allLoans]);
-
-
 
 
     const approveLoanHandler = () => {
@@ -130,7 +130,7 @@ function DashBoardLoan() {
         }
 
 
-        return ()=> {
+        return () => {
             clearTimeout(interval);
         }
 
@@ -138,7 +138,16 @@ function DashBoardLoan() {
 
     useEffect(() => {
         dispatch(loanManagement(token));
+    }, [dispatch, token]);
+
+    useEffect(() => {
+        if ((approvedLoan.loanApprovedMsg && approvedLoan.loanApprovedMsg.length > 0) ||
+            (declinedLoan.declineLoanMsg && declinedLoan.declineLoanMsg.length > 0)) {
+            dispatch(loanManagement(token));
+        }
     }, [dispatch, token, approvedLoan, declinedLoan]);
+
+    console.log({ filterBy, filteredArray });
 
     return (
         <>
@@ -166,14 +175,26 @@ function DashBoardLoan() {
                         <LoanCard state={'default'} image={nairaRed} />
                     </div>
                     <div style={{ position: 'relative' }}>
-                        {!loans.loading && loans.loans &&
+                        {!loans.loading && loans.allLoans &&
                             <>
-                                <LoanNav onAll={() => {
-                                    setFilterBy('all');
-                                }}
-                                onDefault={()=> {
-                                    setFilterBy('');
-                                }}
+                                <LoanNav
+                                    allNum={allLoans && allLoans.length}
+                                    onAll={() => {
+                                        setFilterBy('all');
+                                    }}
+                                    defaultNum={pendingLoans && pendingLoans.length}
+                                    onDefault={() => {
+                                        setFilterBy('pending');
+                                    }}
+                                    runningNum={ongoingLoans && ongoingLoans.length}
+                                    onRunning={() => {
+                                        setFilterBy('ongoing');
+                                    }}
+                                    declinedNum={declinedLoans && declinedLoans.length}
+                                    onDecline={()=> {
+                                        setFilterBy('declined');
+                                    }}
+                                    
                                 />
                                 <DashTable>
                                     <tr className={classes.loantr}>
@@ -185,7 +206,8 @@ function DashBoardLoan() {
                                         <th>Loan Status</th>
                                         <th>Action</th>
                                     </tr>
-                                    {loans.loans && loans.loans.map(loan => (<tr key={loan._id} className={classes.loantr}>
+                                    {/* {loans.allLoans && loans.allLoans.map(loan => (<tr key={loan._id} className={classes.loantr}> */}
+                                    {filteredArray && filteredArray.map(loan => (<tr key={loan._id} className={classes.loantr}>
                                         <td>08/04/2022</td>
                                         <td>{loan.beneficiaryDetails[0]?.firstname} {loan.beneficiaryDetails[0]?.lastname}</td>
                                         <td>EDI 001</td>
@@ -194,17 +216,17 @@ function DashBoardLoan() {
                                         <td>
                                             {false && <span className={classes['success']}>Active</span>}
                                             {loan.status === 'pending' && <span className={classes['pending']}>Pending</span>}
-                                            {loan.status === 'pending_approval' && <span style={{height: '3.3rem',color: '#fafafa', backgroundColor: 'rgba(0,0,255,.6)'}} 
+                                            {loan.status === 'pending_approval' && <span style={{ height: '3.3rem', color: '#fafafa', backgroundColor: 'rgba(0,0,255,.6)' }}
                                             // className={classes['pending']}
                                             >Pending Approval</span>}
                                             {loan.status === 'declined' && <span className={classes['danger']}>Declined</span>}
                                             {loan.status === 'ongoing' && <span className={classes['pending']}>Ongoing</span>}
-                                            {loan.status === 'completed' && <span 
-                                            style={{color: '#fafafa', backgroundColor: 'rgba(0, 255, 0, .6)'}} 
+                                            {loan.status === 'completed' && <span
+                                                style={{ color: '#fafafa', backgroundColor: 'rgba(0, 255, 0, .6)' }}
                                             // className={classes['pending']}
                                             >Completed</span>}
-                                            {loan.status === 'pending_disbursement' && <span 
-                                            style={{height: '3.3rem', width: '10rem', color: '#fafafa', backgroundColor: '#964B00',}} 
+                                            {loan.status === 'pending_disbursement' && <span
+                                                style={{ height: '3.3rem', width: '10rem', color: '#fafafa', backgroundColor: '#964B00', }}
                                             // className={classes['pending']}
                                             >Pending Disbursement</span>}
                                         </td>
@@ -259,7 +281,7 @@ function DashBoardLoan() {
                         />
 
                         {loans.loading && <SchoolsLoadingSpinner />}
-                        {!loans.loading && !loans.loans &&
+                        {!loans.loading && !loans.allLoans &&
                             <div className={classes['dashboard-user__fallback']}>
                                 <h1>No Loan found</h1>
                             </div>
