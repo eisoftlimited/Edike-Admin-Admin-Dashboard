@@ -12,8 +12,12 @@
 }
 
 .loan-detail {
-    background-color: #fff;
-    padding: 4rem;
+    padding: 4rem;  
+    background-color: #fafafa;
+    padding: 2.4rem;
+    margin-top: 7.2rem;
+    min-height: calc(100vh - 7.2rem);
+    
 
     &__heading {
         font-size: 2rem;

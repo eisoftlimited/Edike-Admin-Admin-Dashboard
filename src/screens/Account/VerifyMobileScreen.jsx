@@ -115,10 +115,10 @@ function VerifyMobileScreen() {
                     <AccountAside />
                     <AccountMain>
                         <FormHeading>
-                            Verify Your Mobile
+                            Verify Your Email Address
                         </FormHeading>
                         {/* {JSON.stringify(otp)} */}
-                        <FormDescription>Enter the One-Time-Pin (OTP) sent to your mobile number 082******* to help protect your account.</FormDescription>
+                        <FormDescription>Enter the One-Time-Pin (OTP) sent to your email address to help verify your account.</FormDescription>
                         <form onSubmit={activateHandler} style={{ marginTop: '5rem' }}>
                             <div className={`otp-list`}>
                                 <OtpInput value={otp[0]} id={'0'} onChange={setOtpHandler} />

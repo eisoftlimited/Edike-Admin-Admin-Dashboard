@@ -4,28 +4,73 @@ import { useOutletContext, useParams } from 'react-router-dom';
 import avatar from './../../../img/avatar.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { singleCustomer } from '../../../store/realCustomers/getSingleCustomerSlice';
+// import { singleCustomer } from '../../../store/realCustomers/getSingleCustomerSlice';
+import { useState } from 'react';
+import axios from 'axios';
+import LoadingScreen from '../../UI/LoadingScreen';
 
 function CustomerDetail() {
     // getSingleLoan
-    const singleLoan = useSelector(state => state.getSingleLoan);
-    const {token} = useSelector(state => state.auth);
+    // const singleLoan = useSelector(state => state.getSingleLoan);
+    const { token } = useSelector(state => state.auth);
     const dispatch = useDispatch();
 
-    const {customerId} = useParams();
+    // states
+    const [all, setAll] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+    const [customer, setCustomer] = useState(null);
+    const [loan, setLoan] = useState(null);
+    const [beneficiary, setBeneficiary] = useState(null);
+
+    const { customerId } = useParams();
+
+    // console.log({ all, loading, error, loan, customer, beneficiary });
 
 
     // THE OUTLET CONTEXT STATE
     const [openSideBarHandler] = useOutletContext();
 
-    useEffect(()=> {
-        dispatch(singleCustomer({token, id: customerId}));
-    }, [dispatch, token, customerId]);
+    useEffect(() => {
+        // dispatch(singleCustomer({token, id: customerId}));
+
+        async function getOneCustomer() {
+
+            setLoading(true);
+
+            try {
+                const response = await axios({
+                    url: `https://edikeatadmin.onrender.com/edike/api/v1/users/admin/get-a-customer/${customerId}`,
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-auth-admin-token': token
+                    }
+                });
+
+                setLoading(false);
+                setAll(response.data.all);
+
+                setBeneficiary(response.data.all[1].beneficiary);
+                setCustomer(response.data.all[0].user);
+                setLoan(response.data.all[2].loan);
+
+
+            } catch (err) {
+                setLoading(false);
+                setError(err.response.data.msg);
+            }
+        }
+
+        getOneCustomer();
+
+    }, [token, customerId]);
 
 
     return (
         <>
-            <DashBoardNav navTitle='Customers - Customer Name'
+            {loading && <LoadingScreen />}
+            <DashBoardNav navTitle={`Customer - ${customer && customer.firstname} ${customer && customer.lastname}`}
                 // onAddSchool={drawerDisplayHandler} 
                 onOpenSidebar={openSideBarHandler}
                 btnText='Add User'
@@ -49,13 +94,13 @@ function CustomerDetail() {
                                 <tr>
                                     <td>
                                         <div className={classes['td__fullname']}>
-                                            {false ? <img src={avatar} alt={'User Avatar'} /> : <img src={avatar} alt={'User Avatar'} />}
-                                            <h3>Abiola Ogunjobi</h3>
+                                            {customer && customer.profileImage ? <img src={customer.profileImage} alt={'User Avatar'} /> : <img src={avatar} alt={'User Avatar'} />}
+                                            <h3>{customer && customer.firstname} {customer && customer.lastname}</h3>
                                         </div>
                                     </td>
-                                    <td>1, Olaleye Street, Gbagada, La..</td>
-                                    <td>+234 812 345 6789</td>
-                                    <td>abiola@gmail.com</td>
+                                    <td>{customer && customer.residence_address}</td>
+                                    <td>{customer && customer.phone}</td>
+                                    <td>{customer && customer.email}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -73,18 +118,26 @@ function CustomerDetail() {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <div className={classes['td__fullname']}>
-                                            {false ? <img src={avatar} alt={'User Avatar'} /> : <img src={avatar} alt={'User Avatar'} />}
-                                            <h3>Abiola Ogunjobi</h3>
-                                        </div>
-                                    </td>
-                                    <td>1, Olaleye Street, Gbagada, La..</td>
-                                    <td>Basic 2</td>
-                                    <td>17th July 2023</td>
-                                    <td>Male</td>
-                                </tr>
+                                {beneficiary && beneficiary.map(ben => {
+                                    return (
+                                        <tr key={ben._id}>
+                                            <td>
+                                                <div className={classes['td__fullname']}>
+                                                    {ben.beneficiaryImage ? <img src={ben.beneficiaryImage} alt={'User Avatar'} /> : <img src={avatar} alt={'User Avatar'} />}
+                                                    <h3>{ben.firstname} {ben.lastname}</h3>
+                                                </div>
+                                            </td>
+                                            <td>{ben.school}</td>
+                                            <td>{ben.studentClass}</td>
+                                            <td>
+                                                {/* 17th July 2023  */}
+                                                {ben.dob}
+                                                {/* {new Date('22/2/2019').toLocaleString()} */}
+                                            </td>
+                                            <td>Male</td>
+                                        </tr>
+                                    );
+                                })}
                             </tbody>
                         </table>
                     </div>
@@ -102,14 +155,22 @@ function CustomerDetail() {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>#EDI-123</td>
-                                    <td>Tiaraoluwa Ogunjobi</td>
-                                    <td>Elbethel Schools</td>
-                                    <td>Basic 3</td>
-                                    <td>N 100,000</td>
-                                    <td><span className={classes['active-loan']}>Active</span></td>
-                                </tr>
+                                {loan && loan.map(ln => {
+                                    return (
+                                        <tr key={ln._id}>
+                                            <td>#EDI-123</td>
+                                            <td>{ln?.beneficiaryDetails[0]?.firstname} {ln?.beneficiaryDetails[0]?.lastname}</td>
+                                            <td>{ln?.beneficiaryDetails[0]?.school}</td>
+                                            <td>{ln?.beneficiaryDetails[0]?.studentClass}</td>
+                                            <td>N {ln.beneficiary_amount}</td>
+                                            <td>
+                                                {/* <span className={classes['active-loan']}>Active</span> */}
+                                                <span className={classes['active-loan']}>{ln.status}</span>
+
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
                             </tbody>
                         </table>
                     </div>

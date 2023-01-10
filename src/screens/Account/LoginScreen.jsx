@@ -68,6 +68,7 @@ function LoginScreen() {
     }, [auth, navigate]);
 
     useEffect(() => {
+
         async function errorHandler() {
             if (auth.error && auth.error.length > 0) {
                 toast.error(auth.error);
@@ -87,8 +88,8 @@ function LoginScreen() {
 
         errorHandler();
 
-
-    }, [auth, loginData]);
+    // eslint-disable-next-line
+    }, [auth]);
 
     useEffect(() => {
 

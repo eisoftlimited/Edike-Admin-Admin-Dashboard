@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AccountAside from "../../components/Account/AccountAside";
@@ -25,35 +25,42 @@ function ForgotPasswordOPT() {
 
     const [otp, setOtp] = useState(undefArray);
 
+    
+    const email = localStorage.getItem('edike-admin-email');
 
-    // const countDownDate = new Date("Jan 5, 2024 15:37:25").getTime();
+    // =========================
 
-    // const x = setInterval(function() {
+    const [countDown, setCountDown] = useState(2 * 60);
+    const timerId = useRef();
 
-    //     // Get today's date and time
-    //     const now = new Date().getTime();
-      
-    //     // Find the distance between now and the count down date
-    //     const distance = countDownDate - now;
-      
-    //     // Time calculations for days, hours, minutes and seconds
-    //     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    //     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    //     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    //     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      
-    //     // Console.loging
-    //     console.log(`Days ${days} Hours ${hours} M`);
+    // console.log(countDown, ' in the verify password.');
 
-    //     // If the count down is finished, write some text
-    //     if (distance < 0) {
-    //       clearInterval(x);
-    //       document.getElementById("demo").innerHTML = "EXPIRED";
-    //     }
-    //   }, 1000);
-      
+    useEffect(() => {
+        timerId.current = setInterval(() => {
+            setCountDown(prev => prev - 1);
+        }, 1000);
 
+        return () => clearInterval(timerId.current);
+    }, []);
 
+    useEffect(() => {
+        if (countDown <= 0) {
+            clearInterval(timerId.current);
+        }
+    }, [countDown]);
+
+    const formatTime = (time) => {
+        let minutes = Math.floor(time / 60);
+        let seconds = Math.floor(time - minutes * 60);
+        if (minutes < 10) minutes = '0' + minutes;
+        if (seconds < 10) seconds = '0' + seconds;
+
+        return `${minutes}:${seconds}`
+    };
+
+    // ========================
+
+    // console.log({otp});
 
 
 
@@ -61,7 +68,7 @@ function ForgotPasswordOPT() {
 
     useEffect(() => {
         if (auth.loggedInMessage === 'Verification Successful') { //Verification Successful
-            navigate('/reset-password', {replace: true})
+            navigate('/reset-password', { replace: true })
         }
     }, [auth.loggedInMessage, navigate]);
 
@@ -93,7 +100,8 @@ function ForgotPasswordOPT() {
 
     const resendForgotPasswordCodeHandler = () => {
         const email = localStorage.getItem('edike-admin-email');
-        dispatch(resendAdminForgotPassword({email}));
+        // console.log({otp});
+        dispatch(resendAdminForgotPassword({ email }));
     };
 
     const activateHandler = async e => {
@@ -122,10 +130,10 @@ function ForgotPasswordOPT() {
                     <AccountAside />
                     <AccountMain>
                         <FormHeading>
-                        Reset Password
+                            Reset Password
                         </FormHeading>
-                        {JSON.stringify(otp)}
-                        <FormDescription>Please enter the OTP sent to you email <a href='#a'>abisoye@eisoft.com.ng</a> to continue</FormDescription>
+                        {/* {JSON.stringify(otp)} */}
+                        <FormDescription>Please enter the OTP sent to you email <a href='#a' style={{ textDecoration: 'none', color: '#47B88F' }}>{email}</a> to continue</FormDescription>
                         <form onSubmit={activateHandler} style={{ marginTop: '5rem' }}>
                             <div className={`otp-list`}>
                                 <OtpInput value={otp[0]} id={'0'} onChange={setOtpHandler} />
@@ -136,13 +144,14 @@ function ForgotPasswordOPT() {
                                 <OtpInput value={otp[5]} id={'5'} onChange={setOtpHandler} />
                             </div>
                             <FormQuestionSmall>
-                                <div style={{ textAlign: 'left' }}>The verification code will be expire in <a href='#a'>01:23</a></div>
-                                {false && <div style={{ color: '#EB5757', marginTop: '1rem' }}><i className={`fas fa-exclamation-circle`} /> Incorrect OTP, Please confirm the OTP and try again.</div>}
+                                <div style={{ textAlign: 'left' }}>The verification code will be expire in <a href='#a'>{formatTime(countDown)}</a></div>
+                                {/* {countDown <= 0 && <div style={{ color: '#EB5757', marginTop: '1rem' }}><i className={`fas fa-exclamation-circle`} /> Incorrect OTP, Please confirm the OTP and try again.</div>} */}
                             </FormQuestionSmall>
-                            <FormButton type='button' onClick={resendForgotPasswordCodeHandler}>Resend Code</FormButton>
-                            <FormButton disabled={otp.includes(undefined)}>Submit</FormButton>
+                            <div style={{ display: 'flex' }}>
+                                <FormButton style={{ color: '#47B88F', backgroundColor: '#fafafa' }} type='button' onClick={resendForgotPasswordCodeHandler}>Resend Code</FormButton>
+                                <FormButton disabled={otp.includes(undefined)}>Submit</FormButton>
+                            </div>
                             <FormQuestion>Remember you login details? <Link to='/sign-in'>Sign In</Link></FormQuestion>
-
                         </form>
                     </AccountMain>
                 </AccountLayout>

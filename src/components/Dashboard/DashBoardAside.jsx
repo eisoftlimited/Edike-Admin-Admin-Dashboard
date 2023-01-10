@@ -13,10 +13,10 @@ import { useDispatch } from 'react-redux';
 import { authActions } from '../../store/auth/authSlice';
 
 
-function DashMenuItem({ icon, text, link, onLogout }) {
+function DashMenuItem({ icon, text, link, onLogout, onCloseSidebar }) {
     return (
         <li className={classes['dashboard-menu__item']}>
-            {!onLogout && <Link to={link} className={classes['dashboard-menu__link']}>
+            {!onLogout && <Link to={link} className={classes['dashboard-menu__link']} onClick={onCloseSidebar}>
                 <span className={classes['dashboard-menu__link-icon']}>
                     <img src={icon} alt='' />
                 </span>
@@ -73,34 +73,41 @@ function DashBoardAside({ onSidebarClose }) {
                     text={'Dashboard'}
                     icon={grid}
                 // link={'/dashboard/main'}
+                onCloseSidebar={onSidebarClose}
                 />
                 <DashMenuItem
                     text={'Schools'}
                     icon={childrenOnTeer}
                     link={'/dashboard/schools'}
+                    onCloseSidebar={onSidebarClose}
                 />
                 <DashMenuItem
                     text={'Loan Management'}
                     icon={moneystack}
                     link={'/dashboard/loans'}
+                    onCloseSidebar={onSidebarClose}
                 />
                 <DashMenuItem
                     text={'Debit Cards'}
                     icon={debitcard}
+                    onCloseSidebar={onSidebarClose}
                 />
                 <DashMenuItem
                     text={'Fees Payment'}
                     icon={<i className={`fas fa-columns`} />}
+                    onCloseSidebar={onSidebarClose}
                 />
                 <DashMenuItem
                     text={'Users'}
                     icon={user}
                     link={'/dashboard/users'}
+                    onCloseSidebar={onSidebarClose}
                 />
                 <DashMenuItem
                     text={'Customers'}
                     icon={user}
                     link={'/dashboard/customers'}
+                    onCloseSidebar={onSidebarClose}
                 />
                 <DashMenuItem
                     text={'Logout'}

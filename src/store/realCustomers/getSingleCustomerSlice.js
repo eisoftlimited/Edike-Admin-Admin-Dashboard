@@ -28,19 +28,21 @@ const singleCustomerSlice = createSlice({
     initialState: {
         loading: false,
         error: '',
-        customer: null,
-        loan: null,
-        beneficiary: null
+        all: null
     },
     extraReducers: (builder => {
         builder.addCase(singleCustomer.pending, state => {
             state.loading = true;
+            console.log('Pending');
         })
         builder.addCase(singleCustomer.fulfilled, (state, action)=> {
             state.loading = false;
-            state.data = action.payload && action.payload;
+            state.all = action.payload && action.payload.all;
 
-            const customer = action.payload && action.payload.all && action.payload.all.length > 0 && action.payload.all[0].user;
+            // action.payload && action.payload.all && action.payload.all[1] && action.payload.all[1].loan
+
+
+            // const customer = action.payload && action.payload.all && action.payload.all.length > 0 && action.payload.all[0].user;
             // const 
 
             console.log('In the fulfilled block: ', action.payload);
