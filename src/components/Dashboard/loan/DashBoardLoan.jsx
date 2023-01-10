@@ -4,8 +4,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { loanApproval } from '../../../store/loan/approveLoanSlice';
-import { loanDecline } from '../../../store/loan/declineLoanSlice';
+import { approveLoanActions, loanApproval } from '../../../store/loan/approveLoanSlice';
+import { declineLoanActions, loanDecline } from '../../../store/loan/declineLoanSlice';
 import { loanManagement } from '../../../store/loan/getAllLoansSlice';
 import LoadingScreen from '../../UI/LoadingScreen';
 import Options from '../../UI/Options';
@@ -49,7 +49,7 @@ function DashBoardLoan() {
     const loans = useSelector(state => state.getAllLoans);
     const { ongoingLoans, pendingLoans, completedLoans, declinedLoans, allLoans } = useSelector(state => state.getAllLoans);
     const token = useSelector(state => state.auth.token);
-    const approvedLoan = useSelector(state => state.approveLoan);
+    const approvedLoan = useSelector(state => state.approveLoan); // approveLoan
     const declinedLoan = useSelector(state => state.declineLoan);
 
     // TOGGLE ALL AND DETAIL STATE
@@ -94,15 +94,47 @@ function DashBoardLoan() {
     };
 
     useEffect(() => {
+
+        let interval;
+
         if (approvedLoan.error && approvedLoan.error.length > 0) {
-            toast.error(approvedLoan.error);
+            toast.error(<p>{approvedLoan.error}</p>);
+
+            interval = setTimeout(() => {
+                dispatch(approveLoanActions.resetApprovedState());
+            }, 5000);
+        }
+
+        if (approvedLoan.loanApprovedMsg && approvedLoan.loanApprovedMsg.length > 0) {
+            console.log('Working...', approvedLoan.loanApprovedMsg);
+            toast.success(<p>{approvedLoan.loanApprovedMsg}</p>);
+            interval = setTimeout(() => {
+                dispatch(approveLoanActions.resetApprovedState());
+            }, 5000);
         }
 
         if (declinedLoan.error && declinedLoan.error.length > 0) {
-            toast.error(declinedLoan.error);
+            toast.error(<p>{declinedLoan.error}</p>);
+
+            interval = setTimeout(() => {
+                dispatch(declineLoanActions.resetDeclineState());
+            }, 5000);
         }
 
-    }, [approvedLoan, declinedLoan]);
+        if (declinedLoan.declineLoanMsg && declinedLoan.declineLoanMsg.length > 0) {
+            toast.success(<p>{declinedLoan.declineLoanMsg}</p>);
+
+            interval = setTimeout(() => {
+                dispatch(declineLoanActions.resetDeclineState());
+            }, 5000);
+        }
+
+
+        return ()=> {
+            clearTimeout(interval);
+        }
+
+    }, [approvedLoan, declinedLoan, dispatch]);
 
     useEffect(() => {
         dispatch(loanManagement(token));
@@ -117,7 +149,7 @@ function DashBoardLoan() {
 
             {/* APPROVE LOANS TOAST COMPONENTS */}
             {approvedLoan.error && approvedLoan.error.length > 0 && <ToastComponent />}
-            {approvedLoan.activateMsg && <ToastComponent />}
+            {approvedLoan.loanApprovedMsg && <ToastComponent />}
             {approvedLoan.loading && <LoadingScreen />}
 
             <DashBoardNav navTitle='Loan Management'
@@ -162,7 +194,7 @@ function DashBoardLoan() {
                                         <td>
                                             {false && <span className={classes['success']}>Active</span>}
                                             {loan.status === 'pending' && <span className={classes['pending']}>Pending</span>}
-                                            {loan.status === 'pending_approval' && <span style={{color: '#fafafa', backgroundColor: 'rgba(0,0,255,.6)'}} 
+                                            {loan.status === 'pending_approval' && <span style={{height: '3.3rem',color: '#fafafa', backgroundColor: 'rgba(0,0,255,.6)'}} 
                                             // className={classes['pending']}
                                             >Pending Approval</span>}
                                             {loan.status === 'declined' && <span className={classes['danger']}>Declined</span>}
@@ -172,7 +204,7 @@ function DashBoardLoan() {
                                             // className={classes['pending']}
                                             >Completed</span>}
                                             {loan.status === 'pending_disbursement' && <span 
-                                            style={{color: '#fafafa', backgroundColor: 'rgba(0,0,255,.3)',}} 
+                                            style={{height: '3.3rem', width: '10rem', color: '#fafafa', backgroundColor: '#964B00',}} 
                                             // className={classes['pending']}
                                             >Pending Disbursement</span>}
                                         </td>

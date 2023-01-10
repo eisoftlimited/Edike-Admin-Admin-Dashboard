@@ -26,6 +26,13 @@ const declineLoanSlice = createSlice({
         error: '',
         declineLoanMsg: null
     },
+    reducers: {
+        resetDeclineState: state => {
+            state.loading = false;
+            state.error = '';
+            state.declineLoanMsg = '';
+        }
+    },
     extraReducers: (builder => {
         builder.addCase(loanDecline.pending, state => {
             state.loading = true;

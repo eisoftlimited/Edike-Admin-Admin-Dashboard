@@ -11,8 +11,8 @@ import avatar from './../../../img/avatar.svg';
 import ToastComponent from '../../UI/ToastComponent';
 import LoadingScreen from '../../UI/LoadingScreen';
 import { toast } from 'react-toastify';
-import { loanDecline } from '../../../store/loan/declineLoanSlice';
-import { loanApproval } from '../../../store/loan/approveLoanSlice';
+import { declineLoanActions, loanDecline } from '../../../store/loan/declineLoanSlice';
+import { approveLoanActions, loanApproval } from '../../../store/loan/approveLoanSlice';
 
 function LoanDetail() {
 
@@ -40,23 +40,62 @@ function LoanDetail() {
 
 
     useEffect(() => {
+        // if (approvedLoan.error && approvedLoan.error.length > 0) {
+        //     toast.error(approvedLoan.error);
+        // }
+
+        // if (approvedLoan.loanApprovedMsg && approvedLoan.loanApprovedMsg.length > 0) {
+        //     toast.success(approvedLoan.loanApprovedMsg);
+        // }
+
+        // if (declinedLoan.error && declinedLoan.error.length > 0) {
+        //     toast.error(declinedLoan.error);
+        // }
+
+        // if (declinedLoan.declineLoanMsg && declinedLoan.declineLoanMsg.length > 0) {
+        //     toast.success(declinedLoan.declineLoanMsg);
+        // }
+
+        let interval;
+
         if (approvedLoan.error && approvedLoan.error.length > 0) {
-            toast.error(approvedLoan.error);
+            toast.error(<p>{approvedLoan.error}</p>);
+
+            interval = setTimeout(() => {
+                dispatch(approveLoanActions.resetApprovedState());
+            }, 5000);
         }
 
         if (approvedLoan.loanApprovedMsg && approvedLoan.loanApprovedMsg.length > 0) {
-            toast.success(approvedLoan.loanApprovedMsg);
+            toast.success(<p>{approvedLoan.loanApprovedMsg}</p>);
+            // approveLoanActions
+            interval = setTimeout(() => {
+                dispatch(approveLoanActions.resetApprovedState());
+            }, 5000);
         }
 
         if (declinedLoan.error && declinedLoan.error.length > 0) {
-            toast.error(declinedLoan.error);
+            toast.error(<p>{declinedLoan.error}</p>);
+
+            interval = setTimeout(() => {
+                dispatch(declineLoanActions.resetDeclineState());
+            }, 5000);
         }
 
         if (declinedLoan.declineLoanMsg && declinedLoan.declineLoanMsg.length > 0) {
-            toast.success(declinedLoan.declineLoanMsg);
+            toast.success(<p>{declinedLoan.declineLoanMsg}</p>);
+
+            interval = setTimeout(() => {
+                dispatch(declineLoanActions.resetDeclineState());
+            }, 5000);
         }
 
-    }, [approvedLoan, declinedLoan]);
+
+        return ()=> {
+            clearTimeout(interval);
+        }
+
+    }, [approvedLoan, declinedLoan, dispatch]);
 
     // console.log({token});
 

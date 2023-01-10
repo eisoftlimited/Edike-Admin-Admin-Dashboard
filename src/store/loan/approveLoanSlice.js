@@ -28,6 +28,13 @@ const approveLoanSlice = createSlice({
         error: '',
         loanApprovedMsg: null
     },
+    reducers: {
+        resetApprovedState: state => {
+            state.loading = false;
+            state.error = '';
+            state.loanApprovedMsg = '';
+        }
+    },
     extraReducers: (builder => {
         builder.addCase(loanApproval.pending, state => {
             state.loading = true;
