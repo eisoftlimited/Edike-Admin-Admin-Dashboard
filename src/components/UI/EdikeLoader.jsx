@@ -5,6 +5,7 @@ import i from './fade/i.svg';
 import k from './fade/k.svg';
 import e_small from './fade/e_small.svg';
 
+
 import e_fill from './filled/e.svg';
 import d_fill from './filled/d.svg';
 import i_fill from './filled/i.svg';
