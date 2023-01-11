@@ -109,13 +109,13 @@ function ForgotPasswordOPT() {
 
         /*
         const email = localStorage.getItem('edike-admin-email');
-        console.log({email});
+        //console.log({email});
         dispatch(forgotPasswordOTPP({email, otpToken: otp.join('')}));
         */
 
         const email = localStorage.getItem('edike-admin-email');
         const data = { otpToken: otp.join(''), email };
-        console.log(data);
+        // console.log(data);
         dispatch(forgotPasswordOTPP(data));
         setOtp(undefArray);
     };

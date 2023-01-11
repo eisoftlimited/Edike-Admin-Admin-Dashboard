@@ -70,13 +70,13 @@ const authSlice = createSlice({
             state.loading = false;
             state.loggedInMessage = action.payload && action.payload.msg;
 
-            console.log('In the fulfilled',action.payload);
+            // console.log('In the fulfilled',action.payload);
 
         })
         builder.addCase(signUserIn.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload && action.payload.msg;
-            console.log('In the rejected: ',action.payload);
+            // console.log('In the rejected: ',action.payload);
         })
 
         // ACTIVATE
@@ -90,7 +90,7 @@ const authSlice = createSlice({
             state.token = action.payload && action.payload.token;
             localStorage.removeItem('edike-admin-email');
             localStorage.setItem('edike-admin-token', action.payload.token);
-            console.log(action.payload);
+            // console.log(action.payload);
         })
         builder.addCase(activateUser.rejected, (state, action) => {
             state.loading = false;
@@ -151,12 +151,12 @@ const authSlice = createSlice({
             state.loading = false;
             state.loggedInMessage = action.payload.msg;
             // localStorage.removeItem('edike-admin-email');
-            console.log(action.payload);
+            // console.log(action.payload);
         })
         builder.addCase(forgotPassword.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload.msg;
-            console.log(state.error.msg);
+            // console.log(state.error.msg);
         })
 
         // FORGOT PASSWORD  OTP REQUEST
@@ -168,12 +168,12 @@ const authSlice = createSlice({
             state.loading = false;
             state.loggedInMessage = action.payload.msg;
             state.token = action.payload.token;
-            console.log(action.payload);
+            // console.log(action.payload);
         })
         builder.addCase(forgotPasswordOTPP.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload.msg;
-            console.log(action.payload.msg)
+            // console.log(action.payload.msg)
         })
 
         // RESEND FORGOT PASSWORD OPT
@@ -187,7 +187,7 @@ const authSlice = createSlice({
             state.token = action.payload && action.payload.token;
             // localStorage.setItem('edike-token', action.payload.token);
             // localStorage.setItem('edike-admin-token', action.payload.token);
-            console.log(action.payload);
+            // console.log(action.payload);
         })
         builder.addCase(resendAdminForgotPassword.rejected, (state, action) => {
             state.loading = false;
@@ -201,12 +201,12 @@ const authSlice = createSlice({
         builder.addCase(resetPassword.fulfilled, (state, action) => {
             state.loading = false;
             state.loggedInMessage = action.payload.msg;
-            console.log(action.payload);
+            // console.log(action.payload);
         })
         builder.addCase(resetPassword.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload.msg;
-            console.log(action.payload)
+            // console.log(action.payload)
         })
     })
 });

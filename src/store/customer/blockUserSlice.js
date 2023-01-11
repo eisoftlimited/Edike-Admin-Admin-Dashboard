@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const blockUser = createAsyncThunk('userBlock/blockUser', async ({id, token}, {rejectWithValue})=> {
 
-    console.log('In the thunk function: ', {id, token});
+    // console.log('In the thunk function: ', {id, token});
 
     try {
         const response = await axios({
@@ -48,7 +48,7 @@ const blockUserSlice = createSlice({
         builder.addCase(blockUser.fulfilled, (state, action)=> {
             state.loading = false;
             state.blockMsg = action.payload && action.payload.msg;
-            console.log('In the fulfilled block: ', action.payload);
+            // console.log('In the fulfilled block: ', action.payload);
         })
         builder.addCase(blockUser.rejected, (state, action)=> {
             state.loading = false;

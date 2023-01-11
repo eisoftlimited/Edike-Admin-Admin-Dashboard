@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import classes from './DashBoardNav.module.scss';
 import userAvatar from './../../img/userAvatar.svg';
 
-function DashBoardNav({ navTitle, onOpenSidebar, onAddSchool, btnText, showSearchNav = true, search }) {
+function DashBoardNav({ searchPlaceholder='Search', navTitle, onOpenSidebar, onAddSchool, btnText, showSearchNav = true, search, showPlusIcon = true }) {
     const { user,
         // loading
     } = useSelector(state => state.auth);
@@ -42,9 +42,9 @@ function DashBoardNav({ navTitle, onOpenSidebar, onAddSchool, btnText, showSearc
                             <span className={classes['form-control__icon']} onClick={search && search.onClick}>
                                 <i className={`fas fa-search`} />
                             </span>
-                            <input value={search && search.value} onChange={search && search.onChange} placeholder='Search' className={classes['form-control__input']} />
+                            <input value={search && search.value} onChange={search && search.onChange} placeholder={searchPlaceholder} className={classes['form-control__input']} />
                         </div>
-                        <button type='button' className={classes['form-btn']} onClick={onAddSchool}><i className={`far fa-plus`} />{btnText}</button>
+                        <button type='button' className={classes['form-btn']} onClick={onAddSchool}>{showPlusIcon && <i className={`far fa-plus`} />}{btnText}</button>
                     </div>
                 </div>
             </div>}

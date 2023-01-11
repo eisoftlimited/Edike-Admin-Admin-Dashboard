@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const addUser = createAsyncThunk('userPost/addUser', async ({data, token}, { rejectWithValue })=> {
 
-    console.log('In the thunk: ', {token});
+    // console.log('In the thunk: ', {token});
     try {
         const response = await axios({
             url: `https://edikeatadmin.onrender.com/edike/api/v1/auth/admin/user/add`,
@@ -41,12 +41,12 @@ const addUserSlice = createSlice({
         builder.addCase(addUser.fulfilled, (state, action)=> {
             state.loading = false;
             state.data = action.payload && action.payload.msg;
-            console.log('In the fulfilled block: ', action.payload);
+            // console.log('In the fulfilled block: ', action.payload);
         })
         builder.addCase(addUser.rejected, (state, action)=> {
             state.loading = false;
             state.error = action.payload && action.payload.msg;
-            console.log('In the rejected block: ',action.payload);
+            // console.log('In the rejected block: ',action.payload);
         })
     })
 });

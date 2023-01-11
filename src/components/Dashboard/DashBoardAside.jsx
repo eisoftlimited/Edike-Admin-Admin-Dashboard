@@ -14,9 +14,12 @@ import { authActions } from '../../store/auth/authSlice';
 
 
 function DashMenuItem({ icon, text, link, onLogout, onCloseSidebar }) {
+
+    const currentUrl = window.location.pathname;
+
     return (
         <li className={classes['dashboard-menu__item']}>
-            {!onLogout && <Link to={link} className={classes['dashboard-menu__link']} onClick={onCloseSidebar}>
+            {!onLogout && <Link to={link} className={`${classes['dashboard-menu__link']} ${currentUrl === link ? classes.active : ''}`} onClick={onCloseSidebar}>
                 <span className={classes['dashboard-menu__link-icon']}>
                     <img src={icon} alt='' />
                 </span>
@@ -24,19 +27,6 @@ function DashMenuItem({ icon, text, link, onLogout, onCloseSidebar }) {
                     {text}
                 </span>
             </Link>}
-            {/* {!onLogout &&
-                <NavLink to={link}
-                    className={({ isActive }) =>
-                        isActive ? `${classes['dashboard-menu__link']} ${classes['active']}` : classes['dashboard-menu__link']
-                    }
-                >
-                    <span className={classes['dashboard-menu__link-icon']}>
-                        <img src={icon} alt='' />
-                    </span>
-                    <span className={classes['dashboard-menu__link-text']}>
-                        {text}
-                    </span>
-                </NavLink>} */}
             {onLogout && <button onClick={onLogout} className={classes['dashboard-menu__link']}>
                 <span className={classes['dashboard-menu__link-icon']}>
                     <img src={icon} alt='' />

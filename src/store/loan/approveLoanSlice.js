@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const loanApproval = createAsyncThunk('approveLoan/loanApproval', async ({token, id}, {rejectWithValue})=> {
     
-    console.log('In the thunk: ', {token, id});
+    // console.log('In the thunk: ', {token, id});
     
     try {
         const response = await axios({
@@ -44,13 +44,13 @@ const approveLoanSlice = createSlice({
             state.loading = false;
             state.loanApprovedMsg = action.payload && action.payload.msg;
 
-            console.log('In the fulfilled block: ', action.payload);
+            // console.log('In the fulfilled block: ', action.payload);
         });
         builder.addCase(loanApproval.rejected, (state, action)=> {
             state.loading = false;
             state.error = action.payload && action.payload.msg;
 
-            console.log('In the rejected block: ', action.payload);
+            // console.log('In the rejected block: ', action.payload);
         })
     })
 });

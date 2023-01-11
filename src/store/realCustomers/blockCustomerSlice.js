@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const blockCustomer = createAsyncThunk('customerBlock/blockCustomer', async ({token, id}, {rejectWithValue})=> {
     
-    console.log('In the thunk: ', {token, id});
+    // console.log('In the thunk: ', {token, id});
 
     try {
         const response = await axios({
@@ -30,6 +30,13 @@ const blockCustomerSlice = createSlice({
         error: '',
         blockMsg: null
     },
+    reducers: {
+        resetBlockState: state=> {
+            state.loading = false;
+            state.error = '';
+            state.blockMsg = '';
+        }
+    },
     extraReducers: (builder => {
         builder.addCase(blockCustomer.pending, state => {
             state.loading = true;
@@ -37,12 +44,12 @@ const blockCustomerSlice = createSlice({
         builder.addCase(blockCustomer.fulfilled, (state, action)=> {
             state.loading = false;
             state.blockMsg = action.payload && action.payload.msg;
-            console.log('In the fulfilled block: ', action.payload);
+            // console.log('In the fulfilled block: ', action.payload);
         })
         builder.addCase(blockCustomer.rejected, (state, action)=> {
             state.loading = false;
             state.error = action.payload && action.payload;
-            console.log('In the rejected block: ', action.payload);
+            // console.log('In the rejected block: ', action.payload);
         })
     })
 });

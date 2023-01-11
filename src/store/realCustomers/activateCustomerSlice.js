@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
 
 export const activateCustomer = createAsyncThunk('customerActivate/activateCustomer', async ({token, id}, {rejectWithValue})=> {
-    console.log('In the thunk token: ', {token});
+    // console.log('In the thunk token: ', {token});
     
     try {
         const response = await axios({
@@ -30,6 +30,13 @@ const activateCustomerSlice = createSlice({
         error: '',
         activateMsg: null
     },
+    reducers: {
+        resetActivatedState: state => {
+            state.loading = false;
+            state.error = '';
+            state.activateMsg = '';
+        }
+    },
     extraReducers: (builder => {
         builder.addCase(activateCustomer.pending, state => {
             state.loading = true;
@@ -37,12 +44,12 @@ const activateCustomerSlice = createSlice({
         builder.addCase(activateCustomer.fulfilled, (state, action)=> {
             state.loading = false;
             state.activateMsg = action.payload && action.payload.msg;
-            console.log('In the fulfilled block: ', action.payload);
+            // console.log('In the fulfilled block: ', action.payload);
         })
         builder.addCase(activateCustomer.rejected, (state, action)=> {
             state.loading = false;
             state.error = action.payload && action.payload;
-            console.log('In the rejected block: ', action.payload);
+            // console.log('In the rejected block: ', action.payload);
         })
     })
 });

@@ -45,7 +45,7 @@ const deleteSchoolSlice = createSlice({
         builder.addCase(deleteSchool.rejected, (state, action)=> {
             state.loading = false;
             state.error = action.payload && action.payload.msg;
-            console.log(action.payload);
+            // console.log(action.payload);
         })
     })
 });

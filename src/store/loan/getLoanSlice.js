@@ -37,7 +37,7 @@ const getLoanSlice = createSlice({
             state.user = action.payload && action.payload.all && action.payload.all[0] && action.payload.all[0].user;
             state.loan = action.payload && action.payload.all && action.payload.all[1] && action.payload.all[1].loan;
 
-            console.log('In the fulfilled block: ', action.payload && action.payload.all);
+            // console.log('In the fulfilled block: ', action.payload && action.payload.all);
 
             // console.log('User data: ', state.user, 'Loan data: ', state.loan);
         });

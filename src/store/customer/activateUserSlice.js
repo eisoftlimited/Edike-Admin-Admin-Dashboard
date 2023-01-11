@@ -51,7 +51,7 @@ const activateUserSlice = createSlice({
             state.loading = false;
             state.error = action.payload && action.payload.msg;
 
-            console.log('In the rejeccted block: ', action.payload);
+            // console.log('In the rejeccted block: ', action.payload);
         })
     })
 });

@@ -16,13 +16,14 @@ import ToastComponent from '../../UI/ToastComponent';
 import LoadingScreen from '../../UI/LoadingScreen';
 import { deleteUser, deleteUserActions } from '../../../store/customer/deleteCustomerSlice';
 import { toast } from 'react-toastify';
-import { blockUserActions } from '../../../store/customer/blockUserSlice';
-import { activateUser } from '../../../store/auth/authSlice';
-import { activateUserActions } from '../../../store/customer/activateUserSlice';
+// import { blockUserActions } from '../../../store/customer/blockUserSlice';
+// import { activateUser } from '../../../store/auth/authSlice';
+// import { activateUserActions } from '../../../store/customer/activateUserSlice';
 import { getAllCustomers } from '../../../store/realCustomers/getAllCustomersSlice';
-import { blockCustomer } from '../../../store/realCustomers/blockCustomerSlice';
+import { blockCustomer, blockCustomerActions } from '../../../store/realCustomers/blockCustomerSlice';
 import avatar from './../../../img/avatar.svg';
-import { activateCustomer } from '../../../store/realCustomers/activateCustomerSlice';
+import { activateCustomer, activateCustomerActions } from '../../../store/realCustomers/activateCustomerSlice';
+import { exportAsFile } from '../../../utils/exportFile';
 
 function CustomerDash() {
     const dispatch = useDispatch();
@@ -69,7 +70,7 @@ function CustomerDash() {
     };
 
     const activateUserHandler = () => {
-        console.log({token});
+        // console.log({token});
         dispatch(activateCustomer({ id: selectedId, token }));
         setActivateModal(!showActivateModal);
     };
@@ -92,7 +93,17 @@ function CustomerDash() {
     // USEEFFECT CODES
     useEffect(() => {
         dispatch(getAllCustomers({ token }));
-    }, [dispatch, token, createdUser.data, activatedUser.activateMsg, blockedUser.blockMsg]);
+    }, [dispatch, token, 
+        // createdUser.data, activatedUser.activateMsg, blockedUser.blockMsg
+    ]);
+
+    useEffect(() => {
+        if((createdUser.data) ||
+        (activatedUser.activateMsg && activatedUser.activateMsg.length > 0)||
+        (blockedUser.blockMsg && blockedUser.blockMsg.length > 0)) {
+            dispatch(getAllCustomers({ token }));
+        }
+    }, [dispatch, token, createdUser, activatedUser, blockedUser]);
 
     useEffect(() => {
 
@@ -111,27 +122,35 @@ function CustomerDash() {
 
         // BLOCKED USER CODE
         if (blockedUser.error && blockedUser.error.length > 0) {
-            toast.error(blockedUser.error);
+            toast.error(<p>{blockedUser.error}</p>);
 
             interval = setTimeout(() => {//blockUserActions
-                dispatch(blockUserActions.resetState());
+                dispatch(blockCustomerActions.resetBlockState());
             }, 5000);
         }
-        if (blockedUser.blockMsg && blockedUser.blockMsg === 'School Deleted Successfully') {
-            toast.success(blockedUser.blockMsg);
+        if (blockedUser.blockMsg && blockedUser.blockMsg.length > 0) {
+            toast.success(<p>{blockedUser.blockMsg}</p>);
+
+            interval = setTimeout(() => {//blockUserActions
+                dispatch(blockCustomerActions.resetBlockState());
+            }, 5000);
         }
 
         // ACTIVATED USER CODE
         if (activatedUser.error && activatedUser.error.length > 0) {
-            toast.error(activatedUser.error);
+            toast.error(<p>{activatedUser.error}</p>);
 
             interval = setTimeout(() => {//blockUserActions
-                dispatch(activateUserActions.resetState());
+                dispatch(activateCustomerActions.resetActivatedState());
             }, 5000);
         }
 
-        if (activatedUser.activateMsg && activatedUser.activateMsg === 'School Deleted Successfully') {
-            toast.success(activatedUser.activateMsg);
+        if (activatedUser.activateMsg && activatedUser.activateMsg.length > 0) {
+            toast.success(<p>{activatedUser.activateMsg}</p>);
+
+            interval = setTimeout(() => {//blockUserActions
+                dispatch(activateCustomerActions.resetActivatedState());
+            }, 5000);
         }
 
 
@@ -172,7 +191,17 @@ function CustomerDash() {
             {activatedUser.activateMsg && activatedUser.activateMsg.length > 0 && <ToastComponent />}
             {activatedUser.loading && <LoadingScreen />}
 
-            <DashBoardNav navTitle='Customer' onAddSchool={drawerDisplayHandler} onOpenSidebar={openSideBarHandler} btnText='Add User' />
+            <DashBoardNav 
+            searchPlaceholder='Search Customer'
+            showPlusIcon={false} 
+            navTitle='Customers' 
+            onAddSchool={()=> {
+                // drawerDisplayHandler();
+                console.log('Searching...');
+            }} 
+            onOpenSidebar={openSideBarHandler} 
+            btnText='Search' 
+            />
             <div className={classes['dashboard-user']}>
                 {!allUsers.loading && allUsers.allUsers && <>
                     <DashBoardButtons 
@@ -189,6 +218,8 @@ function CustomerDash() {
                     onBlocked={() => {
                         setFilterBy('blocked');
                     }}
+
+                    onExportTable={()=> exportAsFile(filteredArray, 'customer')}
                     />
                     <DashTable pagination={<DashBoardPagination />}>
                         <tr>

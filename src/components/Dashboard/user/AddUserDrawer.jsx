@@ -95,7 +95,7 @@ function AddUserDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, selected
         }
 
         if (eventTarget === 'phoneno') {
-            console.log(e.target.value);
+            // console.log(e.target.value);
             if (e.currentTarget.value.trim().length !== 10) {
                 e.currentTarget.style.borderColor = 'rgb(250, 166, 26)';
             } else {
@@ -130,9 +130,9 @@ function AddUserDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, selected
         formData.append('staff_number', staffNo.value);
         formData.append('role', userRole);
 
-        for(let data of formData) {
-            console.log(`${data[0]}--${data[1]}`);
-        }
+        // for(let data of formData) {
+        //     console.log(`${data[0]}--${data[1]}`);
+        // }
 
         setToggleFile(false);
 
@@ -325,7 +325,7 @@ function AddUserDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, selected
                             value: role,
                             onChange: e => {
                                 setRole(e.target.value)
-                                console.log(e.target.value);
+                                // console.log(e.target.value);
                             },
                             name: 'role'
                         }}

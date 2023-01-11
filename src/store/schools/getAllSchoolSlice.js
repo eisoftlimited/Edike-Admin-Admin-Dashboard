@@ -53,13 +53,13 @@ const getSchoolsSlice = createSlice({
                 state.blockedSchools = [];
             }
 
-            console.log('In get all schools: Active schools ', action.payload);
+            // console.log('In get all schools: Active schools ', action.payload);
         })
         builder.addCase(getSchools.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload && action.payload.msg;
 
-            console.log('In the  rejected: ', action.payload);
+            // console.log('In the  rejected: ', action.payload);
         })
         
     })

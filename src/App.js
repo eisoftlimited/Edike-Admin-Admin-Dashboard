@@ -21,7 +21,7 @@ import CustomerDetail from './components/Dashboard/user/CustomerDetail';
 import CustomerDash from './components/Dashboard/user/CustomerDash';
 import { useEffect } from 'react';
 import LoanDetail from './components/Dashboard/loan/LoanDetail';
-// import EdukeLoader from './components/UI/EdikeLoader';
+import EdukeLoader from './components/UI/EdikeLoader';
 
 function App() {
 
@@ -130,7 +130,7 @@ function App() {
         }
         />
 
-        {/* <Route path='/testing' element={<EdukeLoader />} /> */}
+        <Route path='/testing' element={<EdukeLoader />} />
         <Route path={'*'} element={<Error />} />
       </Routes>
     </>

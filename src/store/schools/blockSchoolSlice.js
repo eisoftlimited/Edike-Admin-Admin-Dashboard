@@ -55,8 +55,8 @@ const blockSchoolSlice = createSlice({
         builder.addCase(blockSchool.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload && action.payload.msg;
-            console.log('In the rejected: ',action.payload);
-            console.log('The action object in the rejected: ', action);
+            // console.log('In the rejected: ',action.payload);
+            // console.log('The action object in the rejected: ', action);
         })
     })
 });

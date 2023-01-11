@@ -41,7 +41,7 @@ const createSchoolSlice = createSlice({
         builder.addCase(createSchool.pending, (state, action) => {
             state.loading = true;
             state.loggedInMessage = '';
-            console.log('In the pending: ',action.payload)
+            // console.log('In the pending: ',action.payload)
         })
         builder.addCase(createSchool.fulfilled, (state, action) => {
             state.loading = false;

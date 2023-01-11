@@ -7,14 +7,14 @@ function FormPhone({ labelText, inputId, inputControls, isValid }) {
         <div className={`${classes['form-control']} ${classes['form-phone']} `}>
             <label htmlFor={inputId}
                 className={classes['form-control__label']}
-                style={{ color: calculatedVal }}
+                style={{ color: '#B2B2B2' }}
             >{labelText}</label>
 
             <div className={classes['form-control__inputContainer']}>
                 <input id={inputId}
                 autoComplete='off'
                     style={{
-                        color: calculatedVal,
+                        color: '#120A00',
                         borderColor: calculatedVal,
                     }}
                     className={`${classes['form-control__input']} ${classes['form-phone__input']}`}

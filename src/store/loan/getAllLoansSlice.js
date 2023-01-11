@@ -58,7 +58,7 @@ const getLoansSlice = createSlice({
             state.completedLoans = completedLns;
             state.declinedLoans = declinedLns;
 
-            console.log('In the fulfilled block: ', action.payload.loans);
+            // console.log('In the fulfilled block: ', action.payload.loans);
         });
         builder.addCase(loanManagement.rejected, (state, action)=> {
             state.loading = false;

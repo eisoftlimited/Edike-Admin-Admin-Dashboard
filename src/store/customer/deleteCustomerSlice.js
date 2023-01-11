@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const deleteUser = createAsyncThunk('userDelete/deleteUser', async ({id, token}, { rejectWithValue }) => {
 
-    console.log('In the thunk: ',{id, token});
+    // console.log('In the thunk: ',{id, token});
 
     try {
         const response = await axios({
@@ -42,12 +42,12 @@ const deleteUserSlice = createSlice({
         builder.addCase(deleteUser.fulfilled, (state, action)=> {
             state.loading = false;
             state.deleteMsg = action.payload && action.payload.msg;
-            console.log('In the fulfilled block: ',action.payload);
+            // console.log('In the fulfilled block: ',action.payload);
         })
         builder.addCase(deleteUser.rejected, (state, action)=> {
             state.loading = false;
             state.error = action.payload && action.payload.msg;
-            console.log('In the rejected block: ', action.payload);
+            // console.log('In the rejected block: ', action.payload);
         })
     })
 });

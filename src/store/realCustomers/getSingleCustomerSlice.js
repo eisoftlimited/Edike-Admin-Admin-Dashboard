@@ -2,7 +2,7 @@ import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const singleCustomer = createAsyncThunk('customerSingle/singleCustomer', async ({token, id}, {rejectWithValue})=> {
-    console.log('IN the thunk: ', {id, token});
+    // console.log('IN the thunk: ', {id, token});
     
     try {
         const response = await axios({
@@ -14,7 +14,7 @@ export const singleCustomer = createAsyncThunk('customerSingle/singleCustomer', 
             }
         });
 
-        console.log(response.data);
+        // console.log(response.data);
 
         return response.data;
 
@@ -33,7 +33,7 @@ const singleCustomerSlice = createSlice({
     extraReducers: (builder => {
         builder.addCase(singleCustomer.pending, state => {
             state.loading = true;
-            console.log('Pending');
+            // console.log('Pending');
         })
         builder.addCase(singleCustomer.fulfilled, (state, action)=> {
             state.loading = false;
@@ -45,13 +45,13 @@ const singleCustomerSlice = createSlice({
             // const customer = action.payload && action.payload.all && action.payload.all.length > 0 && action.payload.all[0].user;
             // const 
 
-            console.log('In the fulfilled block: ', action.payload);
+            // console.log('In the fulfilled block: ', action.payload);
         })
         builder.addCase(singleCustomer.rejected, (state, action)=> {
             state.loading = false;
             state.error = action.payload && action.payload.msg;
 
-            console.log('In the rejected block: ', action.payload);
+            // console.log('In the rejected block: ', action.payload);
         })
     })
 });

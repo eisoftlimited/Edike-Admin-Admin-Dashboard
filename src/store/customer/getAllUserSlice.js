@@ -43,8 +43,8 @@ const getAllUserSlice = createSlice({
 
             state.activeUsers = activeUs;
             state.blockedUsers = blockedUs;
-            console.log(action.payload.user);
-            console.log({activeUs, blockedUs});
+            // console.log(action.payload.user);
+            // console.log({activeUs, blockedUs});
         })
         builder.addCase(getAllUsers.rejected, (state, action)=> {
             state.loading = false;

@@ -21,6 +21,7 @@ import { blockUser, blockUserActions } from '../../../store/customer/blockUserSl
 import { activateUser } from '../../../store/customer/activateUserSlice';
 import { activateUserActions } from '../../../store/customer/activateUserSlice';
 import avatar from './../../../img/avatar.svg';
+import { exportAsFile } from '../../../utils/exportFile';
 
 function DashBoardUsers() {
     const dispatch = useDispatch();
@@ -74,7 +75,7 @@ function DashBoardUsers() {
     const [filteredArray, setFilteredArray] = useState([]);
 
     const searchHandler = e => {
-        console.log()
+        // console.log()
     };
 
     // FILTERING USEEFFECT
@@ -94,10 +95,10 @@ function DashBoardUsers() {
     }, [dispatch, token]);
 
     useEffect(() => {
-        if((createdUser.data) || 
-        (blockedUser.blockMsg && blockedUser.blockMsg.length > 0) ||
-        (activatedUser.activateMsg && activatedUser.activateMsg.length > 0) ||
-        (deletedUser.deleteMsg && deletedUser.deleteMsg.length > 0)
+        if ((createdUser.data) ||
+            (blockedUser.blockMsg && blockedUser.blockMsg.length > 0) ||
+            (activatedUser.activateMsg && activatedUser.activateMsg.length > 0) ||
+            (deletedUser.deleteMsg && deletedUser.deleteMsg.length > 0)
         ) {
             dispatch(getAllUsers({ token }));
         }
@@ -181,6 +182,18 @@ function DashBoardUsers() {
         return `${month}.${day}.${year}`;
     }
 
+    // localStorage.setItem('user-json-data', JSON.stringify(filteredArray));
+
+    // function exportAsFile (data) {
+    //     const element = document.createElement("a"); // text/plain
+    //     const textFile = new Blob([JSON.stringify(data)], { type: 'application/json' }); //pass data from localStorage API to blob
+    //     element.href = URL.createObjectURL(textFile);
+    //     element.download = "userFile.txt";
+    //     document.body.appendChild(element);
+    //     element.click();
+    // }
+
+
     return (
         <>
             {/* DELETED USERS TOAST COMPONENT */}
@@ -196,7 +209,13 @@ function DashBoardUsers() {
             {activatedUser.activateMsg && activatedUser.activateMsg.length > 0 && <ToastComponent />}
             {activatedUser.loading && <LoadingScreen />}
 
-            <DashBoardNav navTitle='User' onAddSchool={drawerDisplayHandler} onOpenSidebar={openSideBarHandler} btnText='Add User' />
+            <DashBoardNav
+                navTitle='Users'
+                searchPlaceholder='Search beneficiiary...'
+                onAddSchool={drawerDisplayHandler}
+                onOpenSidebar={openSideBarHandler}
+                btnText='Add User'
+            />
             <div className={classes['dashboard-user']}>
                 {!allUsers.loading && allUsers.allUsers && <>
                     <DashBoardButtons
@@ -213,6 +232,8 @@ function DashBoardUsers() {
                         onBlocked={() => {
                             setFilterBy('blocked');
                         }}
+
+                        onExportTable={() => exportAsFile(filteredArray, 'user')}
                     />
                     <DashTable pagination={<DashBoardPagination />}>
                         <tr>
@@ -270,12 +291,12 @@ function DashBoardUsers() {
                                                 setDelModal(true);
                                                 setSelectedId(user._id);
                                             }}
-                                            onEditUser={() => {
-                                                setCrud('edit');
-                                                // dispatch(getSchoolActions.resetGetSchoolState());
-                                                setSelectedId(user._id);
-                                                setShowDrawer(true);
-                                            }}
+                                            // onEditUser={() => {
+                                            //     setCrud('edit');
+                                            //     // dispatch(getSchoolActions.resetGetSchoolState());
+                                            //     setSelectedId(user._id);
+                                            //     setShowDrawer(true);
+                                            // }}
                                             onBlockUser={() => {
                                                 setBlockModal(true);
                                                 setSelectedId(user._id);

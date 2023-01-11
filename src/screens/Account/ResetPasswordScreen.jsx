@@ -133,7 +133,7 @@ function ResetPasswordScreen() {
 
         // if (isEmailValid && isPasswordValid) {
             const data = { password, email };
-            console.log(data);
+            // console.log(data);
             dispatch(resetPassword(data));
         // }
     };

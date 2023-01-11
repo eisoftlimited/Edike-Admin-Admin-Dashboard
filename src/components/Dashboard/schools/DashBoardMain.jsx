@@ -22,6 +22,7 @@ import { blockSchool, blockSchoolActions } from '../../../store/schools/blockSch
 import ActivateModal from './ActivateModal';
 import { fetchBankList } from '../../../store/accountNum/listBanksSlice';
 import { activateSchool, activateSchoolActions } from '../../../store/schools/activateSchoolSlice';
+import { exportAsFile } from '../../../utils/exportFile';
 
 function DashBoardMain() {
     const token = useSelector(state => state.auth.token);
@@ -116,7 +117,7 @@ function DashBoardMain() {
     const exportTableToJsonHandler = () => {
         const jsonData = JSON.stringify(allSchools);
 
-        console.log(jsonData);
+        // console.log(jsonData);
     };
 
     const deleteUserHandler = () => {
@@ -233,7 +234,8 @@ function DashBoardMain() {
 
 
 
-            <DashBoardNav navTitle='School' onOpenSidebar={openSideBarHandler}
+            <DashBoardNav navTitle='Schools' 
+            onOpenSidebar={openSideBarHandler}
                 onAddSchool={() => {
                     setCrud('add-school');
                     drawerDisplayHandler();
@@ -265,7 +267,7 @@ function DashBoardMain() {
                             onBlocked={() => {
                                 setFilterBy('blocked');
                             }}
-                            onExportTable={exportTableToJsonHandler}
+                            onExportTable={()=> exportAsFile(filteredArray, 'school')}
                         />
                         <DashTable pagination={<DashBoardPagination />}>
                             <tr>

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useOutletContext, useParams } from 'react-router-dom';
+import { Link, useLocation, useOutletContext, useParams } from 'react-router-dom';
 import { singleLoan } from '../../../store/loan/getLoanSlice';
 import DashBoardNav from '../DashBoardNav';
 import LoanApproveModal from './LoanApproveModal';
@@ -27,7 +27,8 @@ function LoanDetail() {
     // const secureUrl = beneficiary_file_results;
 
     // console.log({user});
-
+    
+    const {state} = useLocation();
 
 
     const dispatch = useDispatch();
@@ -115,7 +116,7 @@ function LoanDetail() {
 
 
 
-            <DashBoardNav navTitle={`Loan Application - `}
+            <DashBoardNav navTitle={`Loan Application - ${state && state.loanId}`}
                 // onAddSchool={drawerDisplayHandler} 
                 onOpenSidebar={openSideBarHandler}
                 // btnText='Add User'

@@ -46,12 +46,12 @@ const updateSchoolSlice = createSlice({
         builder.addCase(updateSchool.fulfilled, (state, action)=> {
             state.loading = false;
             state.data = action.payload && action.payload;
-            console.log(action.payload)
+            // console.log(action.payload)
         })
         builder.addCase(updateSchool.rejected, (state, action)=> {
             state.loading = false;
             state.error = action.payload && action.payload.msg;
-            console.log(action.payload);
+            // console.log(action.payload);
         })
     })
 });

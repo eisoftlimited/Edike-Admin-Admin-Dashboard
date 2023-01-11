@@ -37,7 +37,7 @@ function ForgotPasswordScreen() {
     };
 
     useEffect(() => {
-        console.log('In the effect: ', auth.error);
+        // console.log('In the effect: ', auth.error);
         // if(auth.error.length > 0) {
         toast.error(auth.error);
         setEmail('');
