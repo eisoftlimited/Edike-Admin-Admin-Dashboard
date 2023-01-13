@@ -7,7 +7,7 @@ export const loanApproval = createAsyncThunk('approveLoan/loanApproval', async (
     
     try {
         const response = await axios({
-            url: `https://edikeatadmin.onrender.com/edike/api/v1/loans/admin/approve/${id}`,
+            url: `http://44.201.245.105:9527/edike/api/v1/loans/admin/approve/${id}`,
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

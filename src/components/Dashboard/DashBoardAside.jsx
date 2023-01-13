@@ -62,7 +62,7 @@ function DashBoardAside({ onSidebarClose }) {
                 <DashMenuItem
                     text={'Dashboard'}
                     icon={grid}
-                // link={'/dashboard/main'}
+                link={'/dashboard'}
                 onCloseSidebar={onSidebarClose}
                 />
                 <DashMenuItem

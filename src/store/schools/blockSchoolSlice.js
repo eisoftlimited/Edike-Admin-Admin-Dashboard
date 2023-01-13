@@ -7,7 +7,7 @@ export const blockSchool = createAsyncThunk('schoolBlock/blockSchool', async ({ 
 
     try {
         const response = await axios({
-            url: `https://edikeatadmin.onrender.com/edike/api/v1/school/admin/block/${id}`,
+            url: `http://44.201.245.105:9527/edike/api/v1/school/admin/block/${id}`,
             method: 'POST',
             headers: {
                 'x-auth-admin-token': token,

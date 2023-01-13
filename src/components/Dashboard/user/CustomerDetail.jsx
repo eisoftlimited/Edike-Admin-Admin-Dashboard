@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 import LoadingScreen from '../../UI/LoadingScreen';
+import NotFoundPlaceholder from './NotFoundPlaceholder';
 
 function CustomerDetail() {
     // getSingleLoan
@@ -40,7 +41,7 @@ function CustomerDetail() {
 
             try {
                 const response = await axios({
-                    url: `https://edikeatadmin.onrender.com/edike/api/v1/users/admin/get-a-customer/${customerId}`,
+                    url: `http://44.201.245.105:9527/edike/api/v1/users/admin/get-a-customer/${customerId}`,
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -58,7 +59,10 @@ function CustomerDetail() {
 
             } catch (err) {
                 setLoading(false);
-                setError(err.response.data.msg);
+
+                if(err.response.data && err.response.data.msg) {
+                    setError(err.response.data.msg);
+                }
             }
         }
 
@@ -107,7 +111,7 @@ function CustomerDetail() {
                     </div>
                     <div className={classes['customer-detail__group']}>
                         <h1 className={classes['customer-detail__heading']}>Beneficiaries</h1>
-                        <table>
+                        {beneficiary && beneficiary.length > 0 && (<table>
                             <thead>
                                 <tr>
                                     <th>Full Name</th>
@@ -139,11 +143,12 @@ function CustomerDetail() {
                                     );
                                 })}
                             </tbody>
-                        </table>
+                        </table>)}
+                        {!beneficiary && <NotFoundPlaceholder title='Beneficiary added' />}
                     </div>
                     <div className={classes['customer-detail__group']}>
                         <h3 className={classes['customer-detail__heading']}>Loan</h3>
-                        <table className={classes.loan__table}>
+                        {loan && loan.length > 0 && (<table className={classes.loan__table}>
                             <thead>
                                 <tr>
                                     <th>Loan Id</th>
@@ -155,7 +160,7 @@ function CustomerDetail() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {loan && loan.map(ln => {
+                                {loan.map(ln => {
                                     return (
                                         <tr key={ln._id}>
                                             <td>#EDI-123</td>
@@ -172,11 +177,12 @@ function CustomerDetail() {
                                     );
                                 })}
                             </tbody>
-                        </table>
+                        </table>)}
+                        {!loan && <NotFoundPlaceholder title='Loans Running' />}
                     </div>
                     <div className={classes['customer-detail__group']}>
                         <h3 className={classes['customer-detail__heading']}>Transactions</h3>
-                        <table className={classes.loan__table}>
+                        {false && (<table className={classes.loan__table}>
                             <thead>
                                 <tr>
                                     <th>Transaction Id</th>
@@ -195,7 +201,8 @@ function CustomerDetail() {
                                     <td><span className={classes['active-loan']}>Successful</span></td>
                                 </tr>
                             </tbody>
-                        </table>
+                        </table>)}
+                        {true && <NotFoundPlaceholder title='Transactions to Display' />}
                     </div>
                 </div>
             </div>

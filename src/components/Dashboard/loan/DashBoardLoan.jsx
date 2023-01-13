@@ -18,22 +18,8 @@ import LoanApproveModal from './LoanApproveModal';
 import LoanDeclineModal from './LoanDeclineModal';
 import LoanDetail from './LoanDetail';
 import LoanNav from './LoanNav';
-import nairaOrange from './../../../img/nairaOrange.svg';
-import nairaGreen from './../../../img/nairaGreen.svg';
-import nairaRed from './../../../img/nairaRed.svg';
+import LoanCards from './loancards/LoanCards';
 
-function LoanCard({ state, image }) {
-    return (
-        <div className={classes['dashboard-loan']}>
-            <span className={classes['dashboard-loan__label']}>{state} Loans</span>
-            <p className={`${classes['dashboard-loan__amount']} ${classes['dashboard-loan__amount--' + state]}`}>N 10,000,000</p>
-            <div className={classes['dashboard-loan__icon-box']}>
-                <img src={image} alt='' />
-            </div>
-
-        </div>
-    );
-}
 
 function DashBoardLoan() {
     // THE OUTLET CONTEXT STATE
@@ -60,6 +46,9 @@ function DashBoardLoan() {
     const [showDeclineModal, setDeclineModal] = useState(false);
     const [showActivateModal, setActivateModal] = useState(false);
 
+    // Loan status state
+    const [loanStatus, setLoanStatus] = useState('');
+
     // console.log({selectedId});
 
     // FILTER LOGIC
@@ -85,6 +74,9 @@ function DashBoardLoan() {
 
     const approveLoanHandler = () => {
         setActivateModal(false);
+        if(loanStatus === 'ongoing') {
+            return toast('Loan already approved');
+        }
         dispatch(loanApproval({ token, id: selectedId }));
     };
 
@@ -162,6 +154,7 @@ function DashBoardLoan() {
             {approvedLoan.error && approvedLoan.error.length > 0 && <ToastComponent />}
             {approvedLoan.loanApprovedMsg && <ToastComponent />}
             {approvedLoan.loading && <LoadingScreen />}
+            <ToastComponent />
 
             <DashBoardNav navTitle='Loan Management'
                 // onAddSchool={drawerDisplayHandler} 
@@ -171,11 +164,7 @@ function DashBoardLoan() {
             />
             <div className={classes['dashboard']}>
                 {!showDetail && <>
-                    <div className={classes['dashboard-loan__container']}>
-                        <LoanCard state={'Running'} image={nairaOrange} />
-                        <LoanCard state={'Settled'} image={nairaGreen} />
-                        <LoanCard state={'Default'} image={nairaRed} />
-                    </div>
+                    <LoanCards />
                     <div style={{ position: 'relative' }}>
                         {!loans.loading && loans.allLoans &&
                             <>
@@ -193,11 +182,11 @@ function DashBoardLoan() {
                                         setFilterBy('ongoing');
                                     }}
                                     declinedNum={declinedLoans && declinedLoans.length}
-                                    onDecline={()=> {
+                                    onDecline={() => {
                                         setFilterBy('declined');
                                     }}
 
-                                    // onExportTable={()=> exportAsFile(filteredArray, 'customer')}
+                                // onExportTable={()=> exportAsFile(filteredArray, 'customer')}
                                 />
                                 <DashTable>
                                     <tr className={classes.loantr}>
@@ -251,6 +240,7 @@ function DashBoardLoan() {
                                                     status={loan.status}
                                                     className={classes.dropdown}
                                                     onActivateUser={() => {
+                                                        setLoanStatus(loan.status);
                                                         setSelectedId(loan._id);
                                                         setActivateModal(!showActivateModal);
                                                     }}
@@ -264,7 +254,7 @@ function DashBoardLoan() {
                                                             state: {
                                                                 loanId: loanIdiy + (loanIndex + 1)
                                                             }
-                                                          });
+                                                        });
                                                     }}
                                                 />
                                             </div>
@@ -277,11 +267,15 @@ function DashBoardLoan() {
                         <LoanDeclineModal
                             onCloseModal={() => setDeclineModal(false)}
                             isModalVisible={showDeclineModal}
-                            onConfirmClick={deactivateLoanHandler}
+                            onConfirmClick={()=> {
+                                deactivateLoanHandler();
+                            }}
                             onCancelClick={() => setDeclineModal(false)}
                         />
                         <LoanApproveModal
-                            onConfirmClick={approveLoanHandler}
+                            onConfirmClick={()=> {
+                                approveLoanHandler();
+                            }}
                             onCancelClick={() => setActivateModal(false)}
                             onCloseModal={() => setActivateModal(false)}
                             isModalVisible={showActivateModal}

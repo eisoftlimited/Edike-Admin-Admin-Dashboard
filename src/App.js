@@ -22,6 +22,7 @@ import CustomerDash from './components/Dashboard/user/CustomerDash';
 import { useEffect } from 'react';
 import LoanDetail from './components/Dashboard/loan/LoanDetail';
 import EdukeLoader from './components/UI/EdikeLoader';
+import MainDash from './components/Dashboard/main/MainDash';
 
 function App() {
 
@@ -42,6 +43,13 @@ function App() {
     <>
       <Routes>
         <Route path={'/dashboard'} element={<DashBoardScreen />}>
+          <Route index 
+          element={
+            <LoggedInScreen>
+            <MainDash />
+            </LoggedInScreen>
+          } 
+          />
           <Route path={'beneficiaries'} element={<DashBeneficiaries />} />
           <Route path={'users'}
             element={

@@ -30,7 +30,6 @@ function LoanDetail() {
     
     const {state} = useLocation();
 
-
     const dispatch = useDispatch();
 
     const [showActivateModal, setActivateModal] = useState(false);
@@ -87,10 +86,18 @@ function LoanDetail() {
 
     useEffect(() => {
         dispatch(singleLoan({ token, id: loanId, idMain: loanmainId }));
-    }, [dispatch, token, loanId, loanmainId]);
+    }, [dispatch, token, loanId, loanmainId, status]);
 
     const approveLoanHandler = () => {
         setActivateModal(false);
+
+        if(!status) {
+            return;
+        }
+
+        if(status && status === 'ongoing') {
+            return toast('Loan already approved');
+        }
         dispatch(loanApproval({ token, id: loanmainId }));
     };
 
@@ -112,6 +119,8 @@ function LoanDetail() {
             {approvedLoan.error && approvedLoan.error.length > 0 && <ToastComponent />}
             {approvedLoan.loanApprovedMsg && <ToastComponent />}
             {approvedLoan.loading && <LoadingScreen />}
+
+            <ToastComponent />
 
 
 
@@ -205,7 +214,9 @@ function LoanDetail() {
                 <LoanApproveModal
                     onCloseModal={() => setActivateModal(false)}
                     isModalVisible={showActivateModal}
-                    onConfirmClick={approveLoanHandler}
+                    onConfirmClick={()=> {
+                        approveLoanHandler();
+                    }}
                     onCancelClick={() => setActivateModal(false)}
                 />
             </div>

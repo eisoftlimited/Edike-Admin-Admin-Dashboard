@@ -7,7 +7,7 @@ export const getAllCustomers = createAsyncThunk('customerGetAll/getAllCustomers'
 
     try {
         const response = await axios({ // /users/admin/get-all-customers
-            url: `https://edikeatadmin.onrender.com/edike/api/v1/users/admin/get-all-customers`,
+            url: `http://44.201.245.105:9527/edike/api/v1/users/admin/get-all-customers`,
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

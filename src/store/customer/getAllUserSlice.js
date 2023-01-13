@@ -4,7 +4,7 @@ import axios from 'axios';
 export const getAllUsers = createAsyncThunk('userGetAll/getAllUsers', async ({token}, { rejectWithValue })=> {
     try {
         const response = await axios({
-            url: `https://edikeatadmin.onrender.com/edike/api/v1/auth/admin/all-admin-users`,
+            url: `http://44.201.245.105:9527/edike/api/v1/auth/admin/all-admin-users`,
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

@@ -1,0 +1,77 @@
+.dashboard-loan {
+    height: 12rem;
+    border-radius: 2rem;
+    background-color: #fff;
+    padding: 2.4rem;
+    padding-right: 8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+
+    &__fallback {
+
+        h1 {
+            font-size: 3rem;
+        }
+    }
+
+    &__container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+        margin-bottom: 4rem;
+
+        @media screen and (max-width: 50em) {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    &__label {
+        font-weight: 400;
+        font-size: 1.5rem;
+        color: #8A9099;
+    }
+
+    &__amount {
+        margin-top: 1rem;
+        font-weight: 500;
+        font-size: 2.7rem;
+
+        &--running {
+            color: #3F434A;
+        }
+
+        &--settled {
+            color: #00AC45;
+        }
+
+        &--default {
+            color: #FF3436;
+        }
+    }
+
+    &__icon-box {
+        width: 7rem;
+        height: 7rem;
+        border-radius: 2rem;
+        // background-color: rgba(#F9AC3B, .1);
+        // color: #F9AC3B;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4rem;
+        font-weight: 900;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 2.4rem;
+
+
+        img {
+            width: 100%;
+        }
+    }
+
+}

@@ -10,7 +10,7 @@ export const createAsyncThunkHandler = (endpoint, reqMethod) => (async (data, { 
 
     try {
         const response = await axios({
-            url: `https://edikeatadmin.onrender.com/edike/api/v1/school/admin/${endpoint}`,
+            url: `http://44.201.245.105:9527/edike/api/v1/school/admin/${endpoint}`,
             method,
             data,
             headers: {

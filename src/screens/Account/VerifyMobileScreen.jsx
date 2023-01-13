@@ -59,7 +59,7 @@ function VerifyMobileScreen() {
 
     useEffect(() => {
         if (!!auth.token) {
-            navigate('/dashboard/schools', {replace: true})
+            navigate('/dashboard', {replace: true})
         }
     }, [auth.token, navigate]);
 

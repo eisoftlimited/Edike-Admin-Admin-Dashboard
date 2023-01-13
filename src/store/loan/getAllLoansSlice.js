@@ -4,7 +4,7 @@ import axios from "axios";
 export const loanManagement = createAsyncThunk('getLoans/loanManagement', async (token, {rejectWithValue})=> {
     try {
         const response = await axios({
-            url: 'https://edikeatadmin.onrender.com/edike/api/v1/loans/admin/get-all-loans',
+            url: 'http://44.201.245.105:9527/edike/api/v1/loans/admin/get-all-loans',
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

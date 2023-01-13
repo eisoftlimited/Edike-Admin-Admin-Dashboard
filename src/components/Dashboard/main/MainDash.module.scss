@@ -1,0 +1,64 @@
+.main-dashboard {
+    margin-top: 12.8rem;
+    margin-top: 7.2rem;
+    padding: 2.4rem;
+    background-color: #fafafa;
+
+    &__row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 2.5rem;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        @media screen and (max-width: 55em) {
+            flex-direction: column;
+        }
+    }
+
+    &__chart {
+        flex: 1;
+        margin-right: 2rem;
+        box-shadow: 0px 20px 50px rgba(196, 196, 196, 0.15);
+
+        @media screen and (max-width: 55em) {
+            margin-right: 0;
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+    }
+
+    &__newcustomers {
+        width: 44rem;
+        box-shadow: 0px 20px 50px rgba(196, 196, 196, 0.15);
+
+        @media screen and (max-width: 55em) {
+            width: 100%;
+        }
+    }
+
+    &__topfive {
+        width: 32rem;
+        box-shadow: 0px 20px 50px rgba(196, 196, 196, 0.15);
+
+        @media screen and (max-width: 55em) {
+            width: 100%;
+        }
+    }
+
+    &__recentloans {
+        flex: 1;
+        margin-left: 2rem;
+        box-shadow: 0px 20px 50px rgba(196, 196, 196, 0.15);
+
+        @media screen and (max-width: 55em) {
+        margin-left: 0;
+        width: 100%;
+        margin-top: 2rem;
+        }
+    }
+
+    
+}

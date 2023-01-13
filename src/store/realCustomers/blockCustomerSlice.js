@@ -7,7 +7,7 @@ export const blockCustomer = createAsyncThunk('customerBlock/blockCustomer', asy
 
     try {
         const response = await axios({
-            url: `https://edikeatadmin.onrender.com/edike/api/v1/users/admin/block/customer/${id}`,
+            url: `http://44.201.245.105:9527/edike/api/v1/users/admin/block/customer/${id}`,
             method: 'POST',
             headers: {
                 'x-auth-admin-token': token
