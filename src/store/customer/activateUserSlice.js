@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
+import { EDUKE_URL } from "../url";
 
 export const activateUser = createAsyncThunk('userActivate/activateUser', async ({ id, token }, { rejectWithValue }) => {
     try {
 
         const response = await axios({
-            url: `http://44.201.245.105:9527/edike/api/v1/auth/admin/user/activate/${id}`,
+            url: `${EDUKE_URL}/edike/api/v1/auth/admin/user/activate/${id}`,
             method: 'POST',
             headers: {
                 'x-auth-admin-token': token,

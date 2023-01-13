@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { EDUKE_URL } from '../url';
 
 export const updateSchool = createAsyncThunk('schoolEdit/updateSchool', async ({id, token, data}, { rejectWithValue }) => {
 
@@ -11,7 +12,7 @@ export const updateSchool = createAsyncThunk('schoolEdit/updateSchool', async ({
 
     try {
         const response = await axios({
-            url: `http://44.201.245.105:9527/edike/api/v1/school/admin/update/${id}`,
+            url: `${EDUKE_URL}/edike/api/v1/school/admin/update/${id}`,
             method: 'POST',
             headers: {
                 'x-auth-admin-token': token,

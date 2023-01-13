@@ -1,12 +1,13 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
+import { EDUKE_URL } from '../url';
 
 export const singleCustomer = createAsyncThunk('customerSingle/singleCustomer', async ({token, id}, {rejectWithValue})=> {
     // console.log('IN the thunk: ', {id, token});
     
     try {
         const response = await axios({
-            url: `http://44.201.245.105:9527/edike/api/v1/users/admin/get-a-customer/${id}`,
+            url: `${EDUKE_URL}/edike/api/v1/users/admin/get-a-customer/${id}`,
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

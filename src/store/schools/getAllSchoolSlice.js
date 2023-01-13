@@ -1,13 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { EDUKE_URL } from "../url";
 
 export const getSchools = createAsyncThunk('school/getSchools', async ({token}, { rejectWithValue }) => {
 
     // console.log('In the thunk: ',data);
 
-    try { // http://44.201.245.105:9527
+    try {
         const response = await axios({
-            url: `http://44.201.245.105:9527/edike/api/v1/school/admin/all`,
+            url: `${EDUKE_URL}/edike/api/v1/school/admin/all`,
             // url: `https://edikeatadmin.onrender.com/edike/api/v1/school/admin/all`,
             method: 'GET',
             headers: {

@@ -9,6 +9,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import LoadingScreen from '../../UI/LoadingScreen';
 import NotFoundPlaceholder from './NotFoundPlaceholder';
+import { EDUKE_URL } from '../../../store/url';
 
 function CustomerDetail() {
     // getSingleLoan
@@ -41,7 +42,7 @@ function CustomerDetail() {
 
             try {
                 const response = await axios({
-                    url: `http://44.201.245.105:9527/edike/api/v1/users/admin/get-a-customer/${customerId}`,
+                    url: `${EDUKE_URL}/edike/api/v1/users/admin/get-a-customer/${customerId}`,
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

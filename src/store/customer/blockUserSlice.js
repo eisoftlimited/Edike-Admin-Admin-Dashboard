@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { EDUKE_URL } from "../url";
 
 export const blockUser = createAsyncThunk('userBlock/blockUser', async ({id, token}, {rejectWithValue})=> {
 
@@ -7,7 +8,7 @@ export const blockUser = createAsyncThunk('userBlock/blockUser', async ({id, tok
 
     try {
         const response = await axios({
-            url: `http://44.201.245.105:9527/edike/api/v1/auth/admin/user/blocked/${id}`,
+            url: `${EDUKE_URL}/edike/api/v1/auth/admin/user/blocked/${id}`,
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

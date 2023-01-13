@@ -1,12 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { EDUKE_URL } from "../url";
 
 export const deleteSchool = createAsyncThunk('schoolDelete/deleteSchool', async ({id, token}, { rejectWithValue }) => {
 
 
     try {
         const response = await axios({
-            url: `http://44.201.245.105:9527/edike/api/v1/school/admin/delete/${id}`,
+            url: `${EDUKE_URL}/edike/api/v1/school/admin/delete/${id}`,
             method: 'DELETE',
             headers: {
                 'x-auth-admin-token': token

@@ -1,5 +1,6 @@
 // import {createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
+import { EDUKE_URL } from '../url';
 
 export const createAsyncThunkHandler = (endpoint, reqMethod) => (async (data, { getState, rejectWithValue }) => {
     const token = getState().auth.token;
@@ -10,7 +11,7 @@ export const createAsyncThunkHandler = (endpoint, reqMethod) => (async (data, { 
 
     try {
         const response = await axios({
-            url: `http://44.201.245.105:9527/edike/api/v1/school/admin/${endpoint}`,
+            url: `${EDUKE_URL}/edike/api/v1/school/admin/${endpoint}`,
             method,
             data,
             headers: {

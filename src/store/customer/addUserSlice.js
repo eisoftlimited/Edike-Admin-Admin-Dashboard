@@ -1,12 +1,13 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
+import { EDUKE_URL } from '../url';
 
 export const addUser = createAsyncThunk('userPost/addUser', async ({data, token}, { rejectWithValue })=> {
 
     // console.log('In the thunk: ', {token});
     try {
         const response = await axios({
-            url: `http://44.201.245.105:9527/edike/api/v1/auth/admin/user/add`,
+            url: `${EDUKE_URL}/edike/api/v1/auth/admin/user/add`,
             method: 'POST',
             data: data,
             headers: {
