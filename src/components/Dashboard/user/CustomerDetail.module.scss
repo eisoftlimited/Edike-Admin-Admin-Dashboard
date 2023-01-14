@@ -67,6 +67,14 @@ table {
         background-color: rgba(#49C96D, .05);
     }
 
+    .pending-loan {
+        padding: .6rem 1rem;
+        display: inline-block;
+        font-size: 1.2rem;
+        color: #F9AC3B;
+        background-color: rgba(#F9AC3B, .05);
+    }
+
     &.loan__table {
         width: 100%;
 

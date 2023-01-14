@@ -17,15 +17,20 @@ function CustomerDetail() {
     // const singleLoan = useSelector(state => state.getSingleLoan);
     const { token } = useSelector(state => state.auth);
 
+    // console.log({token});
+
     // states
     const [all, setAll] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [customer, setCustomer] = useState(null);
-    const [loan, setLoan] = useState(null);
-    const [beneficiary, setBeneficiary] = useState(null);
+    const [loan, setLoan] = useState([]);
+    const [beneficiary, setBeneficiary] = useState([]);
+    const [transactions, setTransactions] = useState([]);
 
     const { customerId } = useParams();
+
+    console.log({ all });
 
     // console.log({ all, loading, error, loan, customer, beneficiary });
 
@@ -39,7 +44,6 @@ function CustomerDetail() {
         async function getOneCustomer() {
 
             setLoading(true);
-
             try {
                 const response = await axios({
                     url: `${EDUKE_URL}/edike/api/v1/users/admin/get-a-customer/${customerId}`,
@@ -51,18 +55,21 @@ function CustomerDetail() {
                 });
 
                 setLoading(false);
-                setAll(response.data.all);
+                // console.lo('All ', response.data);
 
-                setBeneficiary(response.data.all[1].beneficiary);
-                setCustomer(response.data.all[0].user);
-                setLoan(response.data.all[2].loan);
-
+                if (response.data.all) {
+                    setAll(response.data.all);
+                    setBeneficiary(response.data.all[1].beneficiary);
+                    setCustomer(response.data.all[0].user);
+                    setLoan(response.data.all[2].loan);
+                    setTransactions(response.data.all[3].transaction);
+                }
 
             } catch (err) {
                 setLoading(false);
 
-                if(err.response.data && err.response.data.msg) {
-                    setError(err.response.data.msg);
+                if (err.response && err.response.data && err.response.data.msg) {
+                    setError(err.response && err.response.data && err.response.data.msg);
                 }
             }
         }
@@ -145,7 +152,7 @@ function CustomerDetail() {
                                 })}
                             </tbody>
                         </table>)}
-                        {!beneficiary && <NotFoundPlaceholder title='Beneficiary added' />}
+                        {beneficiary.length === 0 && <NotFoundPlaceholder title='Beneficiary added' />}
                     </div>
                     <div className={classes['customer-detail__group']}>
                         <h3 className={classes['customer-detail__heading']}>Loan</h3>
@@ -171,7 +178,7 @@ function CustomerDetail() {
                                             <td>N {ln.beneficiary_amount}</td>
                                             <td>
                                                 {/* <span className={classes['active-loan']}>Active</span> */}
-                                                <span className={classes['active-loan']}>{ln.status}</span>
+                                                <span className={classes[ln.status + '-loan']}>{ln.status}</span>
 
                                             </td>
                                         </tr>
@@ -179,11 +186,11 @@ function CustomerDetail() {
                                 })}
                             </tbody>
                         </table>)}
-                        {!loan && <NotFoundPlaceholder title='Loans Running' />}
+                        {loan.length === 0 && <NotFoundPlaceholder title='Loans Running' />}
                     </div>
                     <div className={classes['customer-detail__group']}>
                         <h3 className={classes['customer-detail__heading']}>Transactions</h3>
-                        {false && (<table className={classes.loan__table}>
+                        {transactions && transactions.length > 0 && (<table className={classes.loan__table}>
                             <thead>
                                 <tr>
                                     <th>Transaction Id</th>
@@ -194,16 +201,20 @@ function CustomerDetail() {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>#EDI-123</td>
-                                    <td>Loan Repayment</td>
-                                    <td>Matured Loan Repayment</td>
-                                    <td>N 30,000.00</td>
-                                    <td><span className={classes['active-loan']}>Successful</span></td>
-                                </tr>
+                                {transactions.map((transaction, index) => {
+                                    return (
+                                        <tr key={transaction._id}>
+                                            <td>#EDI-{index + 1}</td>
+                                            <td>Loan Repayment</td>
+                                            <td>Matured Loan Repayment</td>
+                                            <td>N {transaction.amount}</td>
+                                            <td><span className={classes['active-loan']}>{transaction.status}</span></td>
+                                        </tr>
+                                    );
+                                })}
                             </tbody>
                         </table>)}
-                        {true && <NotFoundPlaceholder title='Transactions to Display' />}
+                        {transactions.length === 0 && <NotFoundPlaceholder title='Transactions to Display' />}
                     </div>
                 </div>
             </div>
