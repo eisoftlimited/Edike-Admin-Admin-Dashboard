@@ -12,7 +12,7 @@ function DashBoardScreen() {
     useEffect(()=> {
         let interval;
 
-        if(auth.token) {
+        if(!!auth.token) {
             dispatch(loadAdmin());
         }
 

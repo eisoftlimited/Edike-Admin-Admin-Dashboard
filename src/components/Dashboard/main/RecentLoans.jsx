@@ -28,7 +28,7 @@ function RecentLoans({ className }) {
                     }
                 });
 
-                console.log(response.data);
+                // console.log(response.data);
                 setLoading(false);
                 setLoans(response.data && response.data.loans.slice(0, 5));
             } catch (err) {
