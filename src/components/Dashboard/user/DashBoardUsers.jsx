@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import DashBoardButtons from '../DashBoardButtons';
 import DashBoardNav from '../DashBoardNav';
 import DashBoardPagination from '../DashBoardPagination';
@@ -31,6 +31,7 @@ function DashBoardUsers() {
 
     // USESELECTOR STATES
     const token = useSelector(state => state.auth.token);
+    const authError = useSelector(state => state.auth.error);
     const allUsers = useSelector(state => state.getAllUsers);
     const deletedUser = useSelector(state => state.deleteUser);
     const blockedUser = useSelector(state => state.blockUser);
@@ -38,6 +39,8 @@ function DashBoardUsers() {
     const createdUser = useSelector(state => state.createUser);
 
     // const [filterBy, setFilterBy] = useState('all');
+    
+    const navigate = useNavigate();
 
     // console.log(activatedUser);
 
@@ -105,6 +108,14 @@ function DashBoardUsers() {
     }, [dispatch, token, createdUser.data, blockedUser.blockMsg, activatedUser.activateMsg, deletedUser.deleteMsg]);
 
 
+    useEffect(()=> {
+
+        // if(authError === '') {
+        //     localStorage.removeItem('edike-admin-token');
+        //     navigate('/sign-in');
+        // }
+
+    }, [authError]);
 
 
     useEffect(() => {

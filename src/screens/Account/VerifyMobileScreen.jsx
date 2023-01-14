@@ -64,7 +64,7 @@ function VerifyMobileScreen() {
     }, [auth.token, navigate]);
 
     useEffect(() => {
-        if (auth.error.length > 0) {
+        if (auth.error && auth.error.length > 0) {
             toast.error(auth.error);
         }
     }, [auth]);
@@ -109,7 +109,7 @@ function VerifyMobileScreen() {
 
         <>
             {auth.loading && <LoadingScreen />}
-            {!auth.loading && auth.error.length > 0 && <ToastComponent />}
+            {!auth.loading && auth.error && auth.error.length > 0 && <ToastComponent />}
             {!!auth.token === false && (<AccountBackground>
                 <AccountLayout>
                     <AccountAside />

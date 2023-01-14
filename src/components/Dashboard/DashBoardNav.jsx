@@ -25,8 +25,8 @@ function DashBoardNav({ searchPlaceholder='Search', navTitle, onOpenSidebar, onA
                     <div className={classes['user']}>
                         <div className={classes['avatar']}>
                             {
-                                true ?
-                                    <img src={userAvatar} alt='User Avatar' /> :
+                                user && user.profileImage ?
+                                    <img style={{borderRadius: '50%'}} src={user.profileImage} alt='User Avatar' /> :
                                     <img src={userAvatar} alt='User Avatar' />
                             }
                         </div>

@@ -2,7 +2,7 @@ import DashBoardNav from '../DashBoardNav';
 import classes from './CustomerDetail.module.scss';
 import { useOutletContext, useParams } from 'react-router-dom';
 import avatar from './../../../img/avatar.svg';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 // import { singleCustomer } from '../../../store/realCustomers/getSingleCustomerSlice';
 import { useState } from 'react';
@@ -10,12 +10,12 @@ import axios from 'axios';
 import LoadingScreen from '../../UI/LoadingScreen';
 import NotFoundPlaceholder from './NotFoundPlaceholder';
 import { EDUKE_URL } from '../../../store/url';
+// qot-cedj-uvm
 
 function CustomerDetail() {
     // getSingleLoan
     // const singleLoan = useSelector(state => state.getSingleLoan);
     const { token } = useSelector(state => state.auth);
-    const dispatch = useDispatch();
 
     // states
     const [all, setAll] = useState([]);
