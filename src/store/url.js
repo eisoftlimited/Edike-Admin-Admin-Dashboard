@@ -1,1 +1,1 @@
-export const EDUKE_URL = 'https://edikeatadmin.onrender.com';
+export const EDUKE_URL = 'https://admin.edike.click';

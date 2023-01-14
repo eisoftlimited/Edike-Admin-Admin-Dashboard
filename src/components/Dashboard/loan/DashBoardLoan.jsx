@@ -213,10 +213,8 @@ function DashBoardLoan() {
                                             >Pending Approval</span>}
                                             {loan.status === 'declined' && <span className={classes['danger']}>Declined</span>}
                                             {loan.status === 'ongoing' && <span className={classes['pending']}>Ongoing</span>}
-                                            {loan.status === 'completed' && <span
-                                                style={{ color: '#fafafa', backgroundColor: 'rgba(0, 255, 0, .6)' }}
-                                            // className={classes['pending']}
-                                            >Completed</span>}
+                                            {loan.status === 'completed' && <span style={{ color: '#fafafa', backgroundColor: 'rgba(0, 255, 0, .6)' }}>Completed</span>}
+                                            {loan.status === 'defaulted' && <span style={{ color: '#fafafa', backgroundColor: 'rgba(255, 0, 0, 1)' }}>Defaulted</span>}
                                             {loan.status === 'pending_disbursement' && <span
                                                 style={{ height: '3.3rem', width: '10rem', color: '#fafafa', backgroundColor: '#964B00', }}
                                             // className={classes['pending']}

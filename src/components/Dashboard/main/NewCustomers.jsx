@@ -33,7 +33,6 @@ function NewCustomers({ className }) {
                     }
                 });
 
-                // console.log(response.data);
                 setLoading(false);
                 setCustomers(response.data && response.data.users.slice(0, 5));
             } catch (err) {
@@ -75,7 +74,8 @@ function NewCustomers({ className }) {
                                 <tr key={customer._id}>
                                     <td>
                                         <div>
-                                            <img src={avatar} alt='' />
+                                            {!customer.profileImage && <img src={avatar} alt='Avatar' />}
+                                            {customer.profileImage && <img src={customer.profileImage} alt={customer.firstname} />}
                                             <div>
                                                 <h3>{customer.firstname} {customer.lastname}</h3>
                                                 <p>{customer.email}</p>

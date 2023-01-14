@@ -9,7 +9,7 @@ function LoggedOutScreen({children}) {
     // (!!auth.token === false && !!localtoken === false) || auth.error === 'Not Authorized'
 
     if((!!auth.token === true && !!localtoken === true) && auth.error !== 'Not Authorized') {
-        return <Navigate to='/dashboard/schools' />
+        return <Navigate to='/dashboard' />
     }
     
     return children;

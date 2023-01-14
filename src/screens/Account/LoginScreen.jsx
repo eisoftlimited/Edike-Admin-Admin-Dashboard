@@ -15,8 +15,6 @@ import LoadingScreen from '../../components/UI/LoadingScreen';
 import ToastComponent from '../../components/UI/ToastComponent';
 import { toast } from 'react-toastify';
 
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7I…jQ0fQ.ZV73b0_SADEUoTPJdMcbjYtTc6qj8EyMq7sjE11V_d0
-
 function LoginScreen() { 
 
     const dispatch = useDispatch();

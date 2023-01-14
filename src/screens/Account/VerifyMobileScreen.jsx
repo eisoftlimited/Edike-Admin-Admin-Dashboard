@@ -59,7 +59,8 @@ function VerifyMobileScreen() {
 
     useEffect(() => {
         if (!!auth.token) {
-            navigate('/dashboard', {replace: true})
+            console.log('Navigating to dashboard.');
+            navigate('/dashboard', {replace: true});
         }
     }, [auth.token, navigate]);
 
