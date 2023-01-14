@@ -35,7 +35,7 @@ function NewCustomers({ className }) {
 
                 // console.log(response.data);
                 setLoading(false);
-                setCustomers(response.data && response.data.users.slice(5));
+                setCustomers(response.data && response.data.users.slice(0, 5));
             } catch (err) {
                 setLoading(false);
                 setError(err.response && err.response.data);

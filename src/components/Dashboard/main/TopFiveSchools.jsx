@@ -32,7 +32,7 @@ function TopFiveSchools({ className }) {
 
                 setLoading(false);
                 setMsg(response.data && response.data.msg);
-                setSchools(response.data && response.data.schools.slice(5));
+                setSchools(response.data && response.data.schools.slice(0, 5));
             } catch (err) {
                 setLoading(false);
                 setError(err.response && err.response.data);

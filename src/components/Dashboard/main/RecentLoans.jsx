@@ -30,7 +30,7 @@ function RecentLoans({ className }) {
 
                 console.log(response.data);
                 setLoading(false);
-                setLoans(response.data && response.data.loans.slice(5));
+                setLoans(response.data && response.data.loans.slice(0, 5));
             } catch (err) {
                 setLoading(false);
                 setError(err.response && err.response.data);
