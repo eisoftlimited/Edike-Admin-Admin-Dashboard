@@ -13,8 +13,11 @@ import { toast } from 'react-toastify';
 import { addUser, addUserActions } from '../../../store/customer/addUserSlice';
 import { RotatingLines } from 'react-loader-spinner';
 import userImg from './../../../img/user-image-logo.svg';
+import { useNavigate } from 'react-router-dom';
 
 function AddUserDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, selectedId }) {
+
+    const navigate = useNavigate();
 
     // USESELECTOR STATE
     const dispatch = useDispatch();
@@ -96,7 +99,7 @@ function AddUserDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, selected
 
         if (eventTarget === 'phoneno') {
             // console.log(e.target.value);
-            if (e.currentTarget.value.trim().length !== 10) {
+            if (e.currentTarget.value.trim().length < 0) {
                 e.currentTarget.style.borderColor = 'rgb(250, 166, 26)';
             } else {
                 e.currentTarget.style.borderColor = 'rgb(178, 178, 178)';
@@ -145,6 +148,25 @@ function AddUserDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, selected
         }
 
     };
+
+    function resetAllState() {
+
+        const init = {
+            value: '',
+            isValid: true
+        };
+
+        setFirstname(init);
+        setLastname(init);
+        setEmail(init);
+        setPhoneno(init);
+        setImg(null);
+        setStaffNo(init);
+    }
+
+    function focusHandler(e) {
+        e.currentTarget.style.borderColor = 'rgb(250, 166, 26)';
+    }
 
 
 
@@ -254,7 +276,8 @@ function AddUserDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, selected
                                 onChange: e => setFirstname(prevVal => {
                                     return { ...prevVal, value: e.target.value }
                                 }),
-                                onBlur: textOnBlurHandler
+                                onBlur: textOnBlurHandler,
+                                onFocus: focusHandler
                             }}
                         />
                         <FormControl labelText='Last Name'
@@ -268,7 +291,8 @@ function AddUserDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, selected
                                 onChange: e => setLastname(prevVal => {
                                     return { ...prevVal, value: e.target.value }
                                 }),
-                                onBlur: textOnBlurHandler
+                                onBlur: textOnBlurHandler,
+                                onFocus: focusHandler
                             }}
                         />
                     </div>
@@ -283,7 +307,8 @@ function AddUserDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, selected
                             onChange: e => setEmail(prevVal => {
                                 return { ...prevVal, value: e.target.value }
                             }),
-                            onBlur: textOnBlurHandler
+                            onBlur: textOnBlurHandler,
+                            onFocus: focusHandler
                         }}
                     />
                     <FormPhone labelText='Phone'
@@ -297,7 +322,8 @@ function AddUserDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, selected
                             onChange: e => setPhoneno(prevVal => {
                                 return { ...prevVal, value: e.target.value }
                             }),
-                            onBlur: textOnBlurHandler
+                            onBlur: textOnBlurHandler,
+                            onFocus: focusHandler
                         }}
                     />
                     <div style={{ display: `${toggleFile ? 'none' : 'block'}` }}>
@@ -341,7 +367,8 @@ function AddUserDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, selected
                                 return { ...prevVal, value: e.target.value }
                             }),
                             name: 'staff_number',
-                            onBlur: textOnBlurHandler
+                            onBlur: textOnBlurHandler,
+                            onFocus: focusHandler
                         }}
                     />
                     <div className={classes.drawer__btns}>
@@ -358,11 +385,11 @@ function AddUserDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, selected
                     <div className={classes.drawer__btns}>
                         <FormButton type='button'
                          onClick={() => {
-                            // resetAllState();
+                            resetAllState();
                             setIsFound(false);
                         }}
                         className={classes.drawer__btn}>Add Another user</FormButton>
-                        <FormButton className={classes.drawer__btn}>Go to Dashboard</FormButton>
+                        <FormButton className={classes.drawer__btn} onClick={()=> navigate('/dashboard')}>Go to Dashboard</FormButton>
                     </div>
                 </>)}
             </div>

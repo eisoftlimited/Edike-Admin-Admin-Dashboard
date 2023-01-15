@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router-dom';
 import DashBoardButtons from '../DashBoardButtons';
 import DashBoardNav from '../DashBoardNav';
 import DashBoardPagination from '../DashBoardPagination';
@@ -40,7 +40,7 @@ function DashBoardUsers() {
 
     // const [filterBy, setFilterBy] = useState('all');
     
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     // console.log(activatedUser);
 
@@ -50,7 +50,7 @@ function DashBoardUsers() {
     const [showActivateModal, setActivateModal] = useState(false);
     const [showBlockModal, setBlockModal] = useState(false);
     const [showDelModal, setDelModal] = useState(false);
-    const [crud, setCrud] = useState('add-user'); //setCrud('edit');
+    const [crud] = useState('add-user'); //setCrud('edit');
 
     const drawerDisplayHandler = () => {
         setShowDrawer(!showDrawer);
@@ -77,9 +77,9 @@ function DashBoardUsers() {
     const [filterBy, setFilterBy] = useState('all');
     const [filteredArray, setFilteredArray] = useState([]);
 
-    const searchHandler = e => {
-        // console.log()
-    };
+    // const searchHandler = e => {
+    //     console.log()
+    // };
 
     // FILTERING USEEFFECT
     useEffect(() => {
@@ -246,7 +246,7 @@ function DashBoardUsers() {
 
                         onExportTable={() => exportAsFile(filteredArray, 'user')}
                     />
-                    <DashTable pagination={<DashBoardPagination />}>
+                    <DashTable pagination={false && <DashBoardPagination />}>
                         <tr>
                             <th></th>
                             <th>Admin Name</th>

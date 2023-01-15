@@ -30,7 +30,7 @@ function CustomerDetail() {
 
     const { customerId } = useParams();
 
-    console.log({ all });
+    // console.log({ all });
 
     // console.log({ all, loading, error, loan, customer, beneficiary });
 
@@ -77,6 +77,12 @@ function CustomerDetail() {
         getOneCustomer();
 
     }, [token, customerId]);
+
+    /*
+    oabisoye1@gmail.com - admin
+oabisoye1+1@gmail.com - risk manager
+oabisoye1+2@gmail.com - cfo
+    */
 
 
     return (
@@ -168,17 +174,17 @@ function CustomerDetail() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {loan.map(ln => {
+                                {loan.map((ln, index) => {
                                     return (
                                         <tr key={ln._id}>
-                                            <td>#EDI-123</td>
+                                            <td>#EDI-{index + 1}</td>
                                             <td>{ln?.beneficiaryDetails[0]?.firstname} {ln?.beneficiaryDetails[0]?.lastname}</td>
                                             <td>{ln?.beneficiaryDetails[0]?.school}</td>
                                             <td>{ln?.beneficiaryDetails[0]?.studentClass}</td>
                                             <td>N {ln.beneficiary_amount}</td>
                                             <td>
                                                 {/* <span className={classes['active-loan']}>Active</span> */}
-                                                <span className={classes[ln.status + '-loan']}>{ln.status}</span>
+                                                <span className={classes[ln.status + '-loan']}>{ln.status && ln.status.split('_').join(' ')}</span>
 
                                             </td>
                                         </tr>
@@ -205,10 +211,14 @@ function CustomerDetail() {
                                     return (
                                         <tr key={transaction._id}>
                                             <td>#EDI-{index + 1}</td>
-                                            <td>Loan Repayment</td>
-                                            <td>Matured Loan Repayment</td>
-                                            <td>N {transaction.amount}</td>
-                                            <td><span className={classes['active-loan']}>{transaction.status}</span></td>
+                                            <td>{transaction.channel}</td>
+                                            <td>{transaction.amount === 5000 ? 'Card Tokenization' : 'Matured Loan Repayment'}</td>
+                                            <td>N {parseInt(transaction.amount / 100, 10)}</td>
+                                            <td>
+                                                <span className={classes['active-loan']}
+                                                    style={{ backgroundColor: `${transaction.status !== 'success' && 'rgba(255, 52, 54, .1)'}`, color: `${transaction.status !== 'success' && '#FF3436'}` }}
+                                                >{transaction.status}</span>
+                                            </td>
                                         </tr>
                                     );
                                 })}

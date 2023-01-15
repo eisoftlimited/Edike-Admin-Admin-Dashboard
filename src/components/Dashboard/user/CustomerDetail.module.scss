@@ -59,12 +59,21 @@ table {
         }
     }
 
-    .active-loan {
+    .active-loan,
+    .success-loan {
         padding: .6rem 1rem;
         display: inline-block;
         font-size: 1.2rem;
         color: #49C96D;
         background-color: rgba(#49C96D, .05);
+    }
+
+    .ongoing-loan {
+        padding: .6rem 1rem;
+        display: inline-block;
+        font-size: 1.2rem;
+        color: #9acd32;
+        background-color: rgba(#9acd32, .05);
     }
 
     .pending-loan {
@@ -74,6 +83,43 @@ table {
         color: #F9AC3B;
         background-color: rgba(#F9AC3B, .05);
     }
+
+    .pending_disbursement-loan {
+        background-color: rgba(#964B00, .1);
+        color: #964B00;
+        height: 3.3rem; 
+        width: 10rem;
+        padding: .5rem;
+    }
+
+    /*
+    &.success {
+            color: #49C96D;
+            background-color: rgba( #49C96D, .1);
+        }
+
+        &.danger {
+            color: #FF3436;
+            background-color: rgba( #FF3436, .1);
+        }
+        &.pending {
+            color: #F9AC3B;
+            background-color: rgba(#F9AC3B, .1);
+        }
+
+        &.pending_disbursement {
+            background-color: rgba(#964B00, .1);
+            color: #964B00;
+            height: 3.3rem; 
+            width: 10rem;
+        }
+
+        .defaulted {
+            color: #FF3436;
+            background-color: rgba( #FF3436, .1);
+            font-weight: 600;
+        }
+    */
 
     &.loan__table {
         width: 100%;

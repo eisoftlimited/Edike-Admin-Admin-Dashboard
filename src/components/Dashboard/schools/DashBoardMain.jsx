@@ -269,7 +269,7 @@ function DashBoardMain() {
                             }}
                             onExportTable={()=> exportAsFile(filteredArray, 'school')}
                         />
-                        <DashTable pagination={<DashBoardPagination />}>
+                        <DashTable pagination={false && <DashBoardPagination />}>
                             <tr>
                                 <th>School Name</th>
                                 <th>Location</th>

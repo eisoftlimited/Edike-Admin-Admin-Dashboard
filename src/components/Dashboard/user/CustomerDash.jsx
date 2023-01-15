@@ -93,14 +93,14 @@ function CustomerDash() {
     // USEEFFECT CODES
     useEffect(() => {
         dispatch(getAllCustomers({ token }));
-    }, [dispatch, token, 
+    }, [dispatch, token,
         // createdUser.data, activatedUser.activateMsg, blockedUser.blockMsg
     ]);
 
     useEffect(() => {
-        if((createdUser.data) ||
-        (activatedUser.activateMsg && activatedUser.activateMsg.length > 0)||
-        (blockedUser.blockMsg && blockedUser.blockMsg.length > 0)) {
+        if ((createdUser.data) ||
+            (activatedUser.activateMsg && activatedUser.activateMsg.length > 0) ||
+            (blockedUser.blockMsg && blockedUser.blockMsg.length > 0)) {
             dispatch(getAllCustomers({ token }));
         }
     }, [dispatch, token, createdUser, activatedUser, blockedUser]);
@@ -191,37 +191,37 @@ function CustomerDash() {
             {activatedUser.activateMsg && activatedUser.activateMsg.length > 0 && <ToastComponent />}
             {activatedUser.loading && <LoadingScreen />}
 
-            <DashBoardNav 
-            searchPlaceholder='Search Customer'
-            showPlusIcon={false} 
-            navTitle='Customers' 
-            onAddSchool={()=> {
-                // drawerDisplayHandler();
-                console.log('Searching...');
-            }} 
-            onOpenSidebar={openSideBarHandler} 
-            btnText='Search' 
+            <DashBoardNav
+                searchPlaceholder='Search Customer'
+                showPlusIcon={false}
+                navTitle='Customers'
+                onAddSchool={() => {
+                    // drawerDisplayHandler();
+                    console.log('Searching...');
+                }}
+                onOpenSidebar={openSideBarHandler}
+                btnText='Search'
             />
             <div className={classes['dashboard-user']}>
                 {!allUsers.loading && allUsers.allUsers && <>
-                    <DashBoardButtons 
-                    allAmount={allUsers.allUsers && allUsers.allUsers.length}
-                    activeAmount={allUsers.activeUsers && allUsers.activeUsers.length}
-                    blockedAmount={allUsers.blockedUsers && allUsers.blockedUsers.length}
+                    <DashBoardButtons
+                        allAmount={allUsers.allUsers && allUsers.allUsers.length}
+                        activeAmount={allUsers.activeUsers && allUsers.activeUsers.length}
+                        blockedAmount={allUsers.blockedUsers && allUsers.blockedUsers.length}
 
-                    onActive={() => {
-                        setFilterBy('active');
-                    }}
-                    onAll={() => {
-                        setFilterBy('all');
-                    }}
-                    onBlocked={() => {
-                        setFilterBy('blocked');
-                    }}
+                        onActive={() => {
+                            setFilterBy('active');
+                        }}
+                        onAll={() => {
+                            setFilterBy('all');
+                        }}
+                        onBlocked={() => {
+                            setFilterBy('blocked');
+                        }}
 
-                    onExportTable={()=> exportAsFile(filteredArray, 'customer')}
+                        onExportTable={() => exportAsFile(filteredArray, 'customer')}
                     />
-                    <DashTable pagination={<DashBoardPagination />}>
+                    <DashTable pagination={false && <DashBoardPagination />}>
                         <tr>
                             <th></th>
                             <th>Customer Name</th>
@@ -246,9 +246,9 @@ function CustomerDash() {
                                         </section>
                                     </div>
                                 </td>
-                                <td className={classes['table-data']}>Sochi, Russia</td>
+                                <td className={classes['table-data']}>{user.residence_address ?  user.residence_address : '-'}</td>
                                 <td className={classes['table-data']}>{user.phone}</td>
-                                <td className={classes['table-data']}>{formatDate(user.createdAt)}</td>
+                                <td className={classes['table-data']}>{user.createdAt && formatDate(user.createdAt)}</td>
                                 <td className={classes['table-data']}>
                                     <div>
                                         {user.status === 'active' && <span className={classes['success']}>Active</span>}
@@ -287,7 +287,7 @@ function CustomerDash() {
                                                 setBlockModal(true);
                                                 setSelectedId(user._id);
                                             }}
-                                            onViewUser={()=> {
+                                            onViewUser={() => {
                                                 navigate(`/dashboard/customers/${user._id}`);
                                             }}
                                         />
@@ -301,9 +301,6 @@ function CustomerDash() {
                 {allUsers.loading && <SchoolsLoadingSpinner />}
                 {!allUsers.loading && !allUsers.allUsers && <div className={classes['dashboard-user__fallback']}>
                     <h1>No Customer found</h1>
-                    {/* <button
-                        onClick={drawerDisplayHandler}
-                    >Click to add User</button> */}
                 </div>}
             </div>
 

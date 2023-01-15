@@ -141,6 +141,22 @@ function DashBoardLoan() {
 
     // console.log({ filterBy, filteredArray });
 
+    function formatDate(userDate) {
+
+        const formatValue = (value) => {
+            const tempVal = value < 10 ? `0${value}` : `${value}`;
+            return tempVal;
+        };
+
+        const d = new Date(userDate);
+
+        const year = `${d.getFullYear()}`.slice(2, 4);
+        const month = formatValue(d.getMonth() + 1);
+        const day = formatValue(d.getDay() + 1);
+
+        return `${month}.${day}.${year}`;
+    }
+
     const loanIdiy = 'EDI 00';
 
     return (
@@ -169,6 +185,7 @@ function DashBoardLoan() {
                         {!loans.loading && loans.allLoans &&
                             <>
                                 <LoanNav
+                                    activeBtn={filterBy}
                                     allNum={allLoans && allLoans.length}
                                     onAll={() => {
                                         setFilterBy('all');
@@ -200,25 +217,23 @@ function DashBoardLoan() {
                                     </tr>
                                     {/* {loans.allLoans && loans.allLoans.map(loan => (<tr key={loan._id} className={classes.loantr}> */}
                                     {filteredArray && filteredArray.map((loan, loanIndex) => (<tr key={loan._id} className={classes.loantr}>
-                                        <td>08/04/2022</td>
+                                        <td>{loan.createdAt && formatDate(loan.createdAt)}</td>
                                         <td>{loan.beneficiaryDetails[0]?.firstname} {loan.beneficiaryDetails[0]?.lastname}</td>
                                         <td>{loanIdiy + (loanIndex + 1)}</td>
                                         <td>N {loan.beneficiary_amount}</td>
                                         <td>KYC Complete</td>
                                         <td>
-                                            {false && <span className={classes['success']}>Active</span>}
+                                            {loan.status === 'active' && <span className={classes['success']}>Active</span>}
                                             {loan.status === 'pending' && <span className={classes['pending']}>Pending</span>}
                                             {loan.status === 'pending_approval' && <span style={{ height: '3.3rem', color: '#fafafa', backgroundColor: 'rgba(0,0,255,.6)' }}
                                             // className={classes['pending']}
                                             >Pending Approval</span>}
                                             {loan.status === 'declined' && <span className={classes['danger']}>Declined</span>}
                                             {loan.status === 'ongoing' && <span className={classes['pending']}>Ongoing</span>}
-                                            {loan.status === 'completed' && <span style={{ color: '#fafafa', backgroundColor: 'rgba(0, 255, 0, .6)' }}>Completed</span>}
-                                            {loan.status === 'defaulted' && <span style={{ color: '#fafafa', backgroundColor: 'rgba(255, 0, 0, 1)' }}>Defaulted</span>}
-                                            {loan.status === 'pending_disbursement' && <span
-                                                style={{ height: '3.3rem', width: '10rem', color: '#fafafa', backgroundColor: '#964B00', }}
-                                            // className={classes['pending']}
-                                            >Pending Disbursement</span>}
+                                            {loan.status === 'completed' && <span className={classes['success']}>Completed</span>}
+                                            {/* {loan.status === 'completed' && <span style={{ color: '#fafafa', backgroundColor: 'rgba(0, 255, 0, .6)' }}>Completed</span>} */}
+                                            {loan.status === 'defaulted' && <span className={classes['defaulted']}>Defaulted</span>}
+                                            {loan.status === 'pending_disbursement' && <span className={classes['pending_disbursement']}>Pending Disbursement</span>}
                                         </td>
                                         <td>
                                             <div>

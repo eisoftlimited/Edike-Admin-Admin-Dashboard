@@ -77,7 +77,7 @@ function DashBoardAside({ onSidebarClose }) {
                     link={'/dashboard/loans'}
                     onCloseSidebar={onSidebarClose}
                 />
-                <DashMenuItem
+                {/* <DashMenuItem
                     text={'Debit Cards'}
                     icon={debitcard}
                     onCloseSidebar={onSidebarClose}
@@ -86,7 +86,7 @@ function DashBoardAside({ onSidebarClose }) {
                     text={'Fees Payment'}
                     icon={<i className={`fas fa-columns`} />}
                     onCloseSidebar={onSidebarClose}
-                />
+                /> */}
                 <DashMenuItem
                     text={'Users'}
                     icon={user}

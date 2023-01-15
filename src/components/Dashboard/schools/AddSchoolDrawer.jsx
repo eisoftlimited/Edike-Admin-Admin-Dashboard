@@ -18,6 +18,7 @@ import { getSchool } from '../../../store/schools/getSchoolSlice';
 import { updateSchool, updateSchoolActions } from '../../../store/schools/editSchool';
 import FormSelect from '../../Account/FormSelect';
 import { verifyAccountNumber } from '../../../store/accountNum/verifyAccountNumberSlice';
+import { useNavigate } from 'react-router-dom';
 
 function AddSchoolDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, schoolId }) {
 
@@ -29,6 +30,8 @@ function AddSchoolDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, school
     const listedBanks = useSelector(state => state.getBanks);
     const verifiedBank = useSelector(state => state.verifyBank);    
     const updatedSchool = useSelector(state => state.updateSchool);
+
+    const navigate = useNavigate();
 
 
     // const {bname, bcode} = listedBanks.banks || [];
@@ -408,7 +411,7 @@ function AddSchoolDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, school
                                 setIsFound(false);
                             }}
                             className={classes.drawer__btn}>Add another school</FormButton>
-                        <FormButton type='button' className={classes.drawer__btn}>Go to dashboard</FormButton>
+                        <FormButton type='button' className={classes.drawer__btn} onClick={()=> navigate('/dashboard')}>Go to dashboard</FormButton>
                     </div>
                 </>)}
             </div>
