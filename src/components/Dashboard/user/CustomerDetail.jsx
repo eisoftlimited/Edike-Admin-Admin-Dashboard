@@ -77,12 +77,7 @@ function CustomerDetail() {
         getOneCustomer();
 
     }, [token, customerId]);
-
-    /*
-    oabisoye1@gmail.com - admin
-oabisoye1+1@gmail.com - risk manager
-oabisoye1+2@gmail.com - cfo
-    */
+    
 
 
     return (

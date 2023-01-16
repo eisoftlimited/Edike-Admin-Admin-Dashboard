@@ -1,14 +1,18 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { EDUKE_URL } from '../../../store/url';
+import Options from '../../UI/Options';
 import ToastComponent from '../../UI/ToastComponent';
 import classes from './RecentLoans.module.scss';
 
 function RecentLoans({ className }) {
 
     const token = useSelector(state => state.auth.token);
+
+    const navigate = useNavigate();
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
@@ -60,6 +64,8 @@ function RecentLoans({ className }) {
         return new Date(timestamp).toLocaleString().split(',')[0];
     }
 
+    const loanIdiy = 'EDI 00';
+
 
     return (
         <>
@@ -84,16 +90,48 @@ function RecentLoans({ className }) {
                                     <td>{formatDate(loan.createdAt)}</td>
                                     <td>{loan.beneficiaryDetails[0]?.firstname} {loan.beneficiaryDetails[0]?.lastname}</td>
                                     {/* <td>Abiola Ogunjobi</td> */}
-                                    <td>EDI 00{index+1}</td>
+                                    <td>EDI 00{index + 1}</td>
                                     <td>N {loan.beneficiary_amount}</td>
                                     <td>
-                                        {loan.status === 'pending' && <span className={classes.pending}>Pending</span>}
-                                        {loan.status === 'ongoing' && <span className={classes.pending}>Ongoing</span>}
-                                        {loan.status === 'declined' && <span className={classes.declined}>Declined</span>}
-                                        {loan.status === 'active' && <span className={classes.active}>Active</span>}
-                                        {loan.status === 'default' && <span className={classes.default}>Default</span>}
+                                        {loan.status === 'active' && <span className={classes['success']}>Active</span>}
+                                        {loan.status === 'pending' && <span className={classes['pending']}>Pending</span>}
+                                        {loan.status === 'pending_approval' && <span style={{ height: '3.3rem', color: '#fafafa', backgroundColor: 'rgba(0,0,255,.6)' }}
+                                        // className={classes['pending']}
+                                        >Pending Approval</span>}
+                                        {loan.status === 'declined' && <span className={classes['danger']}>Declined</span>}
+                                        {loan.status === 'ongoing' && <span className={classes['pending']}>Ongoing</span>}
+                                        {loan.status === 'completed' && <span className={classes['success']}>Completed</span>}
+                                        {/* {loan.status === 'completed' && <span style={{ color: '#fafafa', backgroundColor: 'rgba(0, 255, 0, .6)' }}>Completed</span>} */}
+                                        {loan.status === 'defaulted' && <span className={classes['defaulted']}>Defaulted</span>}
+                                        {loan.status === 'pending_disbursement' && <span className={classes['pending_disbursement']}>Pending Disbursement</span>}
                                     </td>
-                                    <td><i className={`fas fa-ellipsis-v`} /></td>
+                                    <td>
+                                        <div>
+                                            <div onClick={e => {
+                                                const optionsList = e.currentTarget.nextElementSibling;
+                                                if (optionsList.style.display === 'none') {
+                                                    optionsList.style.display = 'block';
+                                                } else {
+                                                    optionsList.style.display = 'none';
+                                                }
+
+                                            }} className={classes.dots}>
+                                                <i className={`fas fa-ellipsis-v`} />
+                                            </div>
+
+                                            <Options
+                                                isRecent={true}
+                                                className={classes['dropdown']}
+                                                onViewUser={() => {
+                                                    navigate(`/dashboard/loans/${loan.createdBy}/${loan._id}`, {
+                                                        state: {
+                                                            loanId: loanIdiy + (index + 1)
+                                                        }
+                                                    });
+                                                }}
+                                            />
+                                        </div>
+                                    </td>
                                 </tr>
                             );
                         })}

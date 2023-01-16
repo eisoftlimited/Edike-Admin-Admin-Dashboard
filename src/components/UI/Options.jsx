@@ -1,7 +1,18 @@
 import classes from './Options.module.scss';
 
-function Options({ className, onDeleteUser, onEditUser, onBlockUser, onViewUser, status, onActivateUser, isLoan, isCustomer }) {
+function Options({ isRecent, className, onDeleteUser, onEditUser, onBlockUser, onViewUser, status, onActivateUser, isLoan, isCustomer }) {
 
+    if(isRecent) {
+        return (
+            <ul className={`${classes.options} ${className ? className : ''}`}>
+                <li>
+                    <div>
+                        <button onClick={onViewUser} style={{color: '#333'}}><i className={`far fa-eye`} /> View</button>
+                    </div>
+                </li>
+            </ul>
+        )
+    }
 
 
     return (
