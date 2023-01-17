@@ -31,6 +31,10 @@ function DashBoardUsers() {
 
     // USESELECTOR STATES
     const token = useSelector(state => state.auth.token);
+<<<<<<< HEAD
+=======
+    const authError = useSelector(state => state.auth.error);
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
     const allUsers = useSelector(state => state.getAllUsers);
     const deletedUser = useSelector(state => state.deleteUser);
     const blockedUser = useSelector(state => state.blockUser);
@@ -38,7 +42,11 @@ function DashBoardUsers() {
     const createdUser = useSelector(state => state.createUser);
 
     // const [filterBy, setFilterBy] = useState('all');
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
     // const navigate = useNavigate();
 
     // console.log(activatedUser);
@@ -107,6 +115,19 @@ function DashBoardUsers() {
     }, [dispatch, token, createdUser.data, blockedUser.blockMsg, activatedUser.activateMsg, deletedUser.deleteMsg]);
 
 
+<<<<<<< HEAD
+=======
+    useEffect(()=> {
+
+        // if(authError === '') {
+        //     localStorage.removeItem('edike-admin-token');
+        //     navigate('/sign-in');
+        // }
+
+    }, [authError]);
+
+
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
     useEffect(() => {
 
         let interval;
@@ -182,6 +203,19 @@ function DashBoardUsers() {
         return `${month}.${day}.${year}`;
     }
 
+<<<<<<< HEAD
+=======
+    // localStorage.setItem('user-json-data', JSON.stringify(filteredArray));
+
+    // function exportAsFile (data) {
+    //     const element = document.createElement("a"); // text/plain
+    //     const textFile = new Blob([JSON.stringify(data)], { type: 'application/json' }); //pass data from localStorage API to blob
+    //     element.href = URL.createObjectURL(textFile);
+    //     element.download = "userFile.txt";
+    //     document.body.appendChild(element);
+    //     element.click();
+    // }
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
 
 
     return (
@@ -209,7 +243,10 @@ function DashBoardUsers() {
             <div className={classes['dashboard-user']}>
                 {!allUsers.loading && allUsers.allUsers && <>
                     <DashBoardButtons
+<<<<<<< HEAD
                         isUser={true}
+=======
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
                         allAmount={allUsers.allUsers && allUsers.allUsers.length}
                         activeAmount={allUsers.activeUsers && allUsers.activeUsers.length}
                         blockedAmount={allUsers.blockedUsers && allUsers.blockedUsers.length}
@@ -259,6 +296,7 @@ function DashBoardUsers() {
                                         {user.status === 'active' && <span className={classes['success']}>Active</span>}
                                         {user.status === 'blocked' && <span className={classes['danger']}>Blocked</span>}
                                         <div onClick={e => {
+<<<<<<< HEAD
 
                                             // console.log('Working');
                                             // const dotts = document.querySelectorAll('.dots');
@@ -269,19 +307,28 @@ function DashBoardUsers() {
 
                                             const optionsList = e.currentTarget.nextElementSibling;
 
+=======
+                                            const optionsList = e.currentTarget.nextElementSibling;
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
                                             if (optionsList.style.display === 'none') {
                                                 optionsList.style.display = 'block';
                                             } else {
                                                 optionsList.style.display = 'none';
                                             }
 
+<<<<<<< HEAD
                                             
+=======
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
                                         }} className={classes.dots}>
                                             <i className={`fas fa-ellipsis-v`} />
                                         </div>
 
                                         <Options
+<<<<<<< HEAD
                                             isUser={true}
+=======
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
                                             // status={user.status}
                                             status={user.status}
                                             className={classes.dropdown}
@@ -326,16 +373,24 @@ function DashBoardUsers() {
                     isModalVisible={showActivateModal}
                     onCloseModal={() => setActivateModal(false)}
                     onConfirmClick={activateUserHandler}
+<<<<<<< HEAD
                     onCancelClick={()=> setActivateModal(false)}
+=======
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
                 />
                 <BlockModal
                     isModalVisible={showBlockModal}
                     onCloseModal={() => setBlockModal(false)}
                     onConfirmClick={blockUserHandler}
+<<<<<<< HEAD
                     onCancelClick={() => setBlockModal(false)}
                 />
                 <DeleteModal
                     onCancelClick={()=> setDelModal(false)}
+=======
+                />
+                <DeleteModal
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
                     onConfirmClick={deleteUserHandler}
                     isModalVisible={showDelModal}
                     onCloseModal={() => setDelModal(false)}

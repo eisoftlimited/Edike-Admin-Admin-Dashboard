@@ -33,7 +33,10 @@ const addUserSlice = createSlice({
         resetState: state => {
             state.error = '';
             state.loading = false;
+<<<<<<< HEAD
             state.data = null;
+=======
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
         }
     },
     extraReducers: (builder=> {

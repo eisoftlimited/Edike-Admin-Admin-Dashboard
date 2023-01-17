@@ -123,7 +123,11 @@ function AddSchoolDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, school
 
         if (e.target.value.length === 0) {
             e.target.style.borderColor = '#FAA61A';
+<<<<<<< HEAD
             e.target.parentElement.previousElementSibling.style.color = '#B2B2B2';
+=======
+            e.target.parentElement.previousElementSibling.style.color = '#FAA61A';
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
             e.target.style.color = '#B2B2B2';
         } else {
             e.target.style.borderColor = '#B2B2B2';
@@ -246,10 +250,13 @@ function AddSchoolDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, school
         }
     }, [loading, updatedSchool]);
 
+<<<<<<< HEAD
     function focusHandler(e) {
         e.currentTarget.style.borderColor = 'rgb(250, 166, 26)';
     }
 
+=======
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
     return (
         <>
 
@@ -277,12 +284,20 @@ function AddSchoolDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, school
                         isValid={true}
                         inputControls={{
                             type: 'text',
+<<<<<<< HEAD
                             placeholder: 'Enter school name here...',
                             value: schoolName,
                             name: 'school_name',
                             onChange: e => setSchoolName(e.target.value),
                             onBlur: onblurHandler,
                             onFocus: focusHandler
+=======
+                            placeholder: 'Enter text here...',
+                            value: schoolName,
+                            name: 'school_name',
+                            onChange: e => setSchoolName(e.target.value),
+                            onBlur: onblurHandler
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
                         }}
                     />
                     <FormControl labelText='Address'
@@ -290,12 +305,20 @@ function AddSchoolDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, school
                         isValid={true}
                         inputControls={{
                             type: 'text',
+<<<<<<< HEAD
                             placeholder: 'Enter address here...',
                             value: schoolLocation,
                             name: 'school_location',
                             onChange: e => setSchoolLocation(e.target.value),
                             onBlur: onblurHandler,
                             onFocus: focusHandler
+=======
+                            placeholder: 'Enter text here...',
+                            value: schoolLocation,
+                            name: 'school_location',
+                            onChange: e => setSchoolLocation(e.target.value),
+                            onBlur: onblurHandler
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
                         }}
                     />
                     <FormPhone labelText='Phone'
@@ -303,11 +326,18 @@ function AddSchoolDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, school
                         inputId='phoneno'
                         inputControls={{
                             type: 'number',
+<<<<<<< HEAD
                             placeholder: 'Enter phone number here...',
                             value: phoneno,
                             name: 'phoneno',
                             onChange: e => setPhoneno(e.target.value),
                             onFocus: focusHandler
+=======
+                            placeholder: 'Enter text here...',
+                            value: phoneno,
+                            name: 'phoneno',
+                            onChange: e => setPhoneno(e.target.value)
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
                         }}
                     />
                     <input type='hidden' name='contact_bank_acct_name' value={conAccName} />
@@ -328,12 +358,20 @@ function AddSchoolDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, school
                             isValid={true}
                             inputControls={{
                                 type: 'text',
+<<<<<<< HEAD
                                 placeholder: 'Enter first name here...',
                                 value: conFirstName,
                                 name: 'contact_firstname',
                                 onChange: e => setConFirstName(e.target.value),
                                 onBlur: onblurHandler,
                                 onFocus: focusHandler
+=======
+                                placeholder: 'Enter text here...',
+                                value: conFirstName,
+                                name: 'contact_firstname',
+                                onChange: e => setConFirstName(e.target.value),
+                                onBlur: onblurHandler
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
                             }}
                         />
                         <FormControl labelText='Last Name'
@@ -341,12 +379,20 @@ function AddSchoolDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, school
                             isValid={true}
                             inputControls={{
                                 type: 'text',
+<<<<<<< HEAD
                                 placeholder: 'Enter last name here...',
                                 value: conLastName,
                                 name: 'contact_lastname',
                                 onChange: e => setConLastName(e.target.value),
                                 onBlur: onblurHandler,
                                 onFocus: focusHandler
+=======
+                                placeholder: 'Enter text here...',
+                                value: conLastName,
+                                name: 'contact_lastname',
+                                onChange: e => setConLastName(e.target.value),
+                                onBlur: onblurHandler
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
                             }}
                         />
                     </div>
@@ -355,11 +401,18 @@ function AddSchoolDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, school
                         isValid={true}
                         inputControls={{
                             type: 'number',
+<<<<<<< HEAD
                             placeholder: 'Enter contact phone here...',
                             value: conPhone,
                             name: 'contact_phone',
                             onChange: e => setConPhone(e.target.value),
                             onFocus: focusHandler
+=======
+                            placeholder: 'Enter text here...',
+                            value: conPhone,
+                            name: 'contact_phone',
+                            onChange: e => setConPhone(e.target.value)
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
                         }}
                     />
                     <FormControl labelText='Email'
@@ -367,10 +420,16 @@ function AddSchoolDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, school
                         isValid={true}
                         inputControls={{
                             type: 'text',
+<<<<<<< HEAD
                             placeholder: 'Enter email here...',
                             value: email,
                             onChange: e => setEmail(e.target.value),
                             onFocus: focusHandler
+=======
+                            placeholder: 'Enter text here...',
+                            value: email,
+                            onChange: e => setEmail(e.target.value)
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
                         }}
                     />
                     <h2 className={classes.drawer__subheading}>Account Details</h2>
@@ -398,14 +457,22 @@ function AddSchoolDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, school
                             onChange: e => {
                                 setConAccNo(e.target.value);
                             },
+<<<<<<< HEAD
                             onBlur: accountOnBlur,
                             onFocus: focusHandler
+=======
+                            onBlur: accountOnBlur
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
                         }}
                     />
                     {!verifiedBank.loading && <AccountFound bankDetails={verifiedBank} />}
                     {verifiedBank.loading && <p>Loading account...</p>}
                     <div className={classes.drawer__btns}>
+<<<<<<< HEAD
                         <FormButton type='button' onClick={onCloseDrawer} className={classes.drawer__btn}>Cancel</FormButton>
+=======
+                        <FormButton type='button' className={classes.drawer__btn}>Cancel</FormButton>
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
                         {crudOperation === 'add-school' && <FormButton className={classes.drawer__btn}>Save</FormButton>}
                         {crudOperation === 'edit' && <FormButton className={classes.drawer__btn}>update</FormButton>}
                     </div>

@@ -2,7 +2,11 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+<<<<<<< HEAD
 import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
+=======
+import { useNavigate, useOutletContext } from 'react-router-dom';
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
 import { toast } from 'react-toastify';
 import { approveLoanActions, loanApproval } from '../../../store/loan/approveLoanSlice';
 import { declineLoanActions, loanDecline } from '../../../store/loan/declineLoanSlice';
@@ -27,6 +31,7 @@ function DashBoardLoan() {
     // THE OUTLET CONTEXT STATE
     const [openSideBarHandler] = useOutletContext();
 
+<<<<<<< HEAD
     const { state } = useLocation();
 
 
@@ -44,6 +49,8 @@ function DashBoardLoan() {
 
     }, [state]);
 
+=======
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
     // USENAVIGATE STATE
     const navigate = useNavigate();
 
@@ -93,7 +100,11 @@ function DashBoardLoan() {
 
     const approveLoanHandler = () => {
         setActivateModal(false);
+<<<<<<< HEAD
         if (loanStatus === 'ongoing') {
+=======
+        if(loanStatus === 'ongoing') {
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
             return toast('Loan already approved');
         }
         dispatch(loanApproval({ token, id: selectedId }));
@@ -296,6 +307,7 @@ function DashBoardLoan() {
                             </>
                         }
 
+<<<<<<< HEAD
                         {/* {filteredArray && filteredArray.length === 0 &&
                             <div style={{ padding: '1rem', backgroundColor: '#fff', borderRadius: '.7rem', marginTop: '.5rem'}}>
                                 <h3 style={{fontSize: '2rem', color: '#333'}}>No loan found</h3>
@@ -306,12 +318,22 @@ function DashBoardLoan() {
                             onCloseModal={() => setDeclineModal(false)}
                             isModalVisible={showDeclineModal}
                             onConfirmClick={() => {
+=======
+                        <LoanDeclineModal
+                            onCloseModal={() => setDeclineModal(false)}
+                            isModalVisible={showDeclineModal}
+                            onConfirmClick={()=> {
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
                                 deactivateLoanHandler();
                             }}
                             onCancelClick={() => setDeclineModal(false)}
                         />
                         <LoanApproveModal
+<<<<<<< HEAD
                             onConfirmClick={() => {
+=======
+                            onConfirmClick={()=> {
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
                                 approveLoanHandler();
                             }}
                             onCancelClick={() => setActivateModal(false)}
@@ -320,9 +342,15 @@ function DashBoardLoan() {
                         />
 
                         {loans.loading && <SchoolsLoadingSpinner />}
+<<<<<<< HEAD
                         {((!loans.loading && !loans.allLoans) || (filteredArray && filteredArray.length === 0)) &&
                             <div style={{ padding: '1rem', backgroundColor: '#fff', borderRadius: '.7rem', marginTop: '.5rem'}} className={classes['dashboard-user__fallback']}>
                                 <h3 style={{fontSize: '2rem', color: '#333'}}>No Loan found</h3>
+=======
+                        {!loans.loading && !loans.allLoans &&
+                            <div className={classes['dashboard-user__fallback']}>
+                                <h1>No Loan found</h1>
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
                             </div>
                         }
                     </div>

@@ -309,19 +309,28 @@ function CustomerDash() {
                     isModalVisible={showActivateModal}
                     onCloseModal={() => setActivateModal(false)}
                     onConfirmClick={activateUserHandler}
+<<<<<<< HEAD
                     onCancelClick={()=> setActivateModal(false)}
+=======
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
                 />
                 <BlockModal
                     isModalVisible={showBlockModal}
                     onCloseModal={() => setBlockModal(false)}
                     onConfirmClick={blockUserHandler}
+<<<<<<< HEAD
                     onCancelClick={()=> setBlockModal(false)}
+=======
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
                 />
                 <DeleteModal
                     onConfirmClick={deleteUserHandler}
                     isModalVisible={showDelModal}
                     onCloseModal={() => setDelModal(false)}
+<<<<<<< HEAD
                     onCancelClick={()=> setDelModal(false)}
+=======
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
                 />
                 <AddUserDrawer crudOperation={crud} isDrawerVisible={showDrawer} onCloseDrawer={drawerDisplayHandler} />
             </>

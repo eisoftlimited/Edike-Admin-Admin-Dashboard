@@ -55,13 +55,21 @@
     }
 
     &__overlay {
+<<<<<<< HEAD
         position: fixed;
         // position: absolute;
+=======
+        position: absolute;
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
         top: 0;
         left: 0;
         background-color: rgba(0,0,0,.1);
         width: 100%;
+<<<<<<< HEAD
         height: 100vh;
         display: none;
+=======
+        // height: 100vh;
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
     }
 }

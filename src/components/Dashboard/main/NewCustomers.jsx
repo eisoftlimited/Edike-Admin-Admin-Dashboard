@@ -61,6 +61,7 @@ function NewCustomers({ className }) {
         }
     }, [error]);
 
+<<<<<<< HEAD
     function formatEmail(email) {
         if(email && email.length > 15) {
             return `${email.slice(0, 15)}...`;
@@ -69,6 +70,8 @@ function NewCustomers({ className }) {
         return email;
     }
 
+=======
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
 
     return (
         <>
@@ -86,7 +89,11 @@ function NewCustomers({ className }) {
                                             {customer.profileImage && <img src={customer.profileImage} alt={customer.firstname} />}
                                             <div>
                                                 <h3>{customer.firstname} {customer.lastname}</h3>
+<<<<<<< HEAD
                                                 <p title={customer.email}>{customer.email && formatEmail(customer.email)}</p>
+=======
+                                                <p>{customer.email}</p>
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
                                             </div>
                                         </div>
                                     </td>

@@ -173,9 +173,12 @@ function AddUserDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, selected
     // MY USEEFFECT CODE
 
     useEffect(() => {
+<<<<<<< HEAD
 
         // let interval;
 
+=======
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
         if (createdUser.data && createdUser.data === 'User Successfully Added') {
             setIsFound(true);
         }
@@ -273,7 +276,11 @@ function AddUserDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, selected
                             inputId='fname'
                             inputControls={{
                                 type: 'text',
+<<<<<<< HEAD
                                 placeholder: 'Enter first name here...',
+=======
+                                placeholder: 'Enter text here...',
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
                                 name: 'firstname',
                                 value: firstname.value,
                                 onChange: e => setFirstname(prevVal => {
@@ -288,7 +295,11 @@ function AddUserDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, selected
                             inputId='lname'
                             inputControls={{
                                 type: 'text',
+<<<<<<< HEAD
                                 placeholder: 'Enter last name here...',
+=======
+                                placeholder: 'Enter text here...',
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
                                 name: 'lastname',
                                 value: lastname.value,
                                 onChange: e => setLastname(prevVal => {
@@ -304,7 +315,11 @@ function AddUserDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, selected
                         inputId='email'
                         inputControls={{
                             type: 'text',
+<<<<<<< HEAD
                             placeholder: 'Enter email here...',
+=======
+                            placeholder: 'Enter text here...',
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
                             name: 'email',
                             value: email.value,
                             onChange: e => setEmail(prevVal => {
@@ -319,7 +334,11 @@ function AddUserDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, selected
                         inputId='phoneno'
                         inputControls={{
                             type: 'number',
+<<<<<<< HEAD
                             placeholder: 'Enter phone here...',
+=======
+                            placeholder: 'Enter text here...',
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
                             value: phoneno.value,
                             name: 'phone_number',
                             onChange: e => setPhoneno(prevVal => {
@@ -375,7 +394,11 @@ function AddUserDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, selected
                         }}
                     />
                     <div className={classes.drawer__btns}>
+<<<<<<< HEAD
                         <FormButton type='button' onClick={onCloseDrawer} className={classes.drawer__btn}>Cancel</FormButton>
+=======
+                        <FormButton type='button' className={classes.drawer__btn}>Cancel</FormButton>
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
                         <FormButton className={classes.drawer__btn}>Save</FormButton>
                     </div>
                 </form>)}

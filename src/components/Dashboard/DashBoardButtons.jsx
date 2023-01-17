@@ -10,6 +10,7 @@ function ExportBtn({onExportTable}) {
     );
 }
 
+<<<<<<< HEAD
 function DashBoardButtons({onExportTable, isUser, onAll, onActive, onBlocked, allAmount, activeAmount, blockedAmount}) {
     
     if(isUser) {
@@ -28,6 +29,9 @@ function DashBoardButtons({onExportTable, isUser, onAll, onActive, onBlocked, al
         );
     }
     
+=======
+function DashBoardButtons({onExportTable, onAll, onActive, onBlocked, allAmount, activeAmount, blockedAmount}) {
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
     return (
         <>
             <ul className={`${classes['dashboard-main__buttons']} ${classes['dashboard-main__buttons--mobile']}`}>

@@ -33,6 +33,7 @@ const getAllUserSlice = createSlice({
         })
         builder.addCase(getAllUsers.fulfilled, (state, action)=> {
             state.loading = false;
+<<<<<<< HEAD
             // state.allUsers = action.payload && action.payload.user;
 
             // Was active before
@@ -58,6 +59,19 @@ const getAllUserSlice = createSlice({
 
 
 
+=======
+            state.allUsers = action.payload && action.payload.user;
+            const activeUs =  action.payload && action.payload.user.filter(user => {
+                return user.status === 'active';
+            });
+
+            const blockedUs = action.payload && action.payload.user.filter(user => {
+                return user.status === 'blocked';
+            });
+
+            state.activeUsers = activeUs;
+            state.blockedUsers = blockedUs;
+>>>>>>> e9e810dfdad00d7de681eca1584002b8c0d625ed
             // console.log(action.payload.user);
             // console.log({activeUs, blockedUs});
         })
