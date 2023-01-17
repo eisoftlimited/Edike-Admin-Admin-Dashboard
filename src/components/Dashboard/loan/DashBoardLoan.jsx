@@ -221,8 +221,6 @@ function DashBoardLoan() {
                                     onDecline={() => {
                                         setFilterBy('declined');
                                     }}
-
-                                // onExportTable={()=> exportAsFile(filteredArray, 'customer')}
                                 />
                                 <DashTable>
                                     <tr className={classes.loantr}>

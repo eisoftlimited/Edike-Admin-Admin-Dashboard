@@ -153,7 +153,7 @@ function CustomerDetail() {
                                 })}
                             </tbody>
                         </table>)}
-                        {beneficiary.length === 0 && <NotFoundPlaceholder title='Beneficiary added' />}
+                        {beneficiary.length === 0 && <NotFoundPlaceholder title='Beneficiary added'>No beneficiary has been added by this customer. Beneficiaries added by the customer will reflect here</NotFoundPlaceholder>}
                     </div>
                     <div className={classes['customer-detail__group']}>
                         <h3 className={classes['customer-detail__heading']}>Loan</h3>
@@ -187,7 +187,7 @@ function CustomerDetail() {
                                 })}
                             </tbody>
                         </table>)}
-                        {loan.length === 0 && <NotFoundPlaceholder title='Loans Running' />}
+                        {loan.length === 0 && <NotFoundPlaceholder title='Loans Running'>User has not applied for any loans yet.</NotFoundPlaceholder>}
                     </div>
                     <div className={classes['customer-detail__group']}>
                         <h3 className={classes['customer-detail__heading']}>Transactions</h3>

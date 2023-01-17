@@ -23,7 +23,7 @@ import { getAllCustomers } from '../../../store/realCustomers/getAllCustomersSli
 import { blockCustomer, blockCustomerActions } from '../../../store/realCustomers/blockCustomerSlice';
 import avatar from './../../../img/avatar.svg';
 import { activateCustomer, activateCustomerActions } from '../../../store/realCustomers/activateCustomerSlice';
-import { exportAsFile } from '../../../utils/exportFile';
+import { exportFileToExcel } from '../../../utils/exportToExcel';
 
 function CustomerDash() {
     const dispatch = useDispatch();
@@ -218,8 +218,8 @@ function CustomerDash() {
                         onBlocked={() => {
                             setFilterBy('blocked');
                         }}
-
-                        onExportTable={() => exportAsFile(filteredArray, 'customer')}
+                        
+                        onExportTable={()=> exportFileToExcel(filteredArray, 'Customers')}
                     />
                     <DashTable pagination={false && <DashBoardPagination />}>
                         <tr>

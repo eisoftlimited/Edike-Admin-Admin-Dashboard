@@ -21,7 +21,7 @@ import { blockUser, blockUserActions } from '../../../store/customer/blockUserSl
 import { activateUser } from '../../../store/customer/activateUserSlice';
 import { activateUserActions } from '../../../store/customer/activateUserSlice';
 import avatar from './../../../img/avatar.svg';
-import { exportAsFile } from '../../../utils/exportFile';
+import { exportFileToExcel } from '../../../utils/exportToExcel';
 
 function DashBoardUsers() {
     const dispatch = useDispatch();
@@ -223,8 +223,8 @@ function DashBoardUsers() {
                         onBlocked={() => {
                             setFilterBy('blocked');
                         }}
-
-                        onExportTable={() => exportAsFile(filteredArray, 'user')}
+                        
+                        onExportTable={()=> exportFileToExcel(filteredArray, 'Users')}
                     />
                     <DashTable pagination={false && <DashBoardPagination />}>
                         <tr>
