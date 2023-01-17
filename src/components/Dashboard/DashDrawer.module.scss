@@ -1,0 +1,73 @@
+@import './../../sass/main.scss';
+
+.dashdrawer {
+    z-index: 30;
+    padding: 2rem;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 48.3rem;
+    height: calc(100vh - 12.8rem);
+    background-color: #fff;
+
+    &__heading {
+        font-size: 2.4rem;
+        text-align: left;
+    }
+
+    &__description {
+        color: #404040;
+        text-align: left;
+    }
+
+    &-btns {
+        width: 100%;
+        margin-top: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &-btn {
+        width: 13.4rem;
+        border-radius: 1rem;
+        font-size: 1.6rem;
+        font-weight: 400;
+        padding: 1rem;
+        cursor: pointer;
+
+        &--outline {
+            color: #47B88F;
+        }
+
+        &--fill {
+            background-color: #47B88F;
+            color: $color-white;
+        }
+    }
+}
+
+.form-grid {
+    margin-top: 4rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    & > *:nth-child(1),
+    & > *:nth-child(2) {
+        width: 49%;
+    }
+
+    & > *:nth-child(3),
+    & > *:nth-child(4),
+    & > *:nth-child(5) {
+        width: 100%;
+    }
+
+    & > *:nth-child(6),
+    & > *:nth-child(7),
+    & > *:nth-child(8) {
+        width: 32%;
+    }
+}

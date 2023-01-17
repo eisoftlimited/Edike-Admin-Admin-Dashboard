@@ -1,0 +1,39 @@
+@import './../../sass/main.scss';
+
+.container {
+    border: 1px dashed #333;
+    padding: 2rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.text {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #44566C;
+
+    a {
+        text-decoration: none;
+        color: rgb(250, 166, 26);;
+    }
+}
+
+.info {
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    text-align: center;
+
+    i {
+        margin-right: .7rem;
+        font-size: 2rem;
+    }
+}

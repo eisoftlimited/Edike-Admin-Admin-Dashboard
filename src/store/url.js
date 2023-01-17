@@ -1,0 +1,1 @@
+export const EDUKE_URL = 'https://admin.edike.click';

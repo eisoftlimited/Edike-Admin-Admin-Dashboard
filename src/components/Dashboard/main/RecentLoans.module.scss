@@ -1,0 +1,131 @@
+.recent-loans {
+    background-color: #fff;
+    padding: 2.4rem;
+    border-radius: 1.6rem;
+
+    h2 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #3F434A;
+
+        margin-bottom: 2rem;
+    }
+
+    table {
+
+        tr {
+
+            td {
+                color: #3F434A;
+
+                div {
+                    justify-content: center;
+                    display: block;
+                    position: relative;
+                    
+                        .dropdown {
+                            position: absolute;
+                            top: 3rem;
+                            right: 0;
+                            z-index: 5; 
+                            // display: block;
+                        }
+                    
+                }
+
+                span {
+                    width: 10rem;
+                    height: 2.1rem;
+                    display: inline-flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    &.pending {
+                        color: #F9AC3B;
+                        background-color: rgba(#F9AC3B, .1);
+                    }
+
+                    &.declined {
+                        color: #FF3436;
+                        background-color: rgba(#FF3436, .1);
+                    }
+
+                    &.active {
+                        color: #20A144;
+                        background-color: rgba(#20A144, .1);
+                    }
+
+                    &.default {
+                        color: #FF3436;
+                        background-color: rgba(#FF3436, .1);
+                    }
+                }
+
+                &:first-child {
+                    width: 15%;
+                    // width: auto;
+                }
+
+                &:nth-child(2) {
+                width: 30%;
+                }
+
+                &:last-child {
+                    text-align: center;
+                }
+
+
+                span {
+                    display: inline-flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 7.9rem;
+                    height: 2.8rem;
+                    // min-width: 7.9rem;
+                    font-weight: 500;
+                    font-size: 1.4rem;
+                    text-align: center;
+                    border-radius: .5rem;
+            
+                    &.success {
+                        color: #49C96D;
+                        background-color: rgba( #49C96D, .1);
+                    }
+            
+                    &.danger {
+                        color: #FF3436;
+                        background-color: rgba( #FF3436, .1);
+                    }
+                    &.pending {
+                        color: #F9AC3B;
+                        background-color: rgba(#F9AC3B, .1);
+                    }
+            
+                    &.pending_disbursement {
+                        background-color: rgba(#964B00, .1);
+                        color: #964B00;
+                        height: 3.3rem; 
+                        width: 10rem;
+                    }
+            
+                    .defaulted {
+                        color: #FF3436;
+                        background-color: rgba( #FF3436, .1);
+                        font-weight: 600;
+                    }
+                }
+
+                .dots {
+                    font-size: 2rem;
+                    width: 2.3rem;
+                    height: 2.3rem;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

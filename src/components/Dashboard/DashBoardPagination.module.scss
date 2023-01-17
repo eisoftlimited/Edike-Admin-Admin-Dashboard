@@ -1,0 +1,76 @@
+@import './../../sass/main.scss';
+
+.dashboard-paginations {
+    display: flex;
+    align-items: center;
+    // justify-content: space-between;
+    padding: 1.5rem 3rem;
+
+    @media screen and (max-width: 71.875em) {
+        min-width: 100rem; 
+    }
+}
+
+.dashboard-pagination {
+    margin-left: auto;
+    // padding: 1.5rem 1.5rem 1.5rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    
+
+    &__pill {
+        width: 3.4rem;
+        height: 3.4rem;
+        border-radius: .5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        text-decoration: none;
+        color: #3F434A;
+        margin-left: .6rem;
+
+        &--number {
+            color: #3F434A;
+            transition: all .2s;
+            // color: #fff;
+
+            &:hover {
+                background-color: #47B88F;
+                color: #fff;
+            }
+        }
+
+        &--control {
+            background-color: #F8F8F8;
+            transition: all .2s;
+
+            &:hover {
+                background-color: rgba(#47B88F, .1);
+                color: #47B88F;
+            }
+        }
+    }
+
+    &__limit {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 1.6rem;
+        color: #3F434A;
+        padding: 1rem 1.3rem;
+        border: 1px solid darken(#f6f6f6, 0%);
+        width: 6.5rem;
+        height: 3.5rem;
+        border-radius: 1.3rem;
+        margin-right: 2rem;
+        cursor: pointer;
+    }
+
+    &__text {
+        font-size: 1.6rem;
+        color: #8A9099;
+    }
+}

@@ -1,0 +1,133 @@
+@import './../../sass/main.scss';
+
+.dashboard-layout {
+    min-height: 100vh;
+
+    @media screen and (max-width: 71.875em) {
+        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    &__aside {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 27rem;
+        height: 100vh;
+        background-color: #fff;
+        z-index: 20;
+
+
+        @media screen and (max-width: 71.875em) {
+            transform: translateX(-27rem);
+            transition: transform .3s .2s;
+
+            &.active {
+                transform: translateX(0);
+            }
+        }
+
+    }
+
+    .sidebar-overlay {
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(0,0,0,.1);
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 15;
+        opacity: 0;
+        visibility: hidden;
+        transition: all .3s;
+        
+
+        &.overlay__show {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
+    &__main {
+        position: relative;
+        margin-left: 27rem;
+        
+        @media screen and (max-width: 71.875em) {
+            margin-left: 0;
+        }
+    }
+}
+
+
+
+
+// .dashboard-layout {
+//     min-height: 100vh;
+//     // display: grid;
+//     // grid-template-columns: 27rem 1fr;
+//     // grid-template-rows: 12.8rem 1fr;
+
+//     @media screen and (max-width: 71.875em) {
+//         grid-template-columns: 1fr;
+//         display: flex;
+//         flex-direction: column;
+//         min-height: auto;
+//     }
+
+//     &__aside {
+//         // grid-column: 1/2;
+//         // grid-row: 1 / -1;
+//         // border-right: 1px solid #aaa;
+//         // background-color: #fff;
+
+//         position: fixed;
+//         top: 0;
+//         left: 0;
+//         width: 27rem;
+//         height: 100vh;
+//         background-color: #fff;
+
+
+//         @media screen and (max-width: 71.875em) {
+//             grid-column: initial;
+//             grid-row: initial;
+//             position: fixed;
+//             width: 27rem;
+//             height: 100vh;
+//             z-index: 20;
+//             transform: translateX(-27rem);
+//             transition: transform .2s;
+
+//             &.active {
+//                 transform: translateX(0);
+//             }
+//         }
+
+//     }
+
+//     &__nav,
+//     &__main {
+//         position: relative;
+//         grid-column: 2/3;
+//         display: none;
+
+//         // WHEN USING CSS GRID
+//         // @media screen and (max-width: 71.875em) {
+//         //     grid-column: 1 / -1;
+//         // }
+
+
+//     }
+
+//     // &__main {
+//     //     padding: 2.4rem;
+//     //     background-color: darken(#f6f6f6, 0%);
+//     //     position: relative;
+
+//     //     @media screen and (max-width: 71.875em) {
+//     //         // height: calc(100vh - 12.8rem);
+//     //     }
+//     // }
+// }

@@ -1,0 +1,138 @@
+@import './../../../sass/main.scss';
+
+.dashboard {
+    margin-top: 12.8rem;
+    margin-top: 7.2rem;
+    padding: 2.4rem;
+    background-color: #fafafa;
+}
+
+.notification {
+    width: 24rem;
+    height: 8rem;
+    background-color: #fff;
+    margin-top: 2rem;
+    border-radius: 2rem;
+    border-bottom-left-radius: 0;
+    padding: 1.5rem;
+
+    &__img {
+        font-size: 2rem;
+        font-weight: 700;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        background-color: #e11e6c;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    table {
+
+        tr td, tr th {
+            font-weight: 500;
+            font-size: 1.4rem;
+
+            
+        }
+
+
+        tr th {
+            color: #8A9099;
+        }
+
+        tr td {
+            color: #3F434A;
+        }
+    }
+}
+
+.loantr {
+    th,
+    td {
+        width: 15%;
+        text-align: left;
+    }
+
+    th:nth-child(2),
+    td:nth-child(2) {
+        width: 30%;
+    }
+
+    td {
+
+        &:nth-child(7) {
+            text-align: center;
+        }
+
+        div {
+            justify-content: center;
+            display: block;
+            position: relative;
+            
+                .dropdown {
+                    position: absolute;
+                    top: 3rem;
+                    right: 0;
+                    z-index: 5; 
+                    // display: block;
+                }
+            
+        }
+    }
+
+    span {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 7.9rem;
+        height: 2.8rem;
+        // min-width: 7.9rem;
+        font-weight: 500;
+        font-size: 1.4rem;
+        text-align: center;
+        border-radius: .5rem;
+
+        &.success {
+            color: #49C96D;
+            background-color: rgba( #49C96D, .1);
+        }
+
+        &.danger {
+            color: #FF3436;
+            background-color: rgba( #FF3436, .1);
+        }
+        &.pending {
+            color: #F9AC3B;
+            background-color: rgba(#F9AC3B, .1);
+        }
+
+        &.pending_disbursement {
+            background-color: rgba(#964B00, .1);
+            color: #964B00;
+            height: 3.3rem; 
+            width: 10rem;
+        }
+
+        .defaulted {
+            color: #FF3436;
+            background-color: rgba( #FF3436, .1);
+            font-weight: 600;
+        }
+    }
+
+    .dots {
+        font-size: 2rem;
+        width: 2.3rem;
+        height: 2.3rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+}
+
+
