@@ -62,13 +62,7 @@ function DashBoardAside({ onSidebarClose }) {
                 <DashMenuItem
                     text={'Dashboard'}
                     icon={grid}
-                link={'/dashboard'}
-                onCloseSidebar={onSidebarClose}
-                />
-                <DashMenuItem
-                    text={'Schools'}
-                    icon={childrenOnTeer}
-                    link={'/dashboard/schools'}
+                    link={'/dashboard'}
                     onCloseSidebar={onSidebarClose}
                 />
                 <DashMenuItem
@@ -77,26 +71,35 @@ function DashBoardAside({ onSidebarClose }) {
                     link={'/dashboard/loans'}
                     onCloseSidebar={onSidebarClose}
                 />
+                <DashMenuItem
+                    text={'Fees Payment'}
+                    icon={<i className={`fas fa-columns`} />}
+                    link={'/dashboard/loans/loan-rate'}
+                    onCloseSidebar={onSidebarClose}
+                />
+                <DashMenuItem
+                    text={'Schools'}
+                    icon={childrenOnTeer}
+                    link={'/dashboard/schools'}
+                    onCloseSidebar={onSidebarClose}
+                />
+                
                 {/* <DashMenuItem
                     text={'Debit Cards'}
                     icon={debitcard}
                     onCloseSidebar={onSidebarClose}
                 />
-                <DashMenuItem
-                    text={'Fees Payment'}
-                    icon={<i className={`fas fa-columns`} />}
-                    onCloseSidebar={onSidebarClose}
-                /> */}
-                <DashMenuItem
-                    text={'Users'}
-                    icon={user}
-                    link={'/dashboard/users'}
-                    onCloseSidebar={onSidebarClose}
-                />
+                 */}
                 <DashMenuItem
                     text={'Customers'}
                     icon={user}
                     link={'/dashboard/customers'}
+                    onCloseSidebar={onSidebarClose}
+                />
+                <DashMenuItem
+                    text={'Users'}
+                    icon={user}
+                    link={'/dashboard/users'}
                     onCloseSidebar={onSidebarClose}
                 />
                 <DashMenuItem

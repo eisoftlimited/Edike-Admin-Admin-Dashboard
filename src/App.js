@@ -23,6 +23,8 @@ import { useEffect } from 'react';
 import LoanDetail from './components/Dashboard/loan/LoanDetail';
 import EdukeLoader from './components/UI/EdikeLoader';
 import MainDash from './components/Dashboard/main/MainDash';
+import LoanInterest from './components/Dashboard/loan/LoanInterest';
+import UserProfile from './components/Dashboard/user/UserProfile';
 
 function App() {
 
@@ -89,6 +91,20 @@ function App() {
             element={
               <LoggedInScreen>
                 <DashBoardLoan />
+              </LoggedInScreen>
+            }
+          />
+          <Route path={'loans/loan-rate'}
+            element={
+              <LoggedInScreen>
+                <LoanInterest />
+              </LoggedInScreen>
+            }
+          />
+          <Route path={'profile'}
+            element={
+              <LoggedInScreen>
+                <UserProfile />
               </LoggedInScreen>
             }
           />

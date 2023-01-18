@@ -1,0 +1,97 @@
+.loan-interest {
+    background-color: #fafafa;
+    padding: 2.4rem;
+    margin-top: 7.2rem;
+    height: calc(100vh - 7.2rem);
+
+    &__inner {
+        background-color: #fff;
+        padding: 2rem;
+        height: 100%;
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .interest-form {
+            margin: 3rem 0;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .interest-control {
+            margin-right: 1.5rem;
+
+            label {
+                color: #627E84;
+                font-size: 1.4rem;
+                font-weight: 400;
+                display: block;
+                margin-bottom: .5rem;
+            }
+
+            .input-div {
+                position: relative;
+
+
+                input {
+                    padding: .8rem 1.6rem;
+                    font-size: 1.4rem;
+                    border-radius: 1rem;
+                    border: 1px solid #627E84;
+                    height: 4rem;
+                }
+
+                span {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    height: 100%;
+                    border-left: 1px solid #627E84;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 1.6rem;
+                    width: 3rem;
+                    padding: .8rem;
+                }
+            }
+
+            
+        }
+
+        .interest-btn {
+            padding: .8rem;
+            background-color: #47B88F;
+            display: inline-block;
+            width: 13.4rem;
+            height: 4rem;
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: #fff;
+            border-radius: 1rem;
+            cursor: pointer;
+        }
+
+        table {
+            margin-top: 1.5rem;
+            width: auto;
+
+            td,th {
+                
+                &:first-child {
+                    width: 10rem;
+                }
+
+                &:nth-child(2) {
+                    width: 15rem;
+                }
+
+                &:nth-child(3) {
+                    width: 20rem;
+                }
+            }
+        }
+    }
+}
