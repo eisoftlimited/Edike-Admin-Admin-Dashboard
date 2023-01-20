@@ -24,7 +24,7 @@ import LoanDetail from './components/Dashboard/loan/LoanDetail';
 import EdukeLoader from './components/UI/EdikeLoader';
 import MainDash from './components/Dashboard/main/MainDash';
 import LoanInterest from './components/Dashboard/loan/LoanInterest';
-import UserProfile from './components/Dashboard/user/UserProfile';
+import UserProfile from './components/Dashboard/user/profile/UserProfile';
 
 function App() {
 
@@ -44,13 +44,20 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path={'/dashboard'} element={<DashBoardScreen />}>
-          <Route index 
+        <Route path='/'
           element={
-            <LoggedInScreen>
-            <MainDash />
-            </LoggedInScreen>
-          } 
+            <LoggedOutScreen>
+              <LoginScreen />
+            </LoggedOutScreen>
+          }
+        />
+        <Route path={'/dashboard'} element={<DashBoardScreen />}>
+          <Route index
+            element={
+              <LoggedInScreen>
+                <MainDash />
+              </LoggedInScreen>
+            }
           />
           <Route path={'beneficiaries'} element={<DashBeneficiaries />} />
           <Route path={'users'}

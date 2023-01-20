@@ -1,5 +1,6 @@
 import classes from './Options.module.scss';
 import Wall from './../../img/Wall.svg';
+import Delete from './../../img/Delete.svg';
 
 function Options({ isRecent, isUser, className, onDeleteUser, onEditUser, onBlockUser, onViewUser, status, onActivateUser, isLoan, isCustomer }) {
 
@@ -48,6 +49,56 @@ function Options({ isRecent, isUser, className, onDeleteUser, onEditUser, onBloc
                     if(e.currentTarget.previousElementSibling) e.currentTarget.previousElementSibling.style.display = 'none';
                 }}></div> */}
             </>
+        );
+    }
+
+    if (isLoan) { // Delete
+        return (
+            <ul className={`${classes.options} ${className ? className : ''}`} onClick={menuHandler}>
+                <li>
+                    <div style={{ justifyContent: 'flex-start' }}>
+                        <button onClick={onViewUser}><i className={`far fa-eye`} style={{ width: '2rem', marginRight: '.7rem' }} /> View</button>
+                    </div>
+                </li>
+                <li>
+                    <div style={{ justifyContent: 'flex-start' }}>
+                        <button style={{ display: 'flex', alignItems: 'center', color: '#FF3436' }} onClick={onBlockUser}>
+                            <img src={Delete} alt='' style={{ width: '2rem', marginRight: '.7rem' }} />Decline
+                        </button>
+                    </div>
+                </li>
+                <li>
+                    <div style={{ justifyContent: 'flex-start' }}>
+                        <button style={{ color: '#111', display: 'flex', alignItems: 'center' }} onClick={onActivateUser}>
+                            <img src={Wall} alt='' style={{ width: '2rem', marginRight: '.7rem' }} />Approve
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        );
+    }
+
+    if(isCustomer) {
+        return (
+            <ul className={`${classes.options} ${className ? className : ''}`} onClick={menuHandler}>
+                <li>
+                    <div style={{ justifyContent: 'flex-start' }}>
+                        <button onClick={onViewUser}><i className={`far fa-eye`} style={{ width: '2rem', marginRight: '.7rem' }} /> View</button>
+                    </div>
+                </li>
+                <li>
+                    <div style={{ justifyContent: 'flex-start' }}>
+                        <button style={{ display: 'flex', alignItems: 'center', color: '#111' }} onClick={onBlockUser}>
+                            <img src={Wall} alt='' style={{ width: '2rem', marginRight: '.7rem' }} />Block
+                        </button>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <button onClick={onDeleteUser}><i className={`fas fa-trash`} /> Delete</button>
+                    </div>
+                </li>
+            </ul>
         );
     }
 

@@ -266,6 +266,7 @@ function CustomerDash() {
                                         </div>
 
                                         <Options
+                                            isCustomer={true}
                                             status={user.status}
                                             // status={'blocked'}
                                             className={classes.dropdown}
@@ -281,7 +282,7 @@ function CustomerDash() {
                                                 setCrud('edit');
                                                 // dispatch(getSchoolActions.resetGetSchoolState());
                                                 setSelectedId(user._id);
-                                                setShowDrawer(true);
+                                                setShowDrawer(false);
                                             }}
                                             onBlockUser={() => {
                                                 setBlockModal(true);

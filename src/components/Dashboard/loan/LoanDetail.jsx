@@ -132,6 +132,7 @@ function LoanDetail() {
                 showSearchNav={false}
             />
             <div className={classes['loan-detail']}>
+            <Link to='/dashboard/loans' style={{fontSize: '3rem', display: 'inline-block', marginBottom:'1.5rem'}}><i className="fas fa-long-arrow-left"></i></Link>
                 <h1 className={classes['loan-detail__heading']}>Customer Details</h1>
                 <table>
                     <thead>
@@ -195,12 +196,12 @@ function LoanDetail() {
                 <div className={classes['loan-detail__box']}>
                     <div className={classes['loan-detail__box--item1']}>Credrails Report</div>
                 </div>
-                <h1 className={classes['loan-detail__heading']}>Admin Comment</h1>
+                {/* <h1 className={classes['loan-detail__heading']}>Admin Comment</h1>
                 <div className={classes['loan-detail__box']}>
                     <div className={classes['loan-detail__box--item2']}>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
                     </div>
-                </div>
+                </div> */}
                 <div className={classes['loan-detail__btns']}>
                     <button onClick={() => setDeclineModal(true)} type='button'>Decline</button>
                     <button onClick={() => setActivateModal(true)} type='button'>Approve</button>

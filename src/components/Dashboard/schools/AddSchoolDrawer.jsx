@@ -124,11 +124,11 @@ function AddSchoolDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, school
         if (e.target.value.length === 0) {
             e.target.style.borderColor = '#FAA61A';
             e.target.parentElement.previousElementSibling.style.color = '#B2B2B2';
-            e.target.style.color = '#B2B2B2';
+            e.target.style.color = 'rgb(18, 10, 0)';
         } else {
             e.target.style.borderColor = '#B2B2B2';
             e.target.parentElement.previousElementSibling.style.color = '#B2B2B2';
-            e.target.style.color = '#B2B2B2';
+            e.target.style.color = 'rgb(18, 10, 0)';
         }
     };
 

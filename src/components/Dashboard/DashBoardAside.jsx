@@ -67,13 +67,13 @@ function DashBoardAside({ onSidebarClose }) {
                 />
                 <DashMenuItem
                     text={'Loan Management'}
-                    icon={moneystack}
+                    icon={debitcard}
                     link={'/dashboard/loans'}
                     onCloseSidebar={onSidebarClose}
                 />
                 <DashMenuItem
                     text={'Fees Payment'}
-                    icon={<i className={`fas fa-columns`} />}
+                    icon={moneystack}
                     link={'/dashboard/loans/loan-rate'}
                     onCloseSidebar={onSidebarClose}
                 />

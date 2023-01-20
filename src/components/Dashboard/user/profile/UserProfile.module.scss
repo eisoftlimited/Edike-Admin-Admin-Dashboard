@@ -1,0 +1,36 @@
+.user-profile {
+    margin-top: 7.2rem;
+    background-color: #fafafa;
+    height: calc(100vh - 7.2rem);
+    padding: 2.4rem;
+
+    &__inner {
+        background-color: #fff;
+        padding: 2rem;
+    }
+
+
+
+    .user__nav {
+        display: flex;
+        align-items: center;
+
+        button {
+            display: inline-block;
+            width: 16.2rem;
+            height: 3.5rem;
+            border-radius: .4rem;
+            font-size: 1.6rem;
+            font-weight: 600;
+            background-color: #fff;
+            color: #B2B3B3;
+            margin-right: 2rem;
+            cursor: pointer;
+
+            &.active {
+                background-color: #47B88F;
+                color: #f6f6f6;
+            }
+        }
+    }
+}

@@ -1,6 +1,6 @@
 import DashBoardNav from '../DashBoardNav';
 import classes from './CustomerDetail.module.scss';
-import { useOutletContext, useParams } from 'react-router-dom';
+import { Link, useOutletContext, useParams } from 'react-router-dom';
 import avatar from './../../../img/avatar.svg';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
@@ -91,7 +91,7 @@ function CustomerDetail() {
             />
             <div className={classes['customer-detail']}>
                 <div className={classes['customer-detail__inner']}>
-
+                    <Link to='/dashboard/customers' style={{fontSize: '3rem', display: 'inline-block'}}><i className="fas fa-long-arrow-left"></i></Link>
                     <div className={classes['customer-detail__group']}>
                         <h1 className={classes['customer-detail__heading']}>Customer Details</h1>
                         <table>

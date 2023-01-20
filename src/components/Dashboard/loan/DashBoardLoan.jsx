@@ -27,23 +27,6 @@ function DashBoardLoan() {
     // THE OUTLET CONTEXT STATE
     const [openSideBarHandler] = useOutletContext();
 
-    const { state } = useLocation();
-
-
-    useEffect(() => {
-
-        if (state && state.loanType) {
-            if (state.loanType === 'running') {
-                console.log('Running');
-            } else if (state && state.loanType === 'settled') {
-                console.log('Settled');
-            } else if (state && state.loanType === 'default') {
-                console.log('Default');
-            }
-        }
-
-    }, [state]);
-
     // USENAVIGATE STATE
     const navigate = useNavigate();
 
@@ -73,6 +56,23 @@ function DashBoardLoan() {
     // FILTER LOGIC
     const [filterBy, setFilterBy] = useState('all');
     const [filteredArray, setFilteredArray] = useState([]);
+
+    const { state } = useLocation();
+
+
+    useEffect(() => {
+
+        if (state && state.loanType) {
+            if (state.loanType === 'running') {
+                setFilterBy('ongoing');
+            } else if (state && state.loanType === 'settled') {
+                setFilterBy('completed');
+            } else if (state && state.loanType === 'default') {
+                setFilterBy('pending');
+            }
+        }
+
+    }, [state]);
 
     useEffect(() => {
         // // THIS IS FOR FILTERING BUTTON CLICK

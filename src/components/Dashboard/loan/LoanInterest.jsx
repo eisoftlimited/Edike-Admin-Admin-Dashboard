@@ -22,16 +22,16 @@ function LoanInterest() {
 
                     <form onSubmit={e => e.preventDefault()} className={classes['interest-form']}>
                         <div className={classes['interest-control']}>
-                            <label>Phone</label>
+                            <label htmlFor='loanrate'>Rate</label>
                             <div className={classes['input-div']}>
-                                <input type='text' placeholder='e.g 5' />
+                                <input id='loanrate' type='text' placeholder='e.g 5' />
                                 <span>%</span>
                             </div>
                         </div>
                         <button class={classes['interest-btn']}>Update</button>
                     </form>
 
-                    <h2>Rate History</h2>
+                    {/* <h2>Rate History</h2>
                     <table>
                         <thead>
                             <tr>
@@ -47,7 +47,7 @@ function LoanInterest() {
                                 <td>Blossom Johnson</td>
                             </tr>
                         </tbody>
-                    </table>
+                    </table> */}
                 </div>
             </div>
         </>
