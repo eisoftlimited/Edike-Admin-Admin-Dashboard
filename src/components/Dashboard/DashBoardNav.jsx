@@ -2,6 +2,7 @@
 import { useSelector } from 'react-redux';
 import classes from './DashBoardNav.module.scss';
 import userAvatar from './../../img/userAvatar.svg';
+import { Link } from 'react-router-dom';
 
 function DashBoardNav({ searchPlaceholder='Search', navTitle, onOpenSidebar, onAddSchool, btnText, showSearchNav = true, search, showPlusIcon = true }) {
     const { user,
@@ -22,7 +23,7 @@ function DashBoardNav({ searchPlaceholder='Search', navTitle, onOpenSidebar, onA
                     <span className={classes['bell']}>
                         <i className={`far fa-bell`} />
                     </span>
-                    <div className={classes['user']}>
+                    <Link to='/dashboard/profile' className={classes['user']}>
                         <div className={classes['avatar']}>
                             {
                                 user && user.profileImage ?
@@ -32,7 +33,7 @@ function DashBoardNav({ searchPlaceholder='Search', navTitle, onOpenSidebar, onA
                         </div>
                         <h4>{user && user.firstname} {user && user.lastname}</h4>
                         <span><i className={`fas fa-caret-down`} /></span>
-                    </div>
+                    </Link>
                 </div>
             </div>
             {showSearchNav && <div className={classes['dash-search']}>

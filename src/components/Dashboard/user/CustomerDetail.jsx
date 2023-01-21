@@ -91,7 +91,7 @@ function CustomerDetail() {
             />
             <div className={classes['customer-detail']}>
                 <div className={classes['customer-detail__inner']}>
-                    <Link to='/dashboard/customers' style={{fontSize: '3rem', display: 'inline-block'}}><i className="fas fa-long-arrow-left"></i></Link>
+                    <Link to='/dashboard/customers' style={{fontSize: '3rem', display: 'inline-block', color: '#111'}}><i className="fas fa-long-arrow-left"></i></Link>
                     <div className={classes['customer-detail__group']}>
                         <h1 className={classes['customer-detail__heading']}>Customer Details</h1>
                         <table>
@@ -219,7 +219,7 @@ function CustomerDetail() {
                                 })}
                             </tbody>
                         </table>)}
-                        {transactions.length === 0 && <NotFoundPlaceholder title='Transactions to Display' />}
+                        {transactions.length === 0 && <NotFoundPlaceholder title='Transactions to Display'>This user has not perform any transaction.</NotFoundPlaceholder>}
                     </div>
                 </div>
             </div>

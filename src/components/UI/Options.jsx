@@ -25,19 +25,18 @@ function Options({ isRecent, isUser, className, onDeleteUser, onEditUser, onBloc
         return (
             <>
                 <ul className={`${classes.options} ${className ? className : ''}`} onClick={menuHandler}>
-                    {status === 'active' && (<li>
+                    <li>
                         <div>
                             <button onClick={onBlockUser}><i className={`fas fa-th-large`} /> Block</button>
                         </div>
-                    </li>)}
-                    {status === 'blocked' && (<li>
+                    </li>
+                    <li>
                         <div>
                             <button style={{ display: 'flex', alignItems: 'center' }} onClick={onActivateUser}>
                                 <img src={Wall} alt='' style={{ width: '2rem', marginRight: '.7rem' }} />Activate
                             </button>
-                            {/* <i className={`fas fa-th-large`} />  */}
                         </div>
-                    </li>)}
+                    </li>
                     <li>
                         <div>
                             <button onClick={onDeleteUser}><i className={`fas fa-trash`} /> Delete</button>
@@ -78,7 +77,7 @@ function Options({ isRecent, isUser, className, onDeleteUser, onEditUser, onBloc
         );
     }
 
-    if(isCustomer) {
+    if (isCustomer) {
         return (
             <ul className={`${classes.options} ${className ? className : ''}`} onClick={menuHandler}>
                 <li>
@@ -94,8 +93,17 @@ function Options({ isRecent, isUser, className, onDeleteUser, onEditUser, onBloc
                     </div>
                 </li>
                 <li>
-                    <div>
-                        <button onClick={onDeleteUser}><i className={`fas fa-trash`} /> Delete</button>
+                    <div style={{ justifyContent: 'flex-start' }}>
+                        <button style={{ display: 'flex', alignItems: 'center', color: '#111' }} onClick={onActivateUser}>
+                            <img src={Wall} alt='' style={{ width: '2rem', marginRight: '.7rem' }} />Activate
+                        </button>
+                    </div>
+                </li>
+                <li>
+                    <div style={{ justifyContent: 'flex-start' }}>
+                        <button style={{ display: 'flex', alignItems: 'center', color: '#FF3436' }} onClick={onDeleteUser}>
+                            <img src={Delete} alt='' style={{ width: '2rem', marginRight: '.7rem' }} /> Delete
+                        </button>
                     </div>
                 </li>
             </ul>

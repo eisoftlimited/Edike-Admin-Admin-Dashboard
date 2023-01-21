@@ -91,12 +91,14 @@ const authSlice = createSlice({
             state.token = action.payload && action.payload.token;
             localStorage.removeItem('edike-admin-email');
             localStorage.setItem('edike-admin-token', action.payload.token);
+            // localStorage.setItem('expires-in', JSON.stringify(Date.now() + (1.9 * 60 * 60 * 1000)));
             // console.log(action.payload);
         })
         builder.addCase(activateUser.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload && action.payload.msg;
         })
+        
 
         // LOAD ADMIN
         builder.addCase(loadAdmin.pending,  (state, action) => {

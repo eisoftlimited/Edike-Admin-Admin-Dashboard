@@ -13,6 +13,7 @@ import LoadingScreen from '../../UI/LoadingScreen';
 import { toast } from 'react-toastify';
 import { declineLoanActions, loanDecline } from '../../../store/loan/declineLoanSlice';
 import { approveLoanActions, loanApproval } from '../../../store/loan/approveLoanSlice';
+import MyPDF from './LoanPDF';
 
 function LoanDetail() {
 
@@ -132,7 +133,7 @@ function LoanDetail() {
                 showSearchNav={false}
             />
             <div className={classes['loan-detail']}>
-            <Link to='/dashboard/loans' style={{fontSize: '3rem', display: 'inline-block', marginBottom:'1.5rem'}}><i className="fas fa-long-arrow-left"></i></Link>
+            <Link to='/dashboard/loans' style={{fontSize: '3rem', display: 'inline-block', marginBottom:'1.5rem', color: '#111'}}><i className="fas fa-long-arrow-left"></i></Link>
                 <h1 className={classes['loan-detail__heading']}>Customer Details</h1>
                 <table>
                     <thead>
@@ -195,6 +196,7 @@ function LoanDetail() {
                 <h1 className={classes['loan-detail__heading']}>Cred Rails Report</h1>
                 <div className={classes['loan-detail__box']}>
                     <div className={classes['loan-detail__box--item1']}>Credrails Report</div>
+                    <MyPDF />
                 </div>
                 {/* <h1 className={classes['loan-detail__heading']}>Admin Comment</h1>
                 <div className={classes['loan-detail__box']}>

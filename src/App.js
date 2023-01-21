@@ -38,6 +38,8 @@ function App() {
     dispatch(authActions.setToken({ token }));
   }, [dispatch]);
 
+  
+
 
 
 
@@ -110,9 +112,9 @@ function App() {
           />
           <Route path={'profile'}
             element={
-              <LoggedInScreen>
+              // <LoggedInScreen>
                 <UserProfile />
-              </LoggedInScreen>
+              // </LoggedInScreen>
             }
           />
           <Route path={'loans/:loanId/:loanmainId'}

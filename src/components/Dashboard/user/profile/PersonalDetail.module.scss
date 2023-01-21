@@ -1,11 +1,33 @@
 .personal-detail {
     display: flex;
     align-items: flex-start;
+    margin-top: 3rem;
 
 
     &__img {
         width: 20rem;
         height: 20rem;
-        
+        background-color: #3F434A;
+        margin-right: 4rem;
+        border-radius: 1rem;
+    }
+
+    &__form {
+        width: 40rem;
+    }
+
+    &__heading {
+        text-align: left;
+        font-weight: 500;
+        color: #3F434A;
+        font-size: 2.2rem;
+    }
+
+    &__description {
+        font-size: 1.4rem;
+        font-weight: 400;
+        color: #5F6165;
+        margin-bottom: 1rem;
+        text-align: left;
     }
 }
