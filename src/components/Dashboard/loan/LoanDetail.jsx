@@ -23,7 +23,7 @@ function LoanDetail() {
     const { loanId, loanmainId } = useParams();
     const { token } = useSelector(state => state.auth);
     const { loan, user } = useSelector(state => state.getSingleLoan);
-    const { beneficiaryDetails, beneficiary_amount, status, beneficiary_duration } = (loan && loan[0]) || [];
+    const { beneficiaryDetails, beneficiary_amount, status, beneficiary_duration, pdf } = (loan && loan[0]) || [];
     const ben = (beneficiaryDetails && beneficiaryDetails[0]) || [];
     // const secureUrl = beneficiary_file_results;
 
@@ -195,8 +195,10 @@ function LoanDetail() {
                 </div>
                 <h1 className={classes['loan-detail__heading']}>Cred Rails Report</h1>
                 <div className={classes['loan-detail__box']}>
-                    <div className={classes['loan-detail__box--item1']}>Credrails Report</div>
-                    <MyPDF />
+                    <div className={classes['loan-detail__box--item1']}>
+                        {/* Credrails Report */}
+                        <MyPDF pdfLink={pdf} />
+                    </div>
                 </div>
                 {/* <h1 className={classes['loan-detail__heading']}>Admin Comment</h1>
                 <div className={classes['loan-detail__box']}>

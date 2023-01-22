@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { Document, Page } from 'react-pdf';
+import { Document, Page, pdfjs } from 'react-pdf';
 
-function MyPDF() {
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+
+
+function MyPDF({pdfLink}) {
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
 
@@ -11,7 +14,11 @@ function MyPDF() {
 
   return (
     <div>
-      <Document file="https://firebasestorage.googleapis.com/v0/b/edike-storage.appspot.com/o/Ariri%20-%20Theresa%20-%201674215100511?alt=media&token=5dc4a881-6c1d-4cdb-877d-7da0686bf19c" onLoadSuccess={onDocumentLoadSuccess}>
+      <Document file={{
+        url: pdfLink
+      }} onLoadSuccess={onDocumentLoadSuccess} onLoadError={()=> {
+        console.log('Error');
+      }}>
         <Page pageNumber={pageNumber} />
       </Document>
       <p>
