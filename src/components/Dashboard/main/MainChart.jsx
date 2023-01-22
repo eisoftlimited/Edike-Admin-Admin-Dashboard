@@ -1,4 +1,7 @@
 import classes from './MainChart.module.scss';
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css"
 
 import {
     Chart as ChartJS,
@@ -11,6 +14,7 @@ import {
   } from 'chart.js';
   import { Bar } from 'react-chartjs-2';
   import { faker } from '@faker-js/faker';
+import { useState } from 'react';
 
   ChartJS.register(
     CategoryScale,
@@ -58,9 +62,17 @@ import {
   };
 
 function MainChart({className}) {
+
+  const [startDate, setStartDate] = useState(new Date());
+
+
     return ( 
         <div className={`${classes['main-chart']} ${className ? className : ''}`}>
-            <h2>Customers Growth</h2>
+            <div className={classes['main-chart__row']}>
+              <h2>Customers Growth</h2>
+              {/* <input type='date' /> */}
+              <DatePicker className={classes['date-picker']} selected={startDate} onChange={(date) => setStartDate(date)} />
+            </div>
             <Bar options={options} data={data} />
         </div>
      );

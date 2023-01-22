@@ -12,12 +12,12 @@
 }
 
 .loan-detail {
-    padding: 4rem;  
+    padding: 4rem;
     background-color: #fafafa;
     padding: 2.4rem;
     margin-top: 7.2rem;
     min-height: calc(100vh - 7.2rem);
-    
+
 
     &__heading {
         font-size: 2rem;
@@ -124,8 +124,39 @@
             }
 
             &:last-child {
-                background-color: #47B88F;            
+                background-color: #47B88F;
             }
+        }
+    }
+
+    span {
+
+        &.success {
+            color: #49C96D;
+            // background-color: rgba(#49C96D, .1);
+        }
+
+        &.danger {
+            color: #FF3436;
+            // background-color: rgba(#FF3436, .1);
+        }
+
+        &.pending {
+            color: #F9AC3B;
+            // background-color: rgba(#F9AC3B, .1);
+        }
+
+        &.pending_disbursement {
+            // background-color: rgba(#964B00, .1);
+            color: #964B00;
+            height: 3.3rem;
+            width: 10rem;
+        }
+
+        &.defaulted {
+            color: #FF3436;
+            // background-color: rgba(#FF3436, .1);
+            font-weight: 600;
         }
     }
 }

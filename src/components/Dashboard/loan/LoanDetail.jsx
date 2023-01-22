@@ -28,8 +28,8 @@ function LoanDetail() {
     // const secureUrl = beneficiary_file_results;
 
     // console.log({user});
-    
-    const {state} = useLocation();
+
+    const { state } = useLocation();
 
     const dispatch = useDispatch();
 
@@ -77,7 +77,7 @@ function LoanDetail() {
         }
 
 
-        return ()=> {
+        return () => {
             clearTimeout(interval);
         }
 
@@ -92,11 +92,11 @@ function LoanDetail() {
     const approveLoanHandler = () => {
         setActivateModal(false);
 
-        if(!status) {
+        if (!status) {
             return;
         }
 
-        if(status && status === 'ongoing') {
+        if (status && status === 'ongoing') {
             return toast('Loan already approved');
         }
         dispatch(loanApproval({ token, id: loanmainId }));
@@ -104,6 +104,11 @@ function LoanDetail() {
 
     const declineLoanHandler = () => {
         setDeclineModal(false);
+
+        // if(!token) {
+        //     return;
+        // }
+
         dispatch(loanDecline({ token, id: loanmainId }));
     };
 
@@ -133,7 +138,7 @@ function LoanDetail() {
                 showSearchNav={false}
             />
             <div className={classes['loan-detail']}>
-            <Link to='/dashboard/loans' style={{fontSize: '3rem', display: 'inline-block', marginBottom:'1.5rem', color: '#111'}}><i className="fas fa-long-arrow-left"></i></Link>
+                <Link to='/dashboard/loans' style={{ fontSize: '3rem', display: 'inline-block', marginBottom: '1.5rem', color: '#111' }}><i className="fas fa-long-arrow-left"></i></Link>
                 <h1 className={classes['loan-detail__heading']}>Customer Details</h1>
                 <table>
                     <thead>
@@ -187,7 +192,7 @@ function LoanDetail() {
                     </li>
                     <li>
                         <strong>Loan Status</strong>
-                        <span>{status ? status : ''}</span>
+                        <span className={classes[status]}>{status ? status : ''}</span>
                     </li>
                 </ul>
                 <div>
@@ -197,7 +202,7 @@ function LoanDetail() {
                 <div className={classes['loan-detail__box']}>
                     <div className={classes['loan-detail__box--item1']}>
                         {/* Credrails Report */}
-                        <MyPDF pdfLink={pdf} />
+                        {false && <MyPDF pdfLink={pdf} />}
                     </div>
                 </div>
                 {/* <h1 className={classes['loan-detail__heading']}>Admin Comment</h1>
@@ -219,7 +224,7 @@ function LoanDetail() {
                 <LoanApproveModal
                     onCloseModal={() => setActivateModal(false)}
                     isModalVisible={showActivateModal}
-                    onConfirmClick={()=> {
+                    onConfirmClick={() => {
                         approveLoanHandler();
                     }}
                     onCancelClick={() => setActivateModal(false)}

@@ -90,7 +90,9 @@ function LoanInterest() {
             <div className={classes['loan-interest']}>
                 <div className={classes['loan-interest__inner']}>
                     <h2>Loan Interest Rate (Monthly)</h2>
-
+                    <div style={{fontSize: '2rem', marginTop: '2rem'}}>
+                                Current Rate: {postData && (postData * 100)}%
+                            </div>
                     <form
                         onSubmit={async e => {
                             e.preventDefault();
@@ -101,7 +103,7 @@ function LoanInterest() {
                         <div className={classes['interest-control']}>
                             <label htmlFor='loanrate'>Rate</label>
                             <div className={classes['input-div']}>
-                                <input value={loanRate} onChange={setLoanRateHandler} id='loanrate' type='text' placeholder={`e.g ${postData ? (postData * 100) : 5}`} />
+                                <input autoComplete='off' value={loanRate} onChange={setLoanRateHandler} id='loanrate' type='text' placeholder={`e.g ${postData ? (postData * 100) : 5}`} />
                                 <span>%</span>
                             </div>
                         </div>

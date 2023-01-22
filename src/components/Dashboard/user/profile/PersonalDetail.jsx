@@ -27,9 +27,7 @@ function PersonalDetail({ userDetail, selectedTab }) {
                                 placeholder: 'Enter first name here...',
                                 name: 'firstname',
                                 value: userDetail.firstname,
-                                // onChange: e => setFirstname(prevVal => {
-                                //     return { ...prevVal, value: e.target.value }
-                                // }),
+                                onChange: e => null,
                                 // onBlur: textOnBlurHandler,
                                 // onFocus: focusHandler
                             }}
@@ -42,9 +40,7 @@ function PersonalDetail({ userDetail, selectedTab }) {
                                 placeholder: 'Enter Last name here...',
                                 name: 'lastname',
                                 value: userDetail.lastname,
-                                // onChange: e => setFirstname(prevVal => {
-                                //     return { ...prevVal, value: e.target.value }
-                                // }),
+                                onChange: e => null,
                                 // onBlur: textOnBlurHandler,
                                 // onFocus: focusHandler
                             }}
@@ -57,9 +53,7 @@ function PersonalDetail({ userDetail, selectedTab }) {
                                 placeholder: 'Enter Email here...',
                                 name: 'email',
                                 value: userDetail.email,
-                                // onChange: e => setFirstname(prevVal => {
-                                //     return { ...prevVal, value: e.target.value }
-                                // }),
+                                onChange: e => null,
                                 // onBlur: textOnBlurHandler,
                                 // onFocus: focusHandler
                             }}
@@ -72,9 +66,7 @@ function PersonalDetail({ userDetail, selectedTab }) {
                                 placeholder: 'Enter phone here...',
                                 value: userDetail.phone,
                                 // name: 'phone_number',
-                                // onChange: e => setPhoneno(prevVal => {
-                                //     return { ...prevVal, value: e.target.value }
-                                // }),
+                                onChange: e => null,
                                 // onBlur: textOnBlurHandler,
                                 // onFocus: focusHandler
                             }}
@@ -98,9 +90,7 @@ function PersonalDetail({ userDetail, selectedTab }) {
                                 type: 'text',
                                 placeholder: 'EDI-01',
                                 value: userDetail.staffId || 'N/A',
-                                // onChange: e => setStaffNo(prevVal => {
-                                //     return { ...prevVal, value: e.target.value }
-                                // }),
+                                onChange: e => null,
                                 name: 'staff_number',
                                 // onBlur: textOnBlurHandler,
                                 // onFocus: focusHandler

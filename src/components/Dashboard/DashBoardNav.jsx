@@ -43,7 +43,7 @@ function DashBoardNav({ searchPlaceholder='Search', navTitle, onOpenSidebar, onA
                             <span className={classes['form-control__icon']} onClick={search && search.onClick}>
                                 <i className={`fas fa-search`} />
                             </span>
-                            <input value={search && search.value} onChange={search && search.onChange} placeholder={searchPlaceholder} className={classes['form-control__input']} />
+                            <input value={search.value} onChange={search && search.onChange} placeholder={searchPlaceholder} className={classes['form-control__input']} />
                         </div>
                         <button type='button' className={classes['form-btn']} onClick={onAddSchool}>{showPlusIcon && <i className={`far fa-plus`} />}{btnText}</button>
                     </div>

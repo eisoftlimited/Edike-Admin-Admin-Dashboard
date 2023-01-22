@@ -182,6 +182,30 @@ function DashBoardUsers() {
         return `${month}.${day}.${year}`;
     }
 
+    // FILTERING USEEFFECT
+
+    const [searchState, setSearchState] = useState('');
+    const [searchArray, setSearchArray] = useState([]);
+
+    useEffect(() => {
+        // THIS IS FOR FILTERING BY SEARCH TEXT
+
+        if (searchState.length === 0) {
+            // filterCustomerFunction();
+        } else if (searchState.length > 0) {
+            const filteredCustomer = filteredArray && filteredArray.filter(customer => {
+                const regex = new RegExp(searchState);
+                return (customer.name && customer.name.match(regex)) || (customer.email && customer.email.match(regex));
+            });
+            setSearchArray(filteredCustomer);
+        }
+    }, [searchState, filteredArray]);
+
+    let displayArray = filteredArray;
+
+    if(searchState.length > 0) {
+        displayArray = searchArray;
+    }
 
 
     return (
@@ -205,6 +229,20 @@ function DashBoardUsers() {
                 onAddSchool={drawerDisplayHandler}
                 onOpenSidebar={openSideBarHandler}
                 btnText='Add User'
+                search={{
+                    value: searchState,
+                    onChange: e => {
+
+                        if(e.target.value.includes('\\')) {
+                            return;
+                        }
+
+                        setSearchState(e.target.value)
+                    },
+                    onClick: e => {
+                        console.log('Button Clicked');
+                    }
+                }}
             />
             <div className={classes['dashboard-user']}>
                 {!allUsers.loading && allUsers.allUsers && <>
@@ -215,12 +253,15 @@ function DashBoardUsers() {
                         blockedAmount={allUsers.blockedUsers && allUsers.blockedUsers.length}
 
                         onActive={() => {
+                            setSearchState('');
                             setFilterBy('active');
                         }}
                         onAll={() => {
+                            setSearchState('');
                             setFilterBy('all');
                         }}
                         onBlocked={() => {
+                            setSearchState('');
                             setFilterBy('blocked');
                         }}
                         
@@ -235,7 +276,8 @@ function DashBoardUsers() {
                             <th>Date</th>
                             <th>Status</th>
                         </tr>
-                        {filteredArray && filteredArray.map((user) => (
+                        {displayArray && displayArray.map((user) => (
+                        // {filteredArray && filteredArray.map((user) => (
                             <tr key={user._id}>
                                 <td className={classes['table-data']}><input type="checkbox" name="" id="" /></td>
                                 <td className={classes['table-data']}>

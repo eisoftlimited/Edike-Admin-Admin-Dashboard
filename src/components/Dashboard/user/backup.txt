@@ -79,7 +79,8 @@ function CustomerDash() {
     const [filterBy, setFilterBy] = useState('all');
     const [filteredArray, setFilteredArray] = useState([]);
 
-    function filterCustomerFunction() {
+    // FILTERING USEEFFECT
+    useEffect(() => {
         if (filterBy === 'all') {
             setFilteredArray(allUsers.allUsers || []);
         } else if (filterBy === 'active') {
@@ -87,12 +88,6 @@ function CustomerDash() {
         } else if (filterBy === 'blocked') {
             setFilteredArray(allUsers.blockedUsers || []);
         }
-    }
-
-
-    // FILTERING USEEFFECT
-    useEffect(() => {
-        filterCustomerFunction();
     }, [filterBy, allUsers]);
 
     // USEEFFECT CODES
@@ -181,31 +176,6 @@ function CustomerDash() {
         return `${month}.${day}.${year}`;
     }
 
-    // FILTERING USEEFFECT
-
-    const [searchState, setSearchState] = useState('');
-    const [searchArray, setSearchArray] = useState([]);
-
-    useEffect(() => {
-        // THIS IS FOR FILTERING BY SEARCH TEXT
-
-        if (searchState.length === 0) {
-            // filterCustomerFunction();
-        } else if (searchState.length > 0) {
-            const filteredCustomer = filteredArray && filteredArray.filter(customer => {
-                const regex = new RegExp(searchState);
-                return (customer.name && customer.name.match(regex)) || (customer.email && customer.email.match(regex));
-            });
-            setSearchArray(filteredCustomer);
-        }
-    }, [searchState, filteredArray]);
-
-    let displayArray = filteredArray;
-
-    if(searchState.length > 0) {
-        displayArray = searchArray;
-    }
-
     return (
         <>
             {/* DELETED USERS TOAST COMPONENT */}
@@ -231,19 +201,6 @@ function CustomerDash() {
                 }}
                 onOpenSidebar={openSideBarHandler}
                 btnText='Search'
-
-                search={{
-                    value: searchState,
-                    onChange: e => {
-                        if(e.target.value.includes('\\')) {
-                            return;
-                        }
-                        setSearchState(e.target.value);
-                    },
-                    // onClick: e => {
-                    //     console.log('Button Clicked');
-                    // }
-                }}
             />
             <div className={classes['dashboard-user']}>
                 {!allUsers.loading && allUsers.allUsers && <>
@@ -253,19 +210,16 @@ function CustomerDash() {
                         blockedAmount={allUsers.blockedUsers && allUsers.blockedUsers.length}
 
                         onActive={() => {
-                            setSearchState('');
                             setFilterBy('active');
                         }}
                         onAll={() => {
-                            setSearchState('');
                             setFilterBy('all');
                         }}
                         onBlocked={() => {
-                            setSearchState('');
                             setFilterBy('blocked');
                         }}
-
-                        onExportTable={() => exportFileToExcel(filteredArray, 'Customers')}
+                        
+                        onExportTable={()=> exportFileToExcel(filteredArray, 'Customers')}
                     />
                     <DashTable pagination={false && <DashBoardPagination />}>
                         <tr>
@@ -276,8 +230,7 @@ function CustomerDash() {
                             <th>Date</th>
                             <th>Status</th>
                         </tr>
-                        {displayArray.map((user) => (
-                        // {filteredArray.map((user) => (
+                        {filteredArray.map((user) => (
                             <tr key={user._id}>
                                 <td className={classes['table-data']}><input type="checkbox" name="" id="" /></td>
                                 <td className={classes['table-data']}>
@@ -293,7 +246,7 @@ function CustomerDash() {
                                         </section>
                                     </div>
                                 </td>
-                                <td className={classes['table-data']}>{user.residence_address ? user.residence_address : '-'}</td>
+                                <td className={classes['table-data']}>{user.residence_address ?  user.residence_address : '-'}</td>
                                 <td className={classes['table-data']}>{user.phone}</td>
                                 <td className={classes['table-data']}>{user.createdAt && formatDate(user.createdAt)}</td>
                                 <td className={classes['table-data']}>
@@ -357,19 +310,19 @@ function CustomerDash() {
                     isModalVisible={showActivateModal}
                     onCloseModal={() => setActivateModal(false)}
                     onConfirmClick={activateUserHandler}
-                    onCancelClick={() => setActivateModal(false)}
+                    onCancelClick={()=> setActivateModal(false)}
                 />
                 <BlockModal
                     isModalVisible={showBlockModal}
                     onCloseModal={() => setBlockModal(false)}
                     onConfirmClick={blockUserHandler}
-                    onCancelClick={() => setBlockModal(false)}
+                    onCancelClick={()=> setBlockModal(false)}
                 />
                 <DeleteModal
                     onConfirmClick={deleteUserHandler}
                     isModalVisible={showDelModal}
                     onCloseModal={() => setDelModal(false)}
-                    onCancelClick={() => setDelModal(false)}
+                    onCancelClick={()=> setDelModal(false)}
                 />
                 <AddUserDrawer crudOperation={crud} isDrawerVisible={showDrawer} onCloseDrawer={drawerDisplayHandler} />
             </>
