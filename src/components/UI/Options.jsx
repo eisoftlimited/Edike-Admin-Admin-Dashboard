@@ -17,6 +17,20 @@ function Options({ isRecent, isUser, className, onDeleteUser, onEditUser, onBloc
                         <button onClick={onViewUser} style={{ color: '#333' }}><i className={`far fa-eye`} /> View</button>
                     </div>
                 </li>
+                <li>
+                    <div>
+                        <button style={{ display: 'flex', alignItems: 'center' }} onClick={onBlockUser}>
+                            <img src={Wall} alt='' style={{ width: '2rem', marginRight: '.7rem' }} />Decline
+                        </button>
+                    </div>
+                </li>
+                <li>
+                    <div style={{ justifyContent: 'flex-start' }}>
+                        <button style={{ display: 'flex', alignItems: 'center', color: '#111' }} onClick={onActivateUser}>
+                            <img src={Wall} alt='' style={{ width: '2rem', marginRight: '.7rem' }} />Activate
+                        </button>
+                    </div>
+                </li>
             </ul>
         )
     }

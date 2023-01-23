@@ -15,6 +15,8 @@ function LoanCard({ state, image, loanType }) {
 
     const token = useSelector(state => state.auth.token);
 
+    const allLoans = useSelector(state => state.getAllLoans.allLoans);
+
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [data, setData] = useState('');
@@ -50,7 +52,7 @@ function LoanCard({ state, image, loanType }) {
         }
 
         getAmount();
-    }, [token, loanType]);
+    }, [token, loanType, allLoans]);
 
     const val = state.charAt(0).toUpperCase() + state.slice(1);
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Document, Page, pdfjs } from 'react-pdf';
+import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
 
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+// pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 
 function MyPDF({pdfLink}) {
@@ -10,21 +10,21 @@ function MyPDF({pdfLink}) {
 
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
+    setPageNumber(1);
   }
 
   return (
-    <div>
-      <Document file={{
+    <>
+      {/* <Document file={{
         url: pdfLink
-      }} onLoadSuccess={onDocumentLoadSuccess} onLoadError={()=> {
-        console.log('Error');
-      }}>
-        <Page pageNumber={pageNumber} />
-      </Document>
+      }} onLoadSuccess={onDocumentLoadSuccess}>
+        <Page height={600} pageNumber={pageNumber} />
+      </Document> */}
       <p>
-        Page {pageNumber} of {numPages}
+        {/* Page {pageNumber} of {numPages} */}
       </p>
-    </div>
+      <p><a href={pdfLink} target={'_blank'} rel='noreferrer noopener'>Bank pdf</a></p>
+    </>
   );
 }
 

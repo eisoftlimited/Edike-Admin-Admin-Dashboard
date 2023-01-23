@@ -23,6 +23,7 @@ import ActivateModal from './ActivateModal';
 import { fetchBankList } from '../../../store/accountNum/listBanksSlice';
 import { activateSchool, activateSchoolActions } from '../../../store/schools/activateSchoolSlice';
 import { exportAsFile } from '../../../utils/exportFile';
+import avatar from './../../../img/avatar.svg';
 
 function DashBoardMain() {
     const token = useSelector(state => state.auth.token);
@@ -282,7 +283,8 @@ function DashBoardMain() {
                                     <td>
                                         <div>
                                             <span>
-                                                <img src={school.school_profile} alt={school.school_name + ' Photo'} />
+                                                {school.school_profile && <img src={school.school_profile} alt={school.school_name + ' Photo'} />}
+                                                {!school.school_profile && <img src={avatar} alt={school.school_name + ' Photo'} />}
                                             </span>
                                             <h3>{school.school_name}</h3>
                                         </div>

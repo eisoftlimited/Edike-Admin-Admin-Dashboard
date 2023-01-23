@@ -28,7 +28,8 @@ const getLoansSlice = createSlice({
         ongoingLoans: null,
         pendingLoans: null,
         declinedLoans: null,
-        completedLoans: null
+        completedLoans: null,
+        defaultedLoans: null
     },
     extraReducers: (builder => {
         builder.addCase(loanManagement.pending, state => {
@@ -45,6 +46,9 @@ const getLoansSlice = createSlice({
             const pendingLns = action.payload && action.payload.loans && action.payload.loans.filter(loan => {
                 return loan.status === 'pending';
             });
+            const defaultedLns = action.payload && action.payload.loans && action.payload.loans.filter(loan => {
+                return loan.status === 'defaulted';
+            });
 
             const declinedLns = action.payload && action.payload.loans && action.payload.loans.filter(loan => {
                 return loan.status === 'declined';
@@ -54,6 +58,7 @@ const getLoansSlice = createSlice({
                 return loan.status === 'completed';
             });
 
+            state.defaultedLoans = defaultedLns;
             state.ongoingLoans = ongoingLns; // ongoing
             state.pendingLoans = pendingLns;
             state.completedLoans = completedLns;

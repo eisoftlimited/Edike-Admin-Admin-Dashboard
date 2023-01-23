@@ -35,12 +35,12 @@ function DashBoardLoan() {
 
     // USESELECTOR STATES
     const loans = useSelector(state => state.getAllLoans);
-    const { ongoingLoans, pendingLoans, completedLoans, declinedLoans, allLoans } = useSelector(state => state.getAllLoans);
+    const { ongoingLoans, defaultedLoans, completedLoans, declinedLoans, allLoans } = useSelector(state => state.getAllLoans);
     const token = useSelector(state => state.auth.token);
     const approvedLoan = useSelector(state => state.approveLoan); // approveLoan
     const declinedLoan = useSelector(state => state.declineLoan);
 
-    // console.log({allLoans, ongoingLoans, pendingLoans, completedLoans, declinedLoans});
+    // console.log({allLoans, ongoingLoans, defaultedLoans, completedLoans, declinedLoans});
 
     // TOGGLE ALL AND DETAIL STATE
     const [showDetail, setShowDetail] = useState(false);
@@ -68,7 +68,7 @@ function DashBoardLoan() {
             } else if (state && state.loanType === 'settled') {
                 setFilterBy('completed');
             } else if (state && state.loanType === 'default') {
-                setFilterBy('pending');
+                setFilterBy('defaulted');
             }
         }
 
@@ -80,15 +80,15 @@ function DashBoardLoan() {
             setFilteredArray(allLoans || []);
         } else if (filterBy === 'ongoing') {
             setFilteredArray(ongoingLoans || []);
-        } else if (filterBy === 'pending') {
-            setFilteredArray(pendingLoans || []);
+        } else if (filterBy === 'defaulted') {
+            setFilteredArray(defaultedLoans || []);
         } else if (filterBy === 'completed') {
             setFilteredArray(completedLoans || []);
         } else if (filterBy === 'declined') {
             setFilteredArray(declinedLoans || []);
         }
 
-    }, [filterBy, ongoingLoans, pendingLoans, completedLoans, declinedLoans, allLoans]);
+    }, [filterBy, ongoingLoans, defaultedLoans, completedLoans, declinedLoans, allLoans]);
 
 
     const approveLoanHandler = () => {
@@ -209,9 +209,9 @@ function DashBoardLoan() {
                                     onAll={() => {
                                         setFilterBy('all');
                                     }}
-                                    defaultNum={pendingLoans && pendingLoans.length}
+                                    defaultNum={defaultedLoans && defaultedLoans.length}
                                     onDefault={() => {
-                                        setFilterBy('pending');
+                                        setFilterBy('defaulted');
                                     }}
                                     runningNum={ongoingLoans && ongoingLoans.length}
                                     onRunning={() => {

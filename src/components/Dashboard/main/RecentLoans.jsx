@@ -6,6 +6,8 @@ import { toast } from 'react-toastify';
 import { EDUKE_URL } from '../../../store/url';
 import Options from '../../UI/Options';
 import ToastComponent from '../../UI/ToastComponent';
+import LoanApproveModal from '../loan/LoanApproveModal';
+import LoanDeclineModal from './LoanDeclineModal';
 import classes from './RecentLoans.module.scss';
 
 function RecentLoans({ className }) {
@@ -65,6 +67,26 @@ function RecentLoans({ className }) {
     }
 
     const loanIdiy = 'EDI 00';
+
+
+    
+    // const [showDetail, setShowDetail] = useState(false);
+    // const [selectedId, setSelectedId] = useState('');
+    // const [showDeclineModal, setDeclineModal] = useState(false);
+    // const [showActivateModal, setActivateModal] = useState(false);
+
+    // const approveLoanHandler = () => {
+    //     setActivateModal(false);
+    //     if (loanStatus === 'ongoing') {
+    //         return toast('Loan already approved');
+    //     }
+    //     dispatch(loanApproval({ token, id: selectedId }));
+    // };
+
+    // const deactivateLoanHandler = () => {
+    //     setDeclineModal(false);
+    //     dispatch(loanDecline({ token, id: selectedId }));
+    // };
 
 
     return (
@@ -138,6 +160,22 @@ function RecentLoans({ className }) {
                     </tbody>
                 </table>
             </div>
+
+
+            {/* <LoanDeclineModal
+                    onCloseModal={() => setDeclineModal(false)}
+                    isModalVisible={showDeclineModal}
+                    onConfirmClick={declineLoanHandler}
+                    onCancelClick={() => setDeclineModal(false)}
+                /> */}
+                {/* <LoanApproveModal
+                    onCloseModal={() => setActivateModal(false)}
+                    isModalVisible={showActivateModal}
+                    onConfirmClick={() => {
+                        approveLoanHandler();
+                    }}
+                    onCancelClick={() => setActivateModal(false)}
+                /> */}
         </>
     );
 }

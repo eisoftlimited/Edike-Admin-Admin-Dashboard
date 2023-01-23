@@ -96,11 +96,7 @@ function AddSchoolDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, school
             dispatch(createSchool({ data: formData, token }));
         } else if (crudOperation === 'edit') {
             formData.delete('school_profile');
-            // console.log({schoolName, schoolLocation, phoneno, email, conFirstName,  schoolProfile, conLastName, conBank, conPhone, conAccNo, conAccName});
-
-            // for(let data of formData) {
-            //     console.log(`${data[0]}===${data[1]}`);
-            // }
+            
 
             dispatch(updateSchool({ token, id: schoolId, data: formData }));
         }
@@ -311,7 +307,7 @@ function AddSchoolDrawer({ onCloseDrawer, isDrawerVisible, crudOperation, school
                         }}
                     />
                     <input type='hidden' name='contact_bank_acct_name' value={conAccName} />
-                    {crudOperation !== 'edit' && (
+                    {false && crudOperation !== 'edit' && (
                         <>
                             <div style={{ display: `${toggleFile ? 'none' : 'block'}` }}>
                                 <FileUpload name='school_profile' value={schoolProfile} onChange={fileUploadHandler} />

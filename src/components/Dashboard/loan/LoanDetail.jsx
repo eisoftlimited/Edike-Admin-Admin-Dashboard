@@ -13,7 +13,7 @@ import LoadingScreen from '../../UI/LoadingScreen';
 import { toast } from 'react-toastify';
 import { declineLoanActions, loanDecline } from '../../../store/loan/declineLoanSlice';
 import { approveLoanActions, loanApproval } from '../../../store/loan/approveLoanSlice';
-import MyPDF from './LoanPDF';
+// import MyPDF from './LoanPDF';
 
 function LoanDetail() {
 
@@ -23,7 +23,7 @@ function LoanDetail() {
     const { loanId, loanmainId } = useParams();
     const { token } = useSelector(state => state.auth);
     const { loan, user } = useSelector(state => state.getSingleLoan);
-    const { beneficiaryDetails, beneficiary_amount, status, beneficiary_duration, pdf } = (loan && loan[0]) || [];
+    const { beneficiaryDetails, beneficiary_amount, status, beneficiary_duration, pdf, beneficiary_file_results } = (loan && loan[0]) || [];
     const ben = (beneficiaryDetails && beneficiaryDetails[0]) || [];
     // const secureUrl = beneficiary_file_results;
 
@@ -195,15 +195,15 @@ function LoanDetail() {
                         <span className={classes[status]}>{status ? status : ''}</span>
                     </li>
                 </ul>
-                <div>
-                    {/* <img src={null} /> */}
-                </div>
-                <h1 className={classes['loan-detail__heading']}>Cred Rails Report</h1>
+                <h1 className={classes['loan-detail__heading']}>Bank statement PDF</h1>
                 <div className={classes['loan-detail__box']}>
-                    <div className={classes['loan-detail__box--item1']}>
-                        {/* Credrails Report */}
-                        {false && <MyPDF pdfLink={pdf} />}
-                    </div>
+                    <a href={pdf} target={'_blank'} rel='noreferrer noopener' className={classes['loan-detail__box--item1']}>
+                        Bank statement PDF
+                    </a>
+                </div>
+                <h1 className={classes['loan-detail__heading']}>School bill invoice</h1>
+                <div className={classes['loan-detail__box']}>
+                    <img style={{width: '100%'}} src={beneficiary_file_results && beneficiary_file_results[0]?.secure_url}  alt='' />
                 </div>
                 {/* <h1 className={classes['loan-detail__heading']}>Admin Comment</h1>
                 <div className={classes['loan-detail__box']}>

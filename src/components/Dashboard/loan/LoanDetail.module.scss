@@ -86,6 +86,14 @@
         padding-top: 2rem;
         border-top: 1px solid #E8E9EB;
 
+        
+        // font-size: 4rem;
+        // font-weight: 700;
+        // height: 30rem;
+        // display: flex;
+        // align-items: center;
+        // justify-content: center;
+
         &--item1 {
             background-color: #D9D9D9;
             font-size: 4rem;
@@ -94,6 +102,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
+            text-decoration: none;
+            color: #fff;
         }
 
         &--item2 {
