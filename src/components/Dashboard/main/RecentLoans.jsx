@@ -1,8 +1,11 @@
 import axios from 'axios';
+import { useCallback } from 'react';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { approveLoanActions, loanApproval } from '../../../store/loan/approveLoanSlice';
+import { declineLoanActions, loanDecline } from '../../../store/loan/declineLoanSlice';
 import { EDUKE_URL } from '../../../store/url';
 import Options from '../../UI/Options';
 import ToastComponent from '../../UI/ToastComponent';
@@ -12,39 +15,71 @@ import classes from './RecentLoans.module.scss';
 
 function RecentLoans({ className }) {
 
+    const dispatch = useDispatch();
+
+    // USESELECTOR STATES
+
+    
+    // const loans = useSelector(state => state.getAllLoans);
+    // const { ongoingLoans, defaultedLoans, completedLoans, declinedLoans, allLoans } = useSelector(state => state.getAllLoans);
+
+
     const token = useSelector(state => state.auth.token);
+    const approvedLoan = useSelector(state => state.approveLoan);
+    const declinedLoan = useSelector(state => state.declineLoan);
 
     const navigate = useNavigate();
+    // Loan status state
+    const [loanStatus, setLoanStatus] = useState('');
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [loans, setLoans] = useState(null);
 
+    async function fetchLoans() {
+        setLoading(true);
+        try {
+            const response = await axios({
+                url: `${EDUKE_URL}/edike/api/v1/loans/admin/get-all-loans`,
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-admin-token': token
+                }
+            });
+
+            // console.log(response.data);
+            setLoading(false);
+            setLoans(response.data && response.data.loans.slice(0, 5));
+        } catch (err) {
+            setLoading(false);
+            setError(err.response && err.response.data);
+        }
+    }
+
+    const memoisedFetchLoans = useCallback(fetchLoans, [token]);
 
     useEffect(() => {
-        async function fetchLoans() {
-            setLoading(true);
-            try {
-                const response = await axios({
-                    url: `${EDUKE_URL}/edike/api/v1/loans/admin/get-all-loans`,
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'x-auth-admin-token': token
-                    }
-                });
+        memoisedFetchLoans();
+    }, [memoisedFetchLoans]);
 
-                // console.log(response.data);
-                setLoading(false);
-                setLoans(response.data && response.data.loans.slice(0, 5));
-            } catch (err) {
-                setLoading(false);
-                setError(err.response && err.response.data);
-            }
+
+
+    useEffect(() => {
+        if ((approvedLoan.loanApprovedMsg && approvedLoan.loanApprovedMsg.length > 0) ||
+            (declinedLoan.declineLoanMsg && declinedLoan.declineLoanMsg.length > 0)) {    
+                memoisedFetchLoans();
         }
+    }, [memoisedFetchLoans, approvedLoan, declinedLoan]);
 
-        fetchLoans();
-    }, [token]);
+
+
+
+
+
+
+
+
 
     useEffect(() => {
         let interval;
@@ -69,28 +104,88 @@ function RecentLoans({ className }) {
     const loanIdiy = 'EDI 00';
 
 
-    
+
     // const [showDetail, setShowDetail] = useState(false);
-    // const [selectedId, setSelectedId] = useState('');
-    // const [showDeclineModal, setDeclineModal] = useState(false);
-    // const [showActivateModal, setActivateModal] = useState(false);
+    const [selectedId, setSelectedId] = useState('');
+    const [showDeclineModal, setDeclineModal] = useState(false);
+    const [showActivateModal, setActivateModal] = useState(false);
 
-    // const approveLoanHandler = () => {
-    //     setActivateModal(false);
-    //     if (loanStatus === 'ongoing') {
-    //         return toast('Loan already approved');
-    //     }
-    //     dispatch(loanApproval({ token, id: selectedId }));
-    // };
+    const approveLoanHandler = () => {
+        setActivateModal(false);
+        if (loanStatus === 'ongoing') {
+            return toast('Loan already approved');
+        }
+        dispatch(loanApproval({ token, id: selectedId }));
+    };
 
-    // const deactivateLoanHandler = () => {
-    //     setDeclineModal(false);
-    //     dispatch(loanDecline({ token, id: selectedId }));
-    // };
+    const deactivateLoanHandler = () => {
+        setDeclineModal(false);
+        dispatch(loanDecline({ token, id: selectedId }));
+    };
+
+    useEffect(() => {
+
+        let interval;
+
+        if (approvedLoan.error && approvedLoan.error.length > 0) {
+            toast.error(<p>{approvedLoan.error}</p>);
+
+            interval = setTimeout(() => {
+                dispatch(approveLoanActions.resetApprovedState());
+            }, 5000);
+        }
+
+        if (approvedLoan.loanApprovedMsg && approvedLoan.loanApprovedMsg.length > 0) {
+            // console.log('Working...', approvedLoan.loanApprovedMsg);
+            toast.success(<p>{approvedLoan.loanApprovedMsg}</p>);
+            interval = setTimeout(() => {
+                dispatch(approveLoanActions.resetApprovedState());
+            }, 5000);
+        }
+
+        if (declinedLoan.error && declinedLoan.error.length > 0) {
+            toast.error(<p>{declinedLoan.error}</p>);
+
+            interval = setTimeout(() => {
+                dispatch(declineLoanActions.resetDeclineState());
+            }, 5000);
+        }
+
+        if (declinedLoan.declineLoanMsg && declinedLoan.declineLoanMsg.length > 0) {
+            toast.success(<p>{declinedLoan.declineLoanMsg}</p>);
+
+            interval = setTimeout(() => {
+                dispatch(declineLoanActions.resetDeclineState());
+            }, 5000);
+        }
+
+
+        return () => {
+            clearTimeout(interval);
+        }
+
+    }, [approvedLoan, declinedLoan, dispatch]);
 
 
     return (
         <>
+            <LoanDeclineModal
+                onCloseModal={() => setDeclineModal(false)}
+                isModalVisible={showDeclineModal}
+                onConfirmClick={deactivateLoanHandler}
+                onCancelClick={() => setDeclineModal(false)}
+            />
+            <LoanApproveModal
+                    onCloseModal={() => setActivateModal(false)}
+                    isModalVisible={showActivateModal}
+                    onConfirmClick={() => {
+                        approveLoanHandler();
+                    }}
+                    onCancelClick={() => setActivateModal(false)}
+                />
+
+
+
             <ToastComponent />
             <div className={`${classes['recent-loans']} ${className ? className : ''}`}>
                 <h2>Recent Loan Applications</h2>
@@ -151,6 +246,17 @@ function RecentLoans({ className }) {
                                                         }
                                                     });
                                                 }}
+
+                                                onBlockUser={() => {
+                                                    setSelectedId(loan._id);
+                                                    setDeclineModal(!showDeclineModal);
+                                                }}
+
+                                                onActivateUser={() => {
+                                                    setLoanStatus(loan.status);
+                                                    setSelectedId(loan._id);
+                                                    setActivateModal(!showActivateModal);
+                                                }}
                                             />
                                         </div>
                                     </td>
@@ -160,22 +266,6 @@ function RecentLoans({ className }) {
                     </tbody>
                 </table>
             </div>
-
-
-            {/* <LoanDeclineModal
-                    onCloseModal={() => setDeclineModal(false)}
-                    isModalVisible={showDeclineModal}
-                    onConfirmClick={declineLoanHandler}
-                    onCancelClick={() => setDeclineModal(false)}
-                /> */}
-                {/* <LoanApproveModal
-                    onCloseModal={() => setActivateModal(false)}
-                    isModalVisible={showActivateModal}
-                    onConfirmClick={() => {
-                        approveLoanHandler();
-                    }}
-                    onCancelClick={() => setActivateModal(false)}
-                /> */}
         </>
     );
 }
