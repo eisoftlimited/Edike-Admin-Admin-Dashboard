@@ -1,7 +1,20 @@
 import Button from './Button';
 import classes from './Modal.module.scss';
 
-function Modal({ title, description, cancelText, confirmText, onCloseModal, isModalVisible, onConfirmClick, onCancelClick, icon }) {
+function Modal({ title, description, cancelText, confirmText, onCloseModal, isModalVisible, onConfirmClick, onCancelClick, icon, isInfoDetail, infoDetail }) {
+
+    if (isInfoDetail) {
+        return (
+            <>
+                <div className={`${classes.modal} ${isModalVisible ? classes['modal--show'] : ''}`}>
+                    {infoDetail}
+                </div>
+                <div className={`${classes.modal__overlay} ${isModalVisible ? classes['modal__overlay--show'] : ''}`} onClick={onCloseModal}></div>
+            </>
+        );
+    }
+
+
     return (
         <>
             <div className={`${classes.modal} ${isModalVisible ? classes['modal--show'] : ''}`}>

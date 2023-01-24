@@ -13,6 +13,7 @@ import LoadingScreen from '../../UI/LoadingScreen';
 import { toast } from 'react-toastify';
 import { declineLoanActions, loanDecline } from '../../../store/loan/declineLoanSlice';
 import { approveLoanActions, loanApproval } from '../../../store/loan/approveLoanSlice';
+import ModalDetail from '../ModalDetail';
 // import MyPDF from './LoanPDF';
 
 function LoanDetail() {
@@ -35,6 +36,8 @@ function LoanDetail() {
 
     const [showActivateModal, setActivateModal] = useState(false);
     const [showDeclineModal, setDeclineModal] = useState(false);
+
+    const [showDetailModal, setDetailModal] = useState(false);
 
     const approvedLoan = useSelector(state => state.approveLoan);
     const declinedLoan = useSelector(state => state.declineLoan);
@@ -158,12 +161,12 @@ function LoanDetail() {
                                             : <img src={null} alt='' />
                                         }
                                     </span>
-                                    <h3>{user.firstname} {user.lastname}</h3>
+                                    <h3>{user.firstname || '-'} {user.lastname || '-'}</h3>
                                 </div>
                             </td>
                             <td>1, Olaleye Street, Gbagada, La..</td>
-                            <td>{user.phone}</td>
-                            <td>{user.email}</td>
+                            <td>{user.phone || '-'}</td>
+                            <td>{user.email || '-'}</td>
                         </tr>)}
                     </tbody>
                 </table>
@@ -194,11 +197,14 @@ function LoanDetail() {
                         <strong>Loan Status</strong>
                         <span className={classes[status]}>{status ? status : ''}</span>
                     </li>
+                    <li>
+                        <button onClick={()=> setDetailModal(true)}>See more</button>
+                    </li>
                 </ul>
                 <h1 className={classes['loan-detail__heading']}>Bank statement PDF</h1>
                 <div className={classes['loan-detail__box']}>
                     <a href={pdf} target={'_blank'} rel='noreferrer noopener' className={classes['loan-detail__box--item1']}>
-                        Bank statement PDF
+                        Click to view bank statement in pdf
                     </a>
                 </div>
                 <h1 className={classes['loan-detail__heading']}>School bill invoice</h1>
@@ -229,9 +235,12 @@ function LoanDetail() {
                     }}
                     onCancelClick={() => setActivateModal(false)}
                 />
+
+                <ModalDetail onClose={()=> setDetailModal(false)} info={user ? user[0] : {}} isModalVisible={showDetailModal} />
+                
             </div>
         </>
     );
 }
-
+// user && user.length
 export default LoanDetail;

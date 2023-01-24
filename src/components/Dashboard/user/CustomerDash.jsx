@@ -54,6 +54,8 @@ function CustomerDash() {
     const [showDelModal, setDelModal] = useState(false);
     const [crud, setCrud] = useState('add-user'); //setCrud('edit');
 
+
+
     const drawerDisplayHandler = () => {
         setShowDrawer(!showDrawer);
     };
@@ -288,13 +290,13 @@ function CustomerDash() {
                                         </span>
                                         {/* profileImage */}
                                         <section>
-                                            <h3>{user.firstname} {user.lastname}</h3>
-                                            <p>{user.email}</p>
+                                            <h3>{user.firstname || '-'} {user.lastname || '-'}</h3>
+                                            <p>{user.email || '-'}</p>
                                         </section>
                                     </div>
                                 </td>
                                 <td className={classes['table-data']}>{user.residence_address ? user.residence_address : '-'}</td>
-                                <td className={classes['table-data']}>{user.phone}</td>
+                                <td className={classes['table-data']}>{user.phone || '-'}</td>
                                 <td className={classes['table-data']}>{user.createdAt && formatDate(user.createdAt)}</td>
                                 <td className={classes['table-data']}>
                                     <div>
@@ -371,6 +373,7 @@ function CustomerDash() {
                     onCloseModal={() => setDelModal(false)}
                     onCancelClick={() => setDelModal(false)}
                 />
+                
                 <AddUserDrawer crudOperation={crud} isDrawerVisible={showDrawer} onCloseDrawer={drawerDisplayHandler} />
             </>
         </>

@@ -16,7 +16,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        flex-wrap: wrap;
+        // flex-wrap: wrap;
     }
 }
 
@@ -29,9 +29,9 @@
 
 .react-datepicker-wrapper {
     border: 1px solid #333;
-    width: auto !important;
+    // width: auto !important;
 }
 
 .react-datepicker__tab-loop {
-    flex-basis: 100%;
+    // flex-basis: 100%;
 }

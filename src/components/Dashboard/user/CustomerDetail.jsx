@@ -10,6 +10,7 @@ import axios from 'axios';
 import LoadingScreen from '../../UI/LoadingScreen';
 import NotFoundPlaceholder from './NotFoundPlaceholder';
 import { EDUKE_URL } from '../../../store/url';
+import ModalDetail from '../ModalDetail';
 // qot-cedj-uvm
 
 function CustomerDetail() {
@@ -27,6 +28,9 @@ function CustomerDetail() {
     const [loan, setLoan] = useState([]);
     const [beneficiary, setBeneficiary] = useState([]);
     const [transactions, setTransactions] = useState([]);
+
+    
+    const [showDetailModal, setDetailModal] = useState(false);
 
     const { customerId } = useParams();
 
@@ -108,15 +112,17 @@ function CustomerDetail() {
                                     <td>
                                         <div className={classes['td__fullname']}>
                                             {customer && customer.profileImage ? <img src={customer.profileImage} alt={'User Avatar'} /> : <img src={avatar} alt={'User Avatar'} />}
-                                            <h3>{customer && customer.firstname} {customer && customer.lastname}</h3>
+                                            <h3>{(customer && customer.firstname) || '-'} {(customer && customer.lastname) || '-'}</h3>
                                         </div>
                                     </td>
-                                    <td>{customer && customer.residence_address}</td>
-                                    <td>{customer && customer.phone}</td>
-                                    <td>{customer && customer.email}</td>
+                                    <td>{(customer && customer.residence_address) || '-'}</td>
+                                    <td>{(customer && customer.phone) || '-'}</td>
+                                    <td>{(customer && customer.email) || '-'}</td>
                                 </tr>
                             </tbody>
                         </table>
+                        
+                    <button onClick={()=> setDetailModal(true)}>See more</button>
                     </div>
                     <div className={classes['customer-detail__group']}>
                         <h1 className={classes['customer-detail__heading']}>Beneficiaries</h1>
@@ -137,14 +143,14 @@ function CustomerDetail() {
                                             <td>
                                                 <div className={classes['td__fullname']}>
                                                     {ben.beneficiaryImage ? <img src={ben.beneficiaryImage} alt={'User Avatar'} /> : <img src={avatar} alt={'User Avatar'} />}
-                                                    <h3>{ben.firstname} {ben.lastname}</h3>
+                                                    <h3>{ben.firstname || '-'} {ben.lastname || '-'}</h3>
                                                 </div>
                                             </td>
-                                            <td>{ben.school}</td>
-                                            <td>{ben.studentClass}</td>
+                                            <td>{ben.school || '-'}</td>
+                                            <td>{ben.studentClass || '-'}</td>
                                             <td>
                                                 {/* 17th July 2023  */}
-                                                {ben.dob}
+                                                {ben.dob || '-'}
                                                 {/* {new Date('22/2/2019').toLocaleString()} */}
                                             </td>
                                             <td>Male</td>
@@ -173,14 +179,13 @@ function CustomerDetail() {
                                     return (
                                         <tr key={ln._id}>
                                             <td>#EDI-{index + 1}</td>
-                                            <td>{ln?.beneficiaryDetails[0]?.firstname} {ln?.beneficiaryDetails[0]?.lastname}</td>
-                                            <td>{ln?.beneficiaryDetails[0]?.school}</td>
-                                            <td>{ln?.beneficiaryDetails[0]?.studentClass}</td>
-                                            <td>N {ln.beneficiary_amount}</td>
+                                            <td>{ln?.beneficiaryDetails[0]?.firstname || '-'} {ln?.beneficiaryDetails[0]?.lastname || '-'}</td>
+                                            <td>{ln?.beneficiaryDetails[0]?.school || '-'}</td>
+                                            <td>{ln?.beneficiaryDetails[0]?.studentClass || '-'}</td>
+                                            <td>N {ln.beneficiary_amount || '-'}</td>
                                             <td>
                                                 {/* <span className={classes['active-loan']}>Active</span> */}
                                                 <span className={classes[ln.status + '-loan']}>{ln.status && ln.status.split('_').join(' ')}</span>
-
                                             </td>
                                         </tr>
                                     );
@@ -206,13 +211,13 @@ function CustomerDetail() {
                                     return (
                                         <tr key={transaction._id}>
                                             <td>#EDI-{index + 1}</td>
-                                            <td>{transaction.channel}</td>
+                                            <td>{transaction.channel || '-'}</td>
                                             <td>{transaction.amount === 5000 ? 'Card Tokenization' : 'Matured Loan Repayment'}</td>
                                             <td>N {parseInt(transaction.amount / 100, 10)}</td>
                                             <td>
                                                 <span className={classes['active-loan']}
                                                     style={{ backgroundColor: `${transaction.status !== 'success' && 'rgba(255, 52, 54, .1)'}`, color: `${transaction.status !== 'success' && '#FF3436'}` }}
-                                                >{transaction.status}</span>
+                                                >{transaction.status || '-'}</span>
                                             </td>
                                         </tr>
                                     );
@@ -223,6 +228,8 @@ function CustomerDetail() {
                     </div>
                 </div>
             </div>
+
+            <ModalDetail info={{}} isModalVisible={showDetailModal} onClose={()=> setDetailModal(false)} />
         </>
     );
 }

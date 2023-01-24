@@ -141,6 +141,7 @@ function ResetPasswordScreen() {
     useEffect(() => {
 
         if (auth.loggedInMessage === 'Your new password has been updated.') {
+            localStorage.removeItem('edike-admin-email');
             navigate('/redirecting-to-sign-in');
         }
 

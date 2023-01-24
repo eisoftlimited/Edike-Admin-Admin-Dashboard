@@ -21,7 +21,6 @@ import CustomerDetail from './components/Dashboard/user/CustomerDetail';
 import CustomerDash from './components/Dashboard/user/CustomerDash';
 import { useEffect } from 'react';
 import LoanDetail from './components/Dashboard/loan/LoanDetail';
-import EdukeLoader from './components/UI/EdikeLoader';
 import MainDash from './components/Dashboard/main/MainDash';
 import LoanInterest from './components/Dashboard/loan/LoanInterest';
 import UserProfile from './components/Dashboard/user/profile/UserProfile';
@@ -76,13 +75,6 @@ function App() {
               </LoggedInScreen>
             }
           />
-          {/* <Route path={'customers/:customerId'}
-            element={
-              <LoggedInScreen>
-                <CustomerDetail />
-              </LoggedInScreen>
-            }
-          /> */}
           <Route path='customers/:customerId'
             element={
               <LoggedInScreen>
@@ -162,8 +154,6 @@ function App() {
           </LoggedOutScreen>
         }
         />
-
-        <Route path='/testing' element={<EdukeLoader />} />
         <Route path={'*'} element={<Error />} />
       </Routes>
     </>

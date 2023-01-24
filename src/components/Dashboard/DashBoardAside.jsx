@@ -66,21 +66,27 @@ function DashBoardAside({ onSidebarClose }) {
                     onCloseSidebar={onSidebarClose}
                 />
                 <DashMenuItem
-                    text={'Loan Management'}
-                    icon={debitcard}
-                    link={'/dashboard/loans'}
+                    text={'Schools'}
+                    icon={childrenOnTeer}
+                    link={'/dashboard/schools'}
                     onCloseSidebar={onSidebarClose}
                 />
                 <DashMenuItem
-                    text={'Fees Payment'}
+                    text={'Customers'}
+                    icon={user}
+                    link={'/dashboard/customers'}
+                    onCloseSidebar={onSidebarClose}
+                />
+                <DashMenuItem
+                    text={'Rate Manager'}
                     icon={moneystack}
                     link={'/dashboard/loans/loan-rate'}
                     onCloseSidebar={onSidebarClose}
                 />
                 <DashMenuItem
-                    text={'Schools'}
-                    icon={childrenOnTeer}
-                    link={'/dashboard/schools'}
+                    text={'Loan Management'}
+                    icon={debitcard}
+                    link={'/dashboard/loans'}
                     onCloseSidebar={onSidebarClose}
                 />
                 
@@ -90,14 +96,9 @@ function DashBoardAside({ onSidebarClose }) {
                     onCloseSidebar={onSidebarClose}
                 />
                  */}
+                
                 <DashMenuItem
-                    text={'Customers'}
-                    icon={user}
-                    link={'/dashboard/customers'}
-                    onCloseSidebar={onSidebarClose}
-                />
-                <DashMenuItem
-                    text={'Users'}
+                    text={'System Administrators'}
                     icon={user}
                     link={'/dashboard/users'}
                     onCloseSidebar={onSidebarClose}

@@ -70,7 +70,7 @@ function MainChart({className}) {
         <div className={`${classes['main-chart']} ${className ? className : ''}`}>
             <div className={classes['main-chart__row']}>
               <h2>Customers Growth</h2>
-              <DatePicker className={classes['date-picker']} selected={startDate} onChange={(date) => setStartDate(date)} />
+              { false && <DatePicker className={classes['date-picker']} selected={startDate} onChange={(date) => setStartDate(date)} />}
             </div>
             <Bar options={options} data={data} />
         </div>

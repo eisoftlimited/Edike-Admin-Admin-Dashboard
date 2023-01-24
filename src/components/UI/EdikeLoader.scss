@@ -1,7 +1,8 @@
-.eduke-loader {
+.loading-screen {
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 1000;
     width: 100%;
     height: 100vh;
     background-color: #fff;
@@ -9,8 +10,8 @@
     align-items: center;
     justify-content: center;
 
-    &__inner {
-        width: fit-content;
-        display: flex;
+    h1 {
+        font-size: 3rem;
+        font-weight: 700;
     }
 }

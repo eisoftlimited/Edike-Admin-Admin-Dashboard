@@ -77,6 +77,14 @@
             strong {
                 width: 20rem;
             }
+
+
+            button {
+                font-size: 1.6rem;
+                font-weight: 700;
+                cursor: pointer;
+                color: #47B88F;
+            }
         }
     }
 
@@ -142,16 +150,21 @@
 
     span {
 
+        &.completed,
         &.success {
             color: #49C96D;
             // background-color: rgba(#49C96D, .1);
         }
 
+        
+
+        &.defaulted,
         &.danger {
             color: #FF3436;
             // background-color: rgba(#FF3436, .1);
         }
 
+        &.ongoing,
         &.pending {
             color: #F9AC3B;
             // background-color: rgba(#F9AC3B, .1);
