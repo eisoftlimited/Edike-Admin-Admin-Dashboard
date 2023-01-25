@@ -150,8 +150,8 @@ function LoanInterest() {
                         </thead>
                         <tbody>
                             {historyData &&  historyData.map(history => <tr key={history._id}>
-                                <td>{parseInt(history.rate * 100, 10)}%</td>
-                                <td>{new Date(history.createdAt).toLocaleString()}</td>
+                                <td>{history.rate && parseInt(history.rate * 100, 10)}%</td>
+                                <td>{history.createdAt && new Date(history.createdAt).toLocaleString()}</td>
                                 <td>{history.setBy}</td>
                             </tr>)}
                         </tbody>
