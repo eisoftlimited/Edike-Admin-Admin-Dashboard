@@ -25,7 +25,7 @@ function ForgotPasswordOPT() {
 
     const [otp, setOtp] = useState(undefArray);
 
-    
+
     const email = localStorage.getItem('edike-admin-email');
 
     // =========================
@@ -100,9 +100,25 @@ function ForgotPasswordOPT() {
 
     const resendForgotPasswordCodeHandler = () => {
         const email = localStorage.getItem('edike-admin-email');
+        setCountDown(2 * 60);
+
+        // timerId.current = setInterval(() => {
+        //     setCountDown(prev => prev - 1);
+        // }, 1000);
+
+        console.log('Resend');
         // console.log({otp});
         dispatch(resendAdminForgotPassword({ email }));
     };
+
+    // useEffect(() => {
+    //     setCountDown(2 * 60);
+    //     timerId.current = setInterval(() => {
+    //         setCountDown(prev => prev - 1);
+    //     }, 1000);
+
+    //     return () => clearInterval(timerId.current);
+    // }, [resendForgotPasswordCodeHandler]);
 
     const activateHandler = async e => {
         e.preventDefault();

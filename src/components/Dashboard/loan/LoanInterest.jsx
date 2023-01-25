@@ -31,15 +31,44 @@ function LoanInterest() {
                     'x-auth-admin-token': token
                 }
             });
-            console.log(response.data);
+            // console.log(response.data);
             setPostData(response.data.rate);
         } catch (err) {
             console.log(err.response.data);
         }
     }
 
+    
+    const [historyLoading, setHistoryLoading] = useState(false);
+    const [historyError, setHistoryError] = useState('');
+    const [historyData, setHistoryData] = useState([]);
+
+    async function getLoanHistory() {
+        setHistoryLoading(true);
+        try {
+            const response = await axios({
+                url: `${EDUKE_URL}/edike/api/v1/percentage/gethistory`,
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-admin-token': token
+                }
+            });
+
+            setHistoryData(response.data.history);
+
+        } catch(err) {
+
+            console.log(err.response.data);
+            if(err.response && err.response.data) {
+                setHistoryError();
+            }
+        }
+    }
+
     useEffect(() => {
         getLoanRequest();
+        getLoanHistory();
     }, [token]);
 
 
@@ -110,7 +139,7 @@ function LoanInterest() {
                         <button className={classes['interest-btn']}>Update</button>
                     </form>
 
-                    {/* <h2>Rate History</h2>
+                    <h2>Rate History</h2>
                     <table>
                         <thead>
                             <tr>
@@ -120,17 +149,17 @@ function LoanInterest() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>3.5%</td>
-                                <td>10th Oct 2022</td>
-                                <td>Blossom Johnson</td>
-                            </tr>
+                            {historyData &&  historyData.map(history => <tr key={history._id}>
+                                <td>{parseInt(history.rate * 100, 10)}%</td>
+                                <td>{new Date(history.createdAt).toLocaleString()}</td>
+                                <td>{history.setBy}</td>
+                            </tr>)}
                         </tbody>
-                    </table> */}
+                    </table>
                 </div>
             </div>
         </>
     );
 }
-
+// 10th Oct 2022
 export default LoanInterest;

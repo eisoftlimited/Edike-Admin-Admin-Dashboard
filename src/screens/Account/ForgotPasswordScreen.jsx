@@ -79,7 +79,14 @@ function ForgotPasswordScreen() {
                                 }}
                             />
                             <FormButton>Reset Password</FormButton>
-                            <FormQuestion>Remember you login details? <Link to={'/sign-in'}>Sign In</Link></FormQuestion>
+                            <FormQuestion>
+                                Remember you login details? 
+                                <span onClick={()=> {
+                                    localStorage.removeItem('edike-admin-email');
+                                    navigate('/sign-in');
+                                }}>Sign In</span>
+                                {/* <Link to={'/sign-in'}>Sign In</Link> */}
+                            </FormQuestion>
                         </form>
                     </AccountMain>
                 </AccountLayout>
