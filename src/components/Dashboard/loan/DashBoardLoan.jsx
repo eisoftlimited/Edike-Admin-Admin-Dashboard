@@ -263,9 +263,16 @@ function DashBoardLoan() {
                                                     }
 
                                                 }} className={classes.dots}>
-                                                    <i className={`fas fa-ellipsis-v`} />
+                                                    {false && <i className={`fas fa-ellipsis-v`} />}
+                                                    <span onClick={() => {
+                                                        navigate(`/dashboard/loans/${loan.createdBy}/${loan._id}`, {
+                                                            state: {
+                                                                loanId: loanIdiy + (loanIndex + 1)
+                                                            }
+                                                        });
+                                                    }}><i className={`far fa-eye`} /></span>
                                                 </div>
-                                                <Options
+                                                {false && <Options
                                                     isLoan={true}
                                                     status={loan.status}
                                                     className={classes.dropdown}
@@ -286,7 +293,7 @@ function DashBoardLoan() {
                                                             }
                                                         });
                                                     }}
-                                                />
+                                                />}
                                             </div>
                                         </td>
                                     </tr>))}

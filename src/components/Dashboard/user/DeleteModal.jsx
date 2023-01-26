@@ -2,10 +2,10 @@ import Modal from "../../UI/Modal";
 import deleteicon from './../../../img/deleteicon.svg';
 
 
-function DeleteModal({onCloseModal, isModalVisible, onConfirmClick, onCancelClick}) {
+function DeleteModal({onCloseModal, isModalVisible, onConfirmClick, onCancelClick, infoModal}) {
     return (
         <Modal title={'Delete user'}
-            description={'Are you sure you want to delete Blossom Johnson? If you proceed,  their details will be deleted entirely from the platform'}
+            description={infoModal && infoModal.msg}
             cancelText={'No, cancel'}
             confirmText={'Yes, Delete'}
             onCloseModal={onCloseModal}

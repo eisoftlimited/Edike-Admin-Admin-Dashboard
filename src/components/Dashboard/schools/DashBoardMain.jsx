@@ -212,9 +212,37 @@ function DashBoardMain() {
     }, [deletedSchool, dispatch, blockedSchool, activatedSchool]);
 
 
-    // const renderedArray = searchState.length !== 0 ? filteredSearch : filteredArray;
 
-    // console.log({renderedArray});
+
+
+    // ===================================================================
+
+    const [schoolSearchState, setSchoolSearchState] = useState('');
+    const [searchArray, setSearchArray] = useState([]);
+
+    useEffect(() => {
+        // THIS IS FOR FILTERING BY SEARCH TEXT
+
+        if (schoolSearchState.length === 0) {
+            // filterCustomerFunction();
+        } else if (schoolSearchState.length > 0) {
+            const filteredCustomer = filteredArray && filteredArray.filter(customer => {
+                const regex = new RegExp(schoolSearchState.toLowerCase());
+                return (customer.school_name && customer.school_name.toLowerCase().match(regex)) || (customer.email && customer.email.toLowerCase().match(regex));
+            });
+            setSearchArray(filteredCustomer);
+        }
+    }, [schoolSearchState, filteredArray]);
+
+    let displayArray = filteredArray;
+
+    if (schoolSearchState.length > 0) {
+        displayArray = searchArray;
+    }
+    // ===================================================================
+
+
+    const [modalInfo, setModalInfo] = useState('');
 
     return (
         <>
@@ -235,21 +263,37 @@ function DashBoardMain() {
 
 
 
-            <DashBoardNav navTitle='Schools' 
-            onOpenSidebar={openSideBarHandler}
+            <DashBoardNav 
+                navTitle='Schools'
+                onOpenSidebar={openSideBarHandler}
                 onAddSchool={() => {
                     setCrud('add-school');
                     drawerDisplayHandler();
                     setDeleteId('');
                 }}
                 btnText='Add School'
+                // search={{
+                //     onClick: () => {
+                //         setShouldSearch(true);
+                //     },
+                //     onChange: e => setSearchState(e.target.value),
+                //     value: searchState
+                // }}
+
                 search={{
-                    onClick: () => {
-                        setShouldSearch(true);
+                    value: schoolSearchState,
+                    onChange: e => {
+
+                        if(e.target.value.includes('\\')) {
+                            return;
+                        }
+
+                        setSchoolSearchState(e.target.value)
                     },
-                    onChange: e => setSearchState(e.target.value),
-                    value: searchState
                 }}
+
+
+
             />
             <div className={classes['dashboard-main']}>
                 {
@@ -260,15 +304,18 @@ function DashBoardMain() {
                             blockedAmount={blockedSchools && blockedSchools.length}
 
                             onActive={() => {
+                            setSchoolSearchState('');
                                 setFilterBy('active');
                             }}
                             onAll={() => {
+                            setSchoolSearchState('');
                                 setFilterBy('all');
                             }}
                             onBlocked={() => {
+                            setSchoolSearchState('');
                                 setFilterBy('blocked');
                             }}
-                            onExportTable={()=> exportAsFile(filteredArray, 'school')}
+                            onExportTable={() => exportAsFile(filteredArray, 'school')}
                         />
                         <DashTable pagination={false && <DashBoardPagination />}>
                             <tr>
@@ -278,7 +325,7 @@ function DashBoardMain() {
                                 <th>Email</th>
                                 <th>Status</th>
                             </tr>
-                            {filteredArray.length > 0 && filteredArray.map(school => (
+                            {displayArray.length > 0 && displayArray.map(school => (
                                 <tr key={school._id}>
                                     <td>
                                         <div>
@@ -286,12 +333,12 @@ function DashBoardMain() {
                                                 {school.school_profile && <img src={school.school_profile} alt={school.school_name + ' Photo'} />}
                                                 {!school.school_profile && <img src={avatar} alt={school.school_name + ' Photo'} />}
                                             </span>
-                                            <h3>{school.school_name}</h3>
+                                            <h3>{school.school_name || '-'}</h3>
                                         </div>
                                     </td>
-                                    <td>{school.school_location}</td>
-                                    <td>{school.phoneno}</td>
-                                    <td>{school.email}</td>
+                                    <td>{school.school_location || '-'}</td>
+                                    <td>{school.phoneno || '-'}</td>
+                                    <td>{school.email || '-'}</td>
                                     <td>
                                         <div>
                                             {school.status === 'active' && <span className={classes['success']}>Active</span>}
@@ -302,11 +349,13 @@ function DashBoardMain() {
                                                 status={school.status}
 
                                                 onBlockUser={() => {
+                                                    setModalInfo(school.school_name);
                                                     setBlockModal(true);
                                                     setDeleteId(school._id);
                                                 }}
 
                                                 onDeleteUser={() => {
+                                                    setModalInfo(school.school_name);
                                                     setDelModal(true);
                                                     setDeleteId(school._id);
                                                 }}
@@ -319,6 +368,7 @@ function DashBoardMain() {
                                                 }}
 
                                                 onActivateUser={() => {
+                                                    setModalInfo(school.school_name);
                                                     setActivateModal(true);
                                                     setDeleteId(school._id);
                                                 }}
@@ -337,16 +387,25 @@ function DashBoardMain() {
                     isModalVisible={showActivateModal}
                     onCloseModal={() => setActivateModal(false)}
                     onConfirmClick={activateUserHandler}
+                    infoModal={{
+                        msg: `Are you sure you want to activate ${modalInfo} Schools? Once activated, Edike Users wont be able to apply for loan with this school?`
+                    }}
                 />
                 <BlockModal
                     isModalVisible={showBlockModal}
                     onCloseModal={() => setBlockModal(false)}
                     onConfirmClick={blockUserHandler}
+                    infoModal={{
+                        msg: `Are you sure you want to block ${modalInfo} Schools? Once blocked, Edike Users wont be able to apply for loan with this school?`
+                    }}
                 />
                 <DeleteModal
                     onConfirmClick={deleteUserHandler}
                     isModalVisible={showDelModal}
                     onCloseModal={() => setDelModal(false)}
+                    infoModal={{
+                        msg: `Are you sure you want to block ${modalInfo} Schools? Once blocked, Edike Users wont be able to apply for loan with this school, and the details will be deleted entirely from the platform`
+                    }}
                 />
                 <AddSchoolDrawer
                     schoolId={deleteId}

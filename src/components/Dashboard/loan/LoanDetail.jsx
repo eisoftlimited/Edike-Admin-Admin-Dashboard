@@ -23,6 +23,7 @@ function LoanDetail() {
 
     const { loanId, loanmainId } = useParams();
     const { token } = useSelector(state => state.auth);
+    const userAdmin = useSelector(state => state.auth.user);
     const { loan, user } = useSelector(state => state.getSingleLoan);
     const { beneficiaryDetails, beneficiary_amount, status, beneficiary_duration, pdf, beneficiary_file_results } = (loan && loan[0]) || [];
     const ben = (beneficiaryDetails && beneficiaryDetails[0]) || [];
@@ -198,7 +199,7 @@ function LoanDetail() {
                         <span className={classes[status]}>{status ? status : ''}</span>
                     </li>
                     <li>
-                        <button onClick={()=> setDetailModal(true)}>See more</button>
+                        <button onClick={()=> setDetailModal(true)}>Customer Details</button>
                     </li>
                 </ul>
                 <h1 className={classes['loan-detail__heading']}>Bank statement PDF</h1>
@@ -217,15 +218,19 @@ function LoanDetail() {
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
                     </div>
                 </div> */}
-                <div className={classes['loan-detail__btns']}>
+                {userAdmin.role !== 'cfo' && (<div className={classes['loan-detail__btns']}>
                     <button onClick={() => setDeclineModal(true)} type='button'>Decline</button>
                     <button onClick={() => setActivateModal(true)} type='button'>Approve</button>
-                </div>
+                </div>)}
                 <LoanDeclineModal
                     onCloseModal={() => setDeclineModal(false)}
                     isModalVisible={showDeclineModal}
                     onConfirmClick={declineLoanHandler}
                     onCancelClick={() => setDeclineModal(false)}
+                    loanInfo={{
+                        user: user && `${user[0].firstname} ${user[0].lastname}`,
+                        amount: beneficiary_amount
+                    }}
                 />
                 <LoanApproveModal
                     onCloseModal={() => setActivateModal(false)}
@@ -234,6 +239,10 @@ function LoanDetail() {
                         approveLoanHandler();
                     }}
                     onCancelClick={() => setActivateModal(false)}
+                    loanInfo={{
+                        user: user && `${user[0].firstname} ${user[0].lastname}`,
+                        amount: beneficiary_amount
+                    }}
                 />
 
                 <ModalDetail onClose={()=> setDetailModal(false)} info={user ? user[0] : {}} isModalVisible={showDetailModal} />

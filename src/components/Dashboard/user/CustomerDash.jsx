@@ -195,8 +195,12 @@ function CustomerDash() {
             // filterCustomerFunction();
         } else if (searchState.length > 0) {
             const filteredCustomer = filteredArray && filteredArray.filter(customer => {
-                const regex = new RegExp(searchState);
-                return (customer.name && customer.name.match(regex)) || (customer.email && customer.email.match(regex));
+                const regex = new RegExp(searchState.toLowerCase());
+                // return (customer.name && customer.name.toLowerCase().match(regex)) || (customer.email && customer.email.toLowerCase().match(regex));
+
+                return (customer.firstname && customer.firstname.toLowerCase().match(regex)) || 
+                    (customer.lastname && customer.lastname.toLowerCase().match(regex)) || 
+                    (customer.email && customer.email.toLowerCase().match(regex));
             });
             setSearchArray(filteredCustomer);
         }
@@ -207,6 +211,9 @@ function CustomerDash() {
     if(searchState.length > 0) {
         displayArray = searchArray;
     }
+
+    // MODAL INFORMATION
+    const [modalInfo, setModalInfo] = useState({name: '', amount: 0});
 
     return (
         <>
@@ -320,10 +327,12 @@ function CustomerDash() {
                                             // status={'blocked'}
                                             className={classes.dropdown}
                                             onActivateUser={() => {
+                                                setModalInfo(`${user.firstname} ${user.lastname}`);
                                                 setActivateModal(true);
                                                 setSelectedId(user._id);
                                             }}
                                             onDeleteUser={() => {
+                                                setModalInfo(`${user.firstname} ${user.lastname}`);
                                                 setDelModal(true);
                                                 setSelectedId(user._id);
                                             }}
@@ -334,6 +343,7 @@ function CustomerDash() {
                                                 setShowDrawer(false);
                                             }}
                                             onBlockUser={() => {
+                                                setModalInfo(`${user.firstname} ${user.lastname}`);
                                                 setBlockModal(true);
                                                 setSelectedId(user._id);
                                             }}
@@ -360,18 +370,32 @@ function CustomerDash() {
                     onCloseModal={() => setActivateModal(false)}
                     onConfirmClick={activateUserHandler}
                     onCancelClick={() => setActivateModal(false)}
+                    
+                    infoModal={{
+                        msg: `Are you sure you want to activate ${modalInfo}? Once activated, They will have access to their account`
+                    }}
+                    
                 />
                 <BlockModal
                     isModalVisible={showBlockModal}
                     onCloseModal={() => setBlockModal(false)}
                     onConfirmClick={blockUserHandler}
                     onCancelClick={() => setBlockModal(false)}
+
+                    infoModal={{
+                        msg: `Are you sure you want to block ${modalInfo}? Once blocked, They will no longer have access to their account`
+                    }}
+
                 />
                 <DeleteModal
                     onConfirmClick={deleteUserHandler}
                     isModalVisible={showDelModal}
                     onCloseModal={() => setDelModal(false)}
                     onCancelClick={() => setDelModal(false)}
+
+                    infoModal={{
+                        msg: `Are you sure you want to delete ${modalInfo}? If you proceed,  their details will be deleted entirely from the platform`
+                    }}
                 />
                 
                 <AddUserDrawer crudOperation={crud} isDrawerVisible={showDrawer} onCloseDrawer={drawerDisplayHandler} />
