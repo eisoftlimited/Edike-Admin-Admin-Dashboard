@@ -254,15 +254,18 @@ function DashBoardLoan() {
                                         </td>
                                         <td>
                                             <div>
-                                                <div onClick={e => {
-                                                    const optionsList = e.currentTarget.nextElementSibling;
-                                                    if (optionsList.style.display === 'none') {
-                                                        optionsList.style.display = 'block';
-                                                    } else {
-                                                        optionsList.style.display = 'none';
-                                                    }
+                                                <div
+                                                    // onClick={e => {
+                                                    //     const optionsList = e.currentTarget.nextElementSibling;
+                                                    //     if (optionsList.style.display === 'none') {
+                                                    //         optionsList.style.display = 'block';
+                                                    //     } else {
+                                                    //         optionsList.style.display = 'none';
+                                                    //     }
 
-                                                }} className={classes.dots}>
+                                                    // }}
+                                                    className={classes.dots}
+                                                    >
                                                     {false && <i className={`fas fa-ellipsis-v`} />}
                                                     <span onClick={() => {
                                                         navigate(`/dashboard/loans/${loan.createdBy}/${loan._id}`, {
@@ -326,8 +329,8 @@ function DashBoardLoan() {
 
                         {loans.loading && <SchoolsLoadingSpinner />}
                         {((!loans.loading && !loans.allLoans) || (filteredArray && filteredArray.length === 0)) &&
-                            <div style={{ padding: '1rem', backgroundColor: '#fff', borderRadius: '.7rem', marginTop: '.5rem'}} className={classes['dashboard-user__fallback']}>
-                                <h3 style={{fontSize: '2rem', color: '#333'}}>No Loan found</h3>
+                            <div style={{ padding: '1rem', backgroundColor: '#fff', borderRadius: '.7rem', marginTop: '.5rem' }} className={classes['dashboard-user__fallback']}>
+                                <h3 style={{ fontSize: '2rem', color: '#333' }}>No Loan found</h3>
                             </div>
                         }
                     </div>

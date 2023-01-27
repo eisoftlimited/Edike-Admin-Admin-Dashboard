@@ -34,7 +34,9 @@ function LoanInterest() {
             // console.log(response.data);
             setPostData(response.data.rate);
         } catch (err) {
-            console.log(err.response.data);
+            if(err.response && err.response.data) {
+                console.log(err.response.data);
+            }
         }
     }
 
@@ -59,7 +61,7 @@ function LoanInterest() {
 
         } catch(err) {
 
-            console.log(err.response.data);
+            // console.log(err.response.data);
             if(err.response && err.response.data) {
                 setHistoryError();
             }

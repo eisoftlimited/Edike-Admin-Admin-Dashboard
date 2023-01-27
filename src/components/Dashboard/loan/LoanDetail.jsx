@@ -14,6 +14,7 @@ import { toast } from 'react-toastify';
 import { declineLoanActions, loanDecline } from '../../../store/loan/declineLoanSlice';
 import { approveLoanActions, loanApproval } from '../../../store/loan/approveLoanSlice';
 import ModalDetail from '../ModalDetail';
+
 // import MyPDF from './LoanPDF';
 
 function LoanDetail() {
@@ -25,7 +26,7 @@ function LoanDetail() {
     const { token } = useSelector(state => state.auth);
     const userAdmin = useSelector(state => state.auth.user);
     const { loan, user } = useSelector(state => state.getSingleLoan);
-    const { beneficiaryDetails, beneficiary_amount, status, beneficiary_duration, pdf, beneficiary_file_results } = (loan && loan[0]) || [];
+    const { beneficiaryDetails, beneficiary_amount, status, beneficiary_duration, pdf, beneficiary_file_results, adminComment, riskComment } = (loan && loan[0]) || [];
     const ben = (beneficiaryDetails && beneficiaryDetails[0]) || [];
     // const secureUrl = beneficiary_file_results;
 
@@ -39,6 +40,8 @@ function LoanDetail() {
     const [showDeclineModal, setDeclineModal] = useState(false);
 
     const [showDetailModal, setDetailModal] = useState(false);
+
+    const [loanComment, setLoanComment] = useState('');
 
     const approvedLoan = useSelector(state => state.approveLoan);
     const declinedLoan = useSelector(state => state.declineLoan);
@@ -103,7 +106,20 @@ function LoanDetail() {
         if (status && status === 'ongoing') {
             return toast('Loan already approved');
         }
-        dispatch(loanApproval({ token, id: loanmainId }));
+
+        let data = {};
+
+        if(userAdmin && userAdmin.role === 'admin') {
+            data = {
+                adminComment: loanComment,
+            }
+        } else if(userAdmin && userAdmin.role === 'risk_management') {
+            data = {
+                riskComment: loanComment,
+            }
+        }
+
+        dispatch(loanApproval({ token, id: loanmainId, data }));
     };
 
     const declineLoanHandler = () => {
@@ -212,16 +228,23 @@ function LoanDetail() {
                 <div className={classes['loan-detail__box']}>
                     <img style={{width: '100%'}} src={beneficiary_file_results && beneficiary_file_results[0]?.secure_url}  alt='' />
                 </div>
-                {/* <h1 className={classes['loan-detail__heading']}>Admin Comment</h1>
+                {adminComment && <p>{adminComment}</p>}
+                {riskComment && <p>{riskComment}</p>}
+                <h1 className={classes['loan-detail__heading']}>Admin Comment</h1>
                 <div className={classes['loan-detail__box']}>
                     <div className={classes['loan-detail__box--item2']}>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                        <textarea rows={10} placeholder='Your comment' className={classes['form-comment']} value={loanComment} onChange={ e => setLoanComment(e.target.value)}  />
                     </div>
-                </div> */}
-                {userAdmin.role !== 'cfo' && (<div className={classes['loan-detail__btns']}>
+                </div>
+                
+                {status && status !== 'ongoing' && (<div className={classes['loan-detail__btns']}>
                     <button onClick={() => setDeclineModal(true)} type='button'>Decline</button>
                     <button onClick={() => setActivateModal(true)} type='button'>Approve</button>
                 </div>)}
+                {/* {userAdmin && userAdmin.role !== 'cfo' && (<div className={classes['loan-detail__btns']}>
+                    <button onClick={() => setDeclineModal(true)} type='button'>Decline</button>
+                    <button onClick={() => setActivateModal(true)} type='button'>Approve</button>
+                </div>)} */}
                 <LoanDeclineModal
                     onCloseModal={() => setDeclineModal(false)}
                     isModalVisible={showDeclineModal}
