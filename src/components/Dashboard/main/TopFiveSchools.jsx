@@ -32,7 +32,8 @@ function TopFiveSchools({ className }) {
 
                 setLoading(false);
                 setMsg(response.data && response.data.msg);
-                setSchools(response.data && response.data.schools.slice(0, 5));
+                // console.log(response.data);
+                setSchools(response.data && response.data.edikeschools.slice(0, 5));
             } catch (err) {
                 setLoading(false);
                 setError(err.response && err.response.data);
@@ -66,12 +67,13 @@ function TopFiveSchools({ className }) {
         <div className={`${classes['top-five-schools']} ${className ? className : ''}`}>
             <h2>Top 5 School</h2>
             <ul>
+                
             {!loading && schools && schools.map(school =>  <li key={school._id}>
                     <div className={classes.item}>
                         <img src={school_logo} alt='' />
                         <div>
-                            <div className={classes.school}>Elbethel School <span>283</span></div>
-                            <p className={classes.email}>elbethel@gmail.com</p>
+                            <div className={classes.school}>{school.school_name} <span>283</span></div>
+                            <p className={classes.email}>{school.email}</p>
                         </div>
                         <span>View</span>
                     </div>

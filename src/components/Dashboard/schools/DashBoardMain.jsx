@@ -23,7 +23,8 @@ import ActivateModal from './ActivateModal';
 import { fetchBankList } from '../../../store/accountNum/listBanksSlice';
 import { activateSchool, activateSchoolActions } from '../../../store/schools/activateSchoolSlice';
 import { exportAsFile } from '../../../utils/exportFile';
-import avatar from './../../../img/avatar.svg';
+// import avatar from './../../../img/avatar.svg';
+import avatar from './../../../img/school_logo.svg';
 
 function DashBoardMain() {
     const token = useSelector(state => state.auth.token);
@@ -53,23 +54,6 @@ function DashBoardMain() {
     const [searchState, setSearchState] = useState('');
     const [shouldSearch, setShouldSearch] = useState(false);
     const [filteredSearch, setFilteredSearch] = useState([]);
-
-    // FILTERING USEEFFECT
-
-    // useEffect(() => {
-    //      // THIS IS FOR FILTERING BY SEARCH TEXT
-
-    //     if (searchState.length === 0) {
-    //         setShouldSearch(false);
-    //     } else if(searchState.length > 0) {
-    //         setShouldSearch(true);
-    //         const filteredSchool = filteredArray.filter(school => {
-    //             const regex = new RegExp(searchState);
-    //             return school.school_name.match(regex) || school.email.match(regex);
-    //         });
-    //         setFilteredSearch(filteredSchool);
-    //     }
-    // }, [searchState, shouldSearch]);
 
     useEffect(() => {
         // // THIS IS FOR FILTERING BUTTON CLICK

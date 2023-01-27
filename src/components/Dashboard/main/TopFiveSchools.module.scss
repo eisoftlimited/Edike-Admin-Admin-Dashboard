@@ -13,9 +13,18 @@
     ul {
         list-style: none;
 
+        li {
+            margin-bottom: 1.5rem;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
         .item {
             display: flex;
             align-items: center;
+            
 
             img {
                 width: 3.2rem;
