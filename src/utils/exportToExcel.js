@@ -82,38 +82,35 @@ updatedAt
             ],
     */
 
-        let contentColumn;
+    let contentColumn;
 
-    if(fileName === 'Users') {
+    if (fileName === 'Users') {
         contentColumn = [
-            { label: "Admin Name", value: (row)=> row.firstname + row.lastname },
-            { label: "Admin Email", value: (row)=> row.email },
+            { label: "Admin Name", value: (row) => row.firstname + row.lastname },
+            { label: "Admin Email", value: (row) => row.email },
             { label: "Staff Id", value: (row) => row.staff_number },
             { label: "Phone", value: (row) => row.phone_number },
             { label: "Date", value: (row) => row.createdAt },
             { label: "Status", value: (row) => row.status },
         ];
-    } else if(fileName === 'Customers') {
+    } else if (fileName === 'Customers') {
         contentColumn = [
-            { label: "Customer Name", value: (row)=> row.firstname + row.lastname },
-            { label: "Customer Email", value: (row)=> row.email },
-            { label: "Location", value: (row)=> row.residence_address },
+            { label: "Customer Name", value: (row) => row.firstname + row.lastname },
+            { label: "Customer Email", value: (row) => row.email },
+            { label: "Location", value: (row) => row.residence_address },
             { label: "Phone", value: (row) => row.phone },
             { label: "Date", value: (row) => row.createdAt },
             { label: "Status", value: (row) => row.status },
         ];
-    } else if(fileName === 'Loans') {
+    } else if (fileName === 'Loans') {
         contentColumn = [
-            { label: "Borrower Name", value: (row)=> row.firstname + row.lastname },
+            { label: "Borrower Name", value: (row) => row.firstname + row.lastname },
             { label: "Amount", value: (row) => row.beneficiary_amount },
             { label: "Date", value: (row) => row.createdAt },
             { label: "Status", value: (row) => row.status },
         ];
     }
-    
-    
-    
-            
+
     let data = [
         {
             sheet: "User",

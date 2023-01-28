@@ -230,9 +230,7 @@ function CustomerDetail() {
             </div>
 
             <ModalDetail
-                info={
-                    customer
-                }
+                info={customer || {}}
                 isModalVisible={showDetailModal}
                 onClose={() => setDetailModal(false)}
             />

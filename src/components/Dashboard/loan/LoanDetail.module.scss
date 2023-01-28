@@ -185,11 +185,35 @@
     }
 }
 
-.loan-comment {
+.form-comment {
     width: 100%;
-    border: 1px solid #3F434A;
+    border: 1px solid #ccc;
     font-size: 2rem;
-    color: #3F434A;
+    color: #121212;
     padding: .8rem 1.6rem;
     border-radius: 1rem;
+}
+
+.admin-comments {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 3rem;
+    margin-bottom: 2rem;
+
+    &__item {
+        border-radius: .6rem;
+        padding: 2rem;
+        flex: 1;
+        background-color: #fff;
+        
+        .loan-detail__heading {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.6rem;
+        }
+    }    
 }

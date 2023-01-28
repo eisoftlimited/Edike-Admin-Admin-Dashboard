@@ -1,3 +1,4 @@
+import { ExportBtn } from '../DashBoardButtons';
 import classes from './LoanNav.module.scss';
 
 // git remote add origin https://github.com/devaladey/a.git
@@ -14,7 +15,10 @@ function LoanNav({
     runningNum = 0, 
     defaultNum = 0, 
     declinedNum = 0, 
-    completeNum = 0}) {
+    completeNum = 0,
+    onExportTable}) {
+
+
     return ( 
         <nav className={classes['loan-nav']}>
             <button onClick={onAll} className={`${classes['loan-nav__link']} ${activeBtn  === 'all' ? classes.active : ''}`}>
@@ -32,6 +36,9 @@ function LoanNav({
             <button className={`${classes['loan-nav__link']} ${activeBtn  === 'completed' ? classes.active : ''}`}>
                 Completed <span>{completeNum}</span>
             </button>
+            <div>
+                <ExportBtn onExportTable={onExportTable} />
+            </div>
         </nav>
      );
 }

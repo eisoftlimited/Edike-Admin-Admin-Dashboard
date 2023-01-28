@@ -1,5 +1,7 @@
 .loan-nav {
     margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
 
 
     &__link {
@@ -25,5 +27,12 @@
             padding: .3rem .6rem;
             border-radius: .4rem;
         }
+    }
+
+    div {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }

@@ -2,7 +2,7 @@
 import classes from './DashBoardButtons.module.scss';
 
 
-function ExportBtn({onExportTable}) {
+export function ExportBtn({onExportTable}) {
     return (
         <li className={`${classes['dashboard-main__button']} ${classes['export']}`} onClick={onExportTable}>
             <i className={`fas fa-download`} /> Export <i className={`fas fa-angle-left`} />

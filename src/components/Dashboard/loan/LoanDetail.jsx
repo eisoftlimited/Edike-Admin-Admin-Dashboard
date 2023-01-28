@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useLocation, useOutletContext, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useOutletContext, useParams } from 'react-router-dom';
 import { singleLoan } from '../../../store/loan/getLoanSlice';
 import DashBoardNav from '../DashBoardNav';
 import LoanApproveModal from './LoanApproveModal';
@@ -21,6 +21,8 @@ function LoanDetail() {
 
     // THE OUTLET CONTEXT STATE
     const [openSideBarHandler] = useOutletContext();
+
+    const navigate = useNavigate();
 
     const { loanId, loanmainId } = useParams();
     const { token } = useSelector(state => state.auth);
@@ -119,7 +121,9 @@ function LoanDetail() {
             }
         }
 
-        dispatch(loanApproval({ token, id: loanmainId, data }));
+        dispatch(loanApproval({ token, id: loanmainId, data })).then(() => {
+            navigate('/dashboard/loans');
+          });
     };
 
     const declineLoanHandler = () => {
@@ -228,8 +232,16 @@ function LoanDetail() {
                 <div className={classes['loan-detail__box']}>
                     <img style={{width: '100%'}} src={beneficiary_file_results && beneficiary_file_results[0]?.secure_url}  alt='' />
                 </div>
-                {adminComment && <p>{adminComment}</p>}
-                {riskComment && <p>{riskComment}</p>}
+                <div className={classes['admin-comments']}>
+                    <div className={classes['admin-comments__item']}>
+                        <h1 className={classes['loan-detail__heading']}>Admin Comment</h1>
+                        {adminComment && <p>{adminComment}</p>}
+                    </div>
+                    <div className={classes['admin-comments__item']}>
+                        <h1 className={classes['loan-detail__heading']}>Risk Manager Comment</h1>
+                        {riskComment && <p>{riskComment}</p>}
+                    </div>
+                </div>
                 <h1 className={classes['loan-detail__heading']}>Admin Comment</h1>
                 <div className={classes['loan-detail__box']}>
                     <div className={classes['loan-detail__box--item2']}>

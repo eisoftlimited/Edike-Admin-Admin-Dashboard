@@ -19,6 +19,7 @@ import LoanDeclineModal from './LoanDeclineModal';
 import LoanDetail from './LoanDetail';
 import LoanNav from './LoanNav';
 import LoanCards from './loancards/LoanCards';
+import { exportFileToExcel } from '../../../utils/exportToExcel';
 
 
 
@@ -178,6 +179,10 @@ function DashBoardLoan() {
 
     const loanIdiy = 'EDI 00';
 
+    const onExportTable = () => {
+        exportFileToExcel(filteredArray, 'Loans');
+    };
+
     return (
         <>
             {/* DECLINED SCHOOLS TOAST COMPONENTS */}
@@ -221,6 +226,7 @@ function DashBoardLoan() {
                                     onDecline={() => {
                                         setFilterBy('declined');
                                     }}
+                                    onExportTable={onExportTable}
                                 />
                                 <DashTable>
                                     <tr className={classes.loantr}>
@@ -252,8 +258,8 @@ function DashBoardLoan() {
                                             {loan.status === 'defaulted' && <span className={classes['defaulted']}>Defaulted</span>}
                                             {loan.status === 'pending_disbursement' && <span className={classes['pending_disbursement']}>Pending Disbursement</span>}
                                         </td>
-                                        <td>
-                                            <div>
+                                        <td style={{ textAlign: 'center' }}>
+                                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                                 <div
                                                     // onClick={e => {
                                                     //     const optionsList = e.currentTarget.nextElementSibling;
@@ -265,15 +271,18 @@ function DashBoardLoan() {
 
                                                     // }}
                                                     className={classes.dots}
-                                                    >
+                                                >
                                                     {false && <i className={`fas fa-ellipsis-v`} />}
-                                                    <span onClick={() => {
-                                                        navigate(`/dashboard/loans/${loan.createdBy}/${loan._id}`, {
-                                                            state: {
-                                                                loanId: loanIdiy + (loanIndex + 1)
-                                                            }
-                                                        });
-                                                    }}><i className={`far fa-eye`} /></span>
+                                                    <span
+                                                        style={{ marginRight: 0 }}
+                                                        onClick={() => {
+                                                            navigate(`/dashboard/loans/${loan.createdBy}/${loan._id}`, {
+                                                                state: {
+                                                                    loanId: loanIdiy + (loanIndex + 1)
+                                                                }
+                                                            });
+                                                        }}
+                                                    ><i className={`far fa-eye`} /></span>
                                                 </div>
                                                 {false && <Options
                                                     isLoan={true}
