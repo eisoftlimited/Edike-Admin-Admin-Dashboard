@@ -152,9 +152,6 @@ function LoanDetail() {
 
             <ToastComponent />
 
-
-
-
             <DashBoardNav navTitle={`Loan Application - ${state && state.loanId}`}
                 // onAddSchool={drawerDisplayHandler} 
                 onOpenSidebar={openSideBarHandler}
@@ -229,8 +226,8 @@ function LoanDetail() {
                     </a>
                 </div>
                 <h1 className={classes['loan-detail__heading']}>School bill invoice</h1>
-                <div className={classes['loan-detail__box']}>
-                    <img style={{width: '100%'}} src={beneficiary_file_results && beneficiary_file_results[0]?.secure_url}  alt='' />
+                <div className={classes['loan-detail__box-img']}>
+                    <img src={beneficiary_file_results && beneficiary_file_results[0]?.secure_url}  alt='' />
                 </div>
                 <div className={classes['admin-comments']}>
                     <div className={classes['admin-comments__item']}>
