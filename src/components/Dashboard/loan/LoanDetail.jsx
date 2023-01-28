@@ -230,14 +230,14 @@ function LoanDetail() {
                     <img src={beneficiary_file_results && beneficiary_file_results[0]?.secure_url}  alt='' />
                 </div>
                 <div className={classes['admin-comments']}>
-                    <div className={classes['admin-comments__item']}>
+                    { userAdmin && userAdmin.role !== 'admin' && (<div className={classes['admin-comments__item']}>
                         <h1 className={classes['loan-detail__heading']}>Admin Comment</h1>
                         {adminComment && <p>{adminComment}</p>}
-                    </div>
-                    <div className={classes['admin-comments__item']}>
+                    </div>)}
+                    { (userAdmin && (userAdmin.role !== 'admin' && userAdmin.role !== 'risk_management')) &&(<div className={classes['admin-comments__item']}>
                         <h1 className={classes['loan-detail__heading']}>Risk Manager Comment</h1>
                         {riskComment && <p>{riskComment}</p>}
-                    </div>
+                    </div>)}
                 </div>
                 <h1 className={classes['loan-detail__heading']}>Admin Comment</h1>
                 <div className={classes['loan-detail__box']}>

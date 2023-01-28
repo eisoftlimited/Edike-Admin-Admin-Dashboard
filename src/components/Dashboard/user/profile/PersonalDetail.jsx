@@ -6,13 +6,15 @@ import FormPhone from '../../../Account/FormPhone';
 import FormSelect from '../../../Account/FormSelect';
 import classes from './PersonalDetail.module.scss';
 import passwordcuate from './../../../../img/password-cuate.svg';
+import avatar from './../../../../img/avatar.svg';
 
-function PersonalDetail({ userDetail, selectedTab }) {
+function PersonalDetail({ userDetail={}, selectedTab }) {
     return (
         <>
             <div style={{display: selectedTab === 'personal' ? 'flex' : 'none'}} className={classes['personal-detail']}>
                 <div className={classes['personal-detail__img']}>
-                    <img src={userDetail.profileImage} alt={userDetail.firstname} style={{width: '100%', height: '100%'}} />
+                    {userDetail && <img src={userDetail.profileImage} alt={userDetail.firstname} style={{width: '100%', height: '100%'}} />}
+                    {!userDetail && <img src={avatar} alt={userDetail.firstname} style={{width: '100%', height: '100%'}} />}
                 </div>
                 <div className={classes['personal-detail__form']}>
                     <FormHeading className={classes['personal-detail__heading']}>Personal Details</FormHeading>

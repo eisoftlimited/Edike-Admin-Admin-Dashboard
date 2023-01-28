@@ -177,7 +177,7 @@ function DashBoardLoan() {
         return `${month}.${day}.${year}`;
     }
 
-    const loanIdiy = 'EDI 00';
+    const loanIdiy = 'EDI/00';
 
     const onExportTable = () => {
         exportFileToExcel(filteredArray, 'Loans');
