@@ -215,13 +215,13 @@
     flex-wrap: wrap;
     gap: 3rem;
     margin-bottom: 2rem;
-    border: 1px solid #ccc;
 
     &__item {
         border-radius: .6rem;
         padding: 2rem;
         flex: 1;
         background-color: #fff;
+        border: 1px solid #ccc;
         
         .loan-detail__heading {
             font-size: 1.6rem;
