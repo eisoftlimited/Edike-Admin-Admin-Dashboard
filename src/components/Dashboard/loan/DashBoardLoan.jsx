@@ -20,6 +20,7 @@ import LoanDetail from './LoanDetail';
 import LoanNav from './LoanNav';
 import LoanCards from './loancards/LoanCards';
 import { exportFileToExcel } from '../../../utils/exportToExcel';
+import { formatCurr } from '../../../utils/currencyFormater';
 
 
 
@@ -231,20 +232,26 @@ function DashBoardLoan() {
                                 <DashTable>
                                     <tr className={classes.loantr}>
                                         <th>Date</th>
-                                        <th>Borrower Name</th>
+                                        <th>Customer</th>
+                                        <th>Beneficiary</th>
                                         <th>Loan ID</th>
                                         <th>Loan Amount</th>
-                                        <th>KYC Status</th>
+                                        <th>Loan Tenor</th>
+                                        <th>Next Repayment</th>
+                                        <th>Monthly Repayment</th>
                                         <th>Loan Status</th>
                                         <th>Action</th>
                                     </tr>
                                     {/* {loans.allLoans && loans.allLoans.map(loan => (<tr key={loan._id} className={classes.loantr}> */}
                                     {filteredArray && filteredArray.map((loan, loanIndex) => (<tr key={loan._id} className={classes.loantr}>
                                         <td>{loan.createdAt && formatDate(loan.createdAt)}</td>
+                                        <td>--</td>
                                         <td>{loan.beneficiaryDetails[0]?.firstname} {loan.beneficiaryDetails[0]?.lastname}</td>
                                         <td>{loanIdiy + (loanIndex + 1)}</td>
-                                        <td>N {loan.beneficiary_amount}</td>
-                                        <td>KYC Complete</td>
+                                        <td>{(loan.beneficiary_amount && formatCurr(loan.beneficiary_amount)) || '-'}</td>
+                                        <td>{loan.beneficiary_duration || '-'} months</td>
+                                        <td>{(loan.paymentDate && formatDate(loan.paymentDate)) || '-'}</td>
+                                        <td>{(loan.nextPayment && formatCurr(loan.nextPayment)) || '-'} </td>
                                         <td>
                                             {loan.status === 'active' && <span className={classes['success']}>Active</span>}
                                             {loan.status === 'pending' && <span className={classes['pending']}>Pending</span>}

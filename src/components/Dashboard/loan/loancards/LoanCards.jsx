@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { EDUKE_URL } from '../../../../store/url';
 import { useNavigate } from 'react-router-dom';
+import { formatCurr } from '../../../../utils/currencyFormater';
 
 
 function LoanCard({ state, image, loanType }) {
@@ -63,7 +64,10 @@ function LoanCard({ state, image, loanType }) {
             }
         })} className={classes['dashboard-loan']}>
             <span className={classes['dashboard-loan__label']}>{val} Loans</span>
-            <p className={`${classes['dashboard-loan__amount']} ${classes['dashboard-loan__amount--' + state]}`}>N {`${data}`.length > 0 ? data : 0 }</p>
+            <p className={`${classes['dashboard-loan__amount']} ${classes['dashboard-loan__amount--' + state]}`}>
+                {/* N {`${data}`.length > 0 ? data : 0 } */}
+                {`${data}`.length > 0 ? formatCurr(data) : 'NGN 0' }
+            </p>
             <div className={classes['dashboard-loan__icon-box']}>
                 <img src={image} alt='' />
             </div>

@@ -113,13 +113,13 @@ function Options({ isRecent, isUser, className, onDeleteUser, onEditUser, onBloc
                         </button>
                     </div>
                 </li>
-                <li>
+                {/* <li>
                     <div style={{ justifyContent: 'flex-start' }}>
                         <button style={{ display: 'flex', alignItems: 'center', color: '#FF3436' }} onClick={onDeleteUser}>
                             <img src={Delete} alt='' style={{ width: '2rem', marginRight: '.7rem' }} /> Delete
                         </button>
                     </div>
-                </li>
+                </li> */}
             </ul>
         );
     }

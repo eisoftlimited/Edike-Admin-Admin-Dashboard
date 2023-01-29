@@ -104,9 +104,12 @@ updatedAt
         ];
     } else if (fileName === 'Loans') {
         contentColumn = [
-            { label: "Borrower Name", value: (row) => row.firstname + row.lastname },
-            { label: "Amount", value: (row) => row.beneficiary_amount },
             { label: "Date", value: (row) => row.createdAt },
+            { label: "Beneficiary", value: (row) => row.firstname + row.lastname },
+            { label: "Amount", value: (row) => row.beneficiary_amount },
+            { label: "Loan Tenor", value: (row)=> row.beneficiary_duration},
+            { label: "Next Payment", value: (row)=> row.paymentDate},
+            { label: "Monthly Repayment", value: (row)=> row.nextPayment},
             { label: "Status", value: (row) => row.status },
         ];
     }

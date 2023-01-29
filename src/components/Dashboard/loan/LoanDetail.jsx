@@ -14,6 +14,7 @@ import { toast } from 'react-toastify';
 import { declineLoanActions, loanDecline } from '../../../store/loan/declineLoanSlice';
 import { approveLoanActions, loanApproval } from '../../../store/loan/approveLoanSlice';
 import ModalDetail from '../ModalDetail';
+import { formatCurr } from '../../../utils/currencyFormater';
 
 // import MyPDF from './LoanPDF';
 
@@ -28,7 +29,7 @@ function LoanDetail() {
     const { token } = useSelector(state => state.auth);
     const userAdmin = useSelector(state => state.auth.user);
     const { loan, user } = useSelector(state => state.getSingleLoan);
-    const { beneficiaryDetails, beneficiary_amount, status, beneficiary_duration, pdf, beneficiary_file_results, adminComment, riskComment } = (loan && loan[0]) || [];
+    const { beneficiaryDetails, beneficiary_amount, status, beneficiary_duration, pdf, beneficiary_file_results, adminComment, riskComment, nextPayment, paymentDate, totalPayback } = (loan && loan[0]) || [];
     const ben = (beneficiaryDetails && beneficiaryDetails[0]) || [];
     // const secureUrl = beneficiary_file_results;
 
@@ -111,11 +112,11 @@ function LoanDetail() {
 
         let data = {};
 
-        if(userAdmin && userAdmin.role === 'admin') {
+        if (userAdmin && userAdmin.role === 'admin') {
             data = {
                 adminComment: loanComment,
             }
-        } else if(userAdmin && userAdmin.role === 'risk_management') {
+        } else if (userAdmin && userAdmin.role === 'risk_management') {
             data = {
                 riskComment: loanComment,
             }
@@ -123,7 +124,7 @@ function LoanDetail() {
 
         dispatch(loanApproval({ token, id: loanmainId, data })).then(() => {
             navigate('/dashboard/loans');
-          });
+        });
     };
 
     const declineLoanHandler = () => {
@@ -136,6 +137,22 @@ function LoanDetail() {
         dispatch(loanDecline({ token, id: loanmainId }));
     };
 
+
+    function formatDate(userDate) {
+
+        const formatValue = (value) => {
+            const tempVal = value < 10 ? `0${value}` : `${value}`;
+            return tempVal;
+        };
+
+        const d = new Date(userDate);
+
+        const year = `${d.getFullYear()}`.slice(2, 4);
+        const month = formatValue(d.getMonth() + 1);
+        const day = formatValue(d.getDay() + 1);
+
+        return `${month}.${day}.${year}`;
+    }
 
 
     return (
@@ -182,7 +199,7 @@ function LoanDetail() {
                                     <h3>{user.firstname || '-'} {user.lastname || '-'}</h3>
                                 </div>
                             </td>
-                            <td>1, Olaleye Street, Gbagada, La..</td>
+                            <td>{user.residence_address || '-'}</td>
                             <td>{user.phone || '-'}</td>
                             <td>{user.email || '-'}</td>
                         </tr>)}
@@ -192,7 +209,7 @@ function LoanDetail() {
                 <ul>
                     <li>
                         <strong>Loan Amount</strong>
-                        N {beneficiary_amount ? beneficiary_amount : 'N/A'}
+                        {beneficiary_amount ? formatCurr(beneficiary_amount) : 'N/A'}
                         {/* N {loan ? loan.beneficiary_amount : 'N/A'} */}
                     </li>
                     <li>
@@ -208,15 +225,27 @@ function LoanDetail() {
                         {ben.studentClass}
                     </li>
                     <li>
-                        <strong>Loan Duration</strong>
+                        <strong>Loan Tenor</strong>
                         {beneficiary_duration ? beneficiary_duration : 'N/A'} Months
+                    </li>
+                    <li>
+                        <strong>Monthly Repayment</strong>
+                        {nextPayment && formatCurr(nextPayment)} 
+                    </li>
+                    <li>
+                        <strong>Next Repayment Date</strong>
+                        {formatDate && formatDate(paymentDate)}
+                    </li>
+                    <li>
+                        <strong>Total Repayment</strong>
+                        {totalPayback && formatCurr(totalPayback)}
                     </li>
                     <li>
                         <strong>Loan Status</strong>
                         <span className={classes[status]}>{status ? status : ''}</span>
                     </li>
                     <li>
-                        <button onClick={()=> setDetailModal(true)}>Customer Details</button>
+                        <button onClick={() => setDetailModal(true)}>Customer Details</button>
                     </li>
                 </ul>
                 <h1 className={classes['loan-detail__heading']}>Bank statement PDF</h1>
@@ -227,25 +256,29 @@ function LoanDetail() {
                 </div>
                 <h1 className={classes['loan-detail__heading']}>School bill invoice</h1>
                 <div className={classes['loan-detail__box-img']}>
-                    <img src={beneficiary_file_results && beneficiary_file_results[0]?.secure_url}  alt='' />
+                    <img src={beneficiary_file_results && beneficiary_file_results[0]?.secure_url} alt='' />
                 </div>
                 <div className={classes['admin-comments']}>
-                    { userAdmin && userAdmin.role !== 'admin' && (<div className={classes['admin-comments__item']}>
+                    {userAdmin && userAdmin.role !== 'admin' && (<div className={classes['admin-comments__item']}>
                         <h1 className={classes['loan-detail__heading']}>Admin Comment</h1>
                         {adminComment && <p>{adminComment}</p>}
                     </div>)}
-                    { (userAdmin && (userAdmin.role !== 'admin' && userAdmin.role !== 'risk_management')) &&(<div className={classes['admin-comments__item']}>
+                    {(userAdmin && (userAdmin.role !== 'admin' && userAdmin.role !== 'risk_management')) && (<div className={classes['admin-comments__item']}>
                         <h1 className={classes['loan-detail__heading']}>Risk Manager Comment</h1>
                         {riskComment && <p>{riskComment}</p>}
                     </div>)}
                 </div>
-                <h1 className={classes['loan-detail__heading']}>Admin Comment</h1>
-                <div className={classes['loan-detail__box']}>
-                    <div className={classes['loan-detail__box--item2']}>
-                        <textarea rows={10} placeholder='Your comment' className={classes['form-comment']} value={loanComment} onChange={ e => setLoanComment(e.target.value)}  />
-                    </div>
-                </div>
-                
+                {userAdmin && userAdmin.role !== 'cfo' && (
+                    <>
+                        <h1 className={classes['loan-detail__heading']}>Your Comment</h1>
+                        <div className={classes['loan-detail__box']}>
+                            <div className={classes['loan-detail__box--item2']}>
+                                <textarea rows={10} placeholder='Your comment' className={classes['form-comment']} value={loanComment} onChange={e => setLoanComment(e.target.value)} />
+                            </div>
+                        </div>
+                    </>
+                )}
+
                 {status && status !== 'ongoing' && (<div className={classes['loan-detail__btns']}>
                     <button onClick={() => setDeclineModal(true)} type='button'>Decline</button>
                     <button onClick={() => setActivateModal(true)} type='button'>Approve</button>
@@ -277,8 +310,8 @@ function LoanDetail() {
                     }}
                 />
 
-                <ModalDetail onClose={()=> setDetailModal(false)} info={user ? user[0] : {}} isModalVisible={showDetailModal} />
-                
+                <ModalDetail onClose={() => setDetailModal(false)} info={user ? user[0] : {}} isModalVisible={showDetailModal} />
+
             </div>
         </>
     );

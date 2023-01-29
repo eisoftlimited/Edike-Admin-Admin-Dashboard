@@ -11,6 +11,7 @@ import LoadingScreen from '../../UI/LoadingScreen';
 import NotFoundPlaceholder from './NotFoundPlaceholder';
 import { EDUKE_URL } from '../../../store/url';
 import ModalDetail from '../ModalDetail';
+import { formatCurr } from '../../../utils/currencyFormater';
 // qot-cedj-uvm
 
 function CustomerDetail() {
@@ -153,7 +154,7 @@ function CustomerDetail() {
                                                 {ben.dob || '-'}
                                                 {/* {new Date('22/2/2019').toLocaleString()} */}
                                             </td>
-                                            <td>Male</td>
+                                            <td>{ben.gender || '-'}</td>
                                         </tr>
                                     );
                                 })}
@@ -182,7 +183,7 @@ function CustomerDetail() {
                                             <td>{ln?.beneficiaryDetails[0]?.firstname || '-'} {ln?.beneficiaryDetails[0]?.lastname || '-'}</td>
                                             <td>{ln?.beneficiaryDetails[0]?.school || '-'}</td>
                                             <td>{ln?.beneficiaryDetails[0]?.studentClass || '-'}</td>
-                                            <td>N {ln.beneficiary_amount || '-'}</td>
+                                            <td>{(ln.beneficiary_amount && formatCurr(ln.beneficiary_amount)) || '-'}</td>
                                             <td>
                                                 {/* <span className={classes['active-loan']}>Active</span> */}
                                                 <span className={classes[ln.status + '-loan']}>{ln.status && ln.status.split('_').join(' ')}</span>
@@ -213,7 +214,7 @@ function CustomerDetail() {
                                             <td>#EDI-{index + 1}</td>
                                             <td>{transaction.channel || '-'}</td>
                                             <td>{transaction.amount === 5000 ? 'Card Tokenization' : 'Matured Loan Repayment'}</td>
-                                            <td>N {parseInt(transaction.amount / 100, 10)}</td>
+                                            <td>{transaction.amount && formatCurr(parseInt(transaction.amount / 100, 10))}</td>
                                             <td>
                                                 <span className={classes['active-loan']}
                                                     style={{ backgroundColor: `${transaction.status !== 'success' && 'rgba(255, 52, 54, .1)'}`, color: `${transaction.status !== 'success' && '#FF3436'}` }}

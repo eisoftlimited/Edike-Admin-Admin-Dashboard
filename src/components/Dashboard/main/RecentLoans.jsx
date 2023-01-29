@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { approveLoanActions, loanApproval } from '../../../store/loan/approveLoanSlice';
 import { declineLoanActions, loanDecline } from '../../../store/loan/declineLoanSlice';
 import { EDUKE_URL } from '../../../store/url';
+import { formatCurr } from '../../../utils/currencyFormater';
 import Options from '../../UI/Options';
 import ToastComponent from '../../UI/ToastComponent';
 import LoanApproveModal from '../loan/LoanApproveModal';
@@ -71,15 +72,6 @@ function RecentLoans({ className }) {
                 memoisedFetchLoans();
         }
     }, [memoisedFetchLoans, approvedLoan, declinedLoan]);
-
-
-
-
-
-
-
-
-
 
     useEffect(() => {
         let interval;
@@ -208,7 +200,7 @@ function RecentLoans({ className }) {
                                     <td>{loan.beneficiaryDetails[0]?.firstname} {loan.beneficiaryDetails[0]?.lastname}</td>
                                     {/* <td>Abiola Ogunjobi</td> */}
                                     <td>EDI 00{index + 1}</td>
-                                    <td>N {loan.beneficiary_amount}</td>
+                                    <td>{loan.beneficiary_amount && formatCurr(loan.beneficiary_amount)}</td>
                                     <td>
                                         {loan.status === 'active' && <span className={classes['success']}>Active</span>}
                                         {loan.status === 'pending' && <span className={classes['pending']}>Pending</span>}
