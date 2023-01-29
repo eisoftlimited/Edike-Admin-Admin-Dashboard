@@ -283,10 +283,6 @@ function LoanDetail() {
                     <button onClick={() => setDeclineModal(true)} type='button'>Decline</button>
                     <button onClick={() => setActivateModal(true)} type='button'>Approve</button>
                 </div>)}
-                {/* {userAdmin && userAdmin.role !== 'cfo' && (<div className={classes['loan-detail__btns']}>
-                    <button onClick={() => setDeclineModal(true)} type='button'>Decline</button>
-                    <button onClick={() => setActivateModal(true)} type='button'>Approve</button>
-                </div>)} */}
                 <LoanDeclineModal
                     onCloseModal={() => setDeclineModal(false)}
                     isModalVisible={showDeclineModal}
@@ -294,7 +290,7 @@ function LoanDetail() {
                     onCancelClick={() => setDeclineModal(false)}
                     loanInfo={{
                         user: user && `${user[0].firstname} ${user[0].lastname}`,
-                        amount: beneficiary_amount
+                        amount: beneficiary_amount && formatCurr(beneficiary_amount)
                     }}
                 />
                 <LoanApproveModal
@@ -306,7 +302,7 @@ function LoanDetail() {
                     onCancelClick={() => setActivateModal(false)}
                     loanInfo={{
                         user: user && `${user[0].firstname} ${user[0].lastname}`,
-                        amount: beneficiary_amount
+                        amount: beneficiary_amount && formatCurr(beneficiary_amount)
                     }}
                 />
 

@@ -20,7 +20,7 @@ function RecentLoans({ className }) {
 
     // USESELECTOR STATES
 
-    
+
     // const loans = useSelector(state => state.getAllLoans);
     // const { ongoingLoans, defaultedLoans, completedLoans, declinedLoans, allLoans } = useSelector(state => state.getAllLoans);
 
@@ -68,8 +68,8 @@ function RecentLoans({ className }) {
 
     useEffect(() => {
         if ((approvedLoan.loanApprovedMsg && approvedLoan.loanApprovedMsg.length > 0) ||
-            (declinedLoan.declineLoanMsg && declinedLoan.declineLoanMsg.length > 0)) {    
-                memoisedFetchLoans();
+            (declinedLoan.declineLoanMsg && declinedLoan.declineLoanMsg.length > 0)) {
+            memoisedFetchLoans();
         }
     }, [memoisedFetchLoans, approvedLoan, declinedLoan]);
 
@@ -159,6 +159,9 @@ function RecentLoans({ className }) {
     }, [approvedLoan, declinedLoan, dispatch]);
 
 
+    // const [placehoderName, setPlaceholderName] = useState('');
+    // const [placehoderAmount, setPlaceholderAmount] = useState('');
+
     return (
         <>
             <LoanDeclineModal
@@ -166,15 +169,20 @@ function RecentLoans({ className }) {
                 isModalVisible={showDeclineModal}
                 onConfirmClick={deactivateLoanHandler}
                 onCancelClick={() => setDeclineModal(false)}
+                infoModal={`Are you sure you want to Decline ${''}’s loan application for ${''}?`}
             />
             <LoanApproveModal
-                    onCloseModal={() => setActivateModal(false)}
-                    isModalVisible={showActivateModal}
-                    onConfirmClick={() => {
-                        approveLoanHandler();
-                    }}
-                    onCancelClick={() => setActivateModal(false)}
-                />
+                onCloseModal={() => setActivateModal(false)}
+                isModalVisible={showActivateModal}
+                onConfirmClick={() => {
+                    approveLoanHandler();
+                }}
+                onCancelClick={() => setActivateModal(false)}
+                loanInfo={{
+                    user: '',
+                    amount: ''
+                }}
+            />
 
 
 
@@ -216,16 +224,28 @@ function RecentLoans({ className }) {
                                     </td>
                                     <td>
                                         <div>
-                                            <div onClick={e => {
-                                                const optionsList = e.currentTarget.nextElementSibling;
-                                                if (optionsList.style.display === 'none') {
-                                                    optionsList.style.display = 'block';
-                                                } else {
-                                                    optionsList.style.display = 'none';
-                                                }
+                                            <div
+                                                // onClick={e => {
+                                                //     const optionsList = e.currentTarget.nextElementSibling;
+                                                //     if (optionsList.style.display === 'none') {
+                                                //         optionsList.style.display = 'block';
+                                                //     } else {
+                                                //         optionsList.style.display = 'none';
+                                                //     }
+                                                // }}
+                                                className={classes.dots}>
+                                                {/* <i className={`fas fa-ellipsis-v`} /> */}
 
-                                            }} className={classes.dots}>
-                                                <i className={`fas fa-ellipsis-v`} />
+                                                <span
+                                                    style={{ marginRight: 0 }}
+                                                    onClick={() => {
+                                                        navigate(`/dashboard/loans/${loan.createdBy}/${loan._id}`, {
+                                                            state: {
+                                                                loanId: loanIdiy + (index + 1)
+                                                            }
+                                                        });
+                                                    }}
+                                                ><i className={`far fa-eye`} /></span>
                                             </div>
 
                                             <Options

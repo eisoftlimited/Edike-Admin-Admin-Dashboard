@@ -280,7 +280,7 @@ function CustomerDash() {
                         <tr>
                             <th></th>
                             <th>Customer Name</th>
-                            <th>Location</th>
+                            <th>Address</th>
                             <th>Phone</th>
                             <th>Date</th>
                             <th>Status</th>
