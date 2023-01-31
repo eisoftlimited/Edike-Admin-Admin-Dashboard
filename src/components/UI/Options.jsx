@@ -11,27 +11,30 @@ function Options({ isRecent, isUser, className, onDeleteUser, onEditUser, onBloc
 
     if (isRecent) {
         return (
-            <ul className={`${classes.options} ${className ? className : ''}`}>
-                <li>
-                    <div>
-                        <button onClick={onViewUser} style={{ color: '#333' }}><i className={`far fa-eye`} /> View</button>
-                    </div>
-                </li>
-                <li>
-                    <div>
-                        <button style={{ display: 'flex', alignItems: 'center' }} onClick={onBlockUser}>
-                            <img src={Wall} alt='' style={{ width: '2rem', marginRight: '.7rem' }} />Decline
-                        </button>
-                    </div>
-                </li>
-                <li>
-                    <div style={{ justifyContent: 'flex-start' }}>
-                        <button style={{ display: 'flex', alignItems: 'center', color: '#111' }} onClick={onActivateUser}>
-                            <img src={Wall} alt='' style={{ width: '2rem', marginRight: '.7rem' }} />Activate
-                        </button>
-                    </div>
-                </li>
-            </ul>
+            <>
+                <ul className={`${classes.options} ${className ? className : ''}`}>
+                    <li>
+                        <div>
+                            <button onClick={onViewUser} style={{ color: '#333' }}><i className={`far fa-eye`} /> View</button>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <button style={{ display: 'flex', alignItems: 'center' }} onClick={onBlockUser}>
+                                <img src={Wall} alt='' style={{ width: '2rem', marginRight: '.7rem' }} />Decline
+                            </button>
+                        </div>
+                    </li>
+                    <li>
+                        <div style={{ justifyContent: 'flex-start' }}>
+                            <button style={{ display: 'flex', alignItems: 'center', color: '#111' }} onClick={onActivateUser}>
+                                <img src={Wall} alt='' style={{ width: '2rem', marginRight: '.7rem' }} />Activate
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+                {/* <div className={classes.options__overlay}></div> */}
+            </>
         )
     }
 
@@ -57,6 +60,7 @@ function Options({ isRecent, isUser, className, onDeleteUser, onEditUser, onBloc
                         </div>
                     </li>
                 </ul>
+                {/* <div className={classes.options__overlay}></div> */}
                 {/* <div className={classes.options__overlay} style={{display: 'none'}} onClick={e=> {
                     e.currentTarget.style.display = 'none';
                     if(e.currentTarget.previousElementSibling) e.currentTarget.previousElementSibling.style.display = 'none';
@@ -67,60 +71,66 @@ function Options({ isRecent, isUser, className, onDeleteUser, onEditUser, onBloc
 
     if (isLoan) { // Delete
         return (
-            <ul className={`${classes.options} ${className ? className : ''}`} onClick={menuHandler}>
-                <li>
-                    <div style={{ justifyContent: 'flex-start' }}>
-                        <button onClick={onViewUser}><i className={`far fa-eye`} style={{ width: '2rem', marginRight: '.7rem' }} /> View</button>
-                    </div>
-                </li>
-                <li>
-                    <div style={{ justifyContent: 'flex-start' }}>
-                        <button style={{ display: 'flex', alignItems: 'center', color: '#FF3436' }} onClick={onBlockUser}>
-                            <img src={Delete} alt='' style={{ width: '2rem', marginRight: '.7rem' }} />Decline
-                        </button>
-                    </div>
-                </li>
-                <li>
-                    <div style={{ justifyContent: 'flex-start' }}>
-                        <button style={{ color: '#111', display: 'flex', alignItems: 'center' }} onClick={onActivateUser}>
-                            <img src={Wall} alt='' style={{ width: '2rem', marginRight: '.7rem' }} />Approve
-                        </button>
-                    </div>
-                </li>
-            </ul>
+            <>
+                <ul className={`${classes.options} ${className ? className : ''}`} onClick={menuHandler}>
+                    <li>
+                        <div style={{ justifyContent: 'flex-start' }}>
+                            <button onClick={onViewUser}><i className={`far fa-eye`} style={{ width: '2rem', marginRight: '.7rem' }} /> View</button>
+                        </div>
+                    </li>
+                    <li>
+                        <div style={{ justifyContent: 'flex-start' }}>
+                            <button style={{ display: 'flex', alignItems: 'center', color: '#FF3436' }} onClick={onBlockUser}>
+                                <img src={Delete} alt='' style={{ width: '2rem', marginRight: '.7rem' }} />Decline
+                            </button>
+                        </div>
+                    </li>
+                    <li>
+                        <div style={{ justifyContent: 'flex-start' }}>
+                            <button style={{ color: '#111', display: 'flex', alignItems: 'center' }} onClick={onActivateUser}>
+                                <img src={Wall} alt='' style={{ width: '2rem', marginRight: '.7rem' }} />Approve
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+                {/* <div className={classes.options__overlay}></div> */}
+            </>
         );
     }
 
     if (isCustomer) {
         return (
-            <ul className={`${classes.options} ${className ? className : ''}`} onClick={menuHandler}>
-                <li>
-                    <div style={{ justifyContent: 'flex-start' }}>
-                        <button onClick={onViewUser}><i className={`far fa-eye`} style={{ width: '2rem', marginRight: '.7rem' }} /> View</button>
-                    </div>
-                </li>
-                <li>
-                    <div style={{ justifyContent: 'flex-start' }}>
-                        <button style={{ display: 'flex', alignItems: 'center', color: '#111' }} onClick={onBlockUser}>
-                            <img src={Wall} alt='' style={{ width: '2rem', marginRight: '.7rem' }} />Block
-                        </button>
-                    </div>
-                </li>
-                <li>
-                    <div style={{ justifyContent: 'flex-start' }}>
-                        <button style={{ display: 'flex', alignItems: 'center', color: '#111' }} onClick={onActivateUser}>
-                            <img src={Wall} alt='' style={{ width: '2rem', marginRight: '.7rem' }} />Activate
-                        </button>
-                    </div>
-                </li>
-                {/* <li>
+            <>
+                <ul className={`${classes.options} ${className ? className : ''}`} onClick={menuHandler}>
+                    <li>
+                        <div style={{ justifyContent: 'flex-start' }}>
+                            <button onClick={onViewUser}><i className={`far fa-eye`} style={{ width: '2rem', marginRight: '.7rem' }} /> View</button>
+                        </div>
+                    </li>
+                    <li>
+                        <div style={{ justifyContent: 'flex-start' }}>
+                            <button style={{ display: 'flex', alignItems: 'center', color: '#111' }} onClick={onBlockUser}>
+                                <img src={Wall} alt='' style={{ width: '2rem', marginRight: '.7rem' }} />Block
+                            </button>
+                        </div>
+                    </li>
+                    <li>
+                        <div style={{ justifyContent: 'flex-start' }}>
+                            <button style={{ display: 'flex', alignItems: 'center', color: '#111' }} onClick={onActivateUser}>
+                                <img src={Wall} alt='' style={{ width: '2rem', marginRight: '.7rem' }} />Activate
+                            </button>
+                        </div>
+                    </li>
+                    {/* <li>
                     <div style={{ justifyContent: 'flex-start' }}>
                         <button style={{ display: 'flex', alignItems: 'center', color: '#FF3436' }} onClick={onDeleteUser}>
                             <img src={Delete} alt='' style={{ width: '2rem', marginRight: '.7rem' }} /> Delete
                         </button>
                     </div>
                 </li> */}
-            </ul>
+                </ul>
+                {/* <div className={classes.options__overlay}></div> */}
+            </>
         );
     }
 
@@ -187,9 +197,7 @@ function Options({ isRecent, isUser, className, onDeleteUser, onEditUser, onBloc
                     </div>
                 </li>}
             </ul>
-            {/* <div className={classes.options__overlay} onClick={e=> {
-                e.currentTarget.style.display = 'none';
-            }}></div> */}
+            {/* <div className={classes.options__overlay}></div> */}
         </>
     );
 }

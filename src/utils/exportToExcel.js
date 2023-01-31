@@ -106,7 +106,7 @@ updatedAt
         contentColumn = [
             { label: "Date", value: (row) => row.createdAt },
             { label: "Customer", value: (row) => row.createdAt },
-            { label: "Beneficiary", value: (row) => row.beneficiaryDetails ? `${row.beneficiaryDetails.firstname} + ${row.beneficiaryDetails.lastname}` : '-' },
+            { label: "Beneficiary", value: (row) => row.beneficiaryDetails ? `${row.beneficiaryDetails[0].firstname} ${row.beneficiaryDetails[0].lastname}` : '-' },
             { label: "Amount", value: (row) => row.beneficiary_amount },
             { label: "Loan Tenor", value: (row)=> `${row.beneficiary_duration} months`},
             { label: "Next Payment", value: (row)=> row.paymentDate},

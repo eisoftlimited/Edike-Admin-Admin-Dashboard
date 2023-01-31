@@ -40,7 +40,7 @@
     }
 
     &__link {
-        padding: 1.5rem 3rem;
+        padding: 1.5rem 2.4rem;
         display: flex;
         align-items: center;
         text-decoration: none;
@@ -50,7 +50,7 @@
         &.active,
         &:hover {
             background-color: #47B88F;
-            padding-left: 2.5rem;
+            padding-left: 2rem;
         }
 
         &-icon {
@@ -73,7 +73,7 @@
         }
 
         &-text {
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             color: #3F434A;
             transition: all .2s;
         }

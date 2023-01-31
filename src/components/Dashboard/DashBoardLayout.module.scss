@@ -14,7 +14,7 @@
         position: fixed;
         top: 0;
         left: 0;
-        width: 27rem;
+        width: 23rem;
         height: 100vh;
         background-color: #fff;
         z-index: 20;
@@ -52,7 +52,7 @@
 
     &__main {
         position: relative;
-        margin-left: 27rem;
+        margin-left: 23rem;
         
         @media screen and (max-width: 71.875em) {
             margin-left: 0;

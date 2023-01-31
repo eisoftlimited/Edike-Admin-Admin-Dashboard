@@ -230,7 +230,7 @@ function LoanDetail() {
                     </li>
                     <li>
                         <strong>Monthly Repayment</strong>
-                        {nextPayment && formatCurr(nextPayment)} 
+                        {nextPayment && formatCurr(nextPayment)}
                     </li>
                     <li>
                         <strong>Next Repayment Date</strong>

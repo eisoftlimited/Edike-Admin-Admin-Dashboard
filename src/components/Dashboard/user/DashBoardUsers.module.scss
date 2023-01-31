@@ -130,10 +130,15 @@
 
         .dropdown {
             position: absolute;
+            // position: fixed;
             top: 4.5rem;
             right: 0;
             z-index: 5; 
             // display: block;
+
+            // display: flex;
+            // align-items: center;
+            // justify-content: center;
         }
     }
 

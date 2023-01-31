@@ -5,6 +5,7 @@
     width: 100%;
     border-collapse: collapse;
     border-radius: 0px 8px 8px 8px;
+    background-color: #fff;
 
     @media screen and (max-width: 71.875em) {
         min-width: 100rem; 
@@ -12,12 +13,11 @@
 
     &__container {
         width: 100%;
-        overflow-x: auto;
+        // overflow-x: auto;
+        // overflow-y: hidden;
         background-color: #fff;
         box-shadow: 0px 20px 50px rgba(196, 196, 196, 0.15);
     }
-
-    
 
     th,
     td {
