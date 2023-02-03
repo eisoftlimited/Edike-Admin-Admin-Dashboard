@@ -60,6 +60,13 @@ function TopFiveSchools({ className }) {
         }
     }, [error]);
 
+    function formatName(name) {
+        if(name && name.length > 15) {
+            return `${name.slice(0, 15)}...`;
+        } 
+
+        return name;
+    }
 
     return (
         <>
@@ -72,7 +79,7 @@ function TopFiveSchools({ className }) {
                     <div className={classes.item}>
                         <img src={school_logo} alt='' />
                         <div>
-                            <div className={classes.school}>{school.school_name} <span>283</span></div>
+                            <div title={school.school_name} className={classes.school}>{school.school_name && formatName(school.school_name)} <span>283</span></div>
                             <p className={classes.email}>{school.email}</p>
                         </div>
                         <span>View</span>

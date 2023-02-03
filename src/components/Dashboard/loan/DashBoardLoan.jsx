@@ -232,7 +232,6 @@ function DashBoardLoan() {
                                 <DashTable>
                                     <tr className={classes.loantr}>
                                         <th>Date</th>
-                                        <th>Customer</th>
                                         <th>Beneficiary</th>
                                         <th>Loan ID</th>
                                         <th>Loan Amount</th>
@@ -245,9 +244,9 @@ function DashBoardLoan() {
                                     {/* {loans.allLoans && loans.allLoans.map(loan => (<tr key={loan._id} className={classes.loantr}> */}
                                     {filteredArray && filteredArray.map((loan, loanIndex) => (<tr key={loan._id} className={classes.loantr}>
                                         <td>{loan.createdAt && formatDate(loan.createdAt)}</td>
-                                        <td>--</td>
                                         <td>{loan.beneficiaryDetails[0]?.firstname} {loan.beneficiaryDetails[0]?.lastname}</td>
-                                        <td>{loanIdiy + (loanIndex + 1)}</td>
+                                        <td>{loan._id && `EDI/${loan._id.slice(-3)}`}</td>
+                                        {/* <td>{loanIdiy + (loanIndex + 1)}</td> */}
                                         <td>{(loan.beneficiary_amount && formatCurr(loan.beneficiary_amount)) || '-'}</td>
                                         <td>{loan.beneficiary_duration || '-'} months</td>
                                         <td>{(loan.paymentDate && formatDate(loan.paymentDate)) || '-'}</td>
