@@ -29,7 +29,7 @@ function LoanDetail() {
     const { token } = useSelector(state => state.auth);
     const userAdmin = useSelector(state => state.auth.user);
     const { loan, user } = useSelector(state => state.getSingleLoan);
-    const { beneficiaryDetails, beneficiary_amount, status, beneficiary_duration, pdf, beneficiary_file_results, adminComment, riskComment, nextPayment, paymentDate, totalPayback } = (loan && loan[0]) || [];
+    const { beneficiaryDetails, beneficiary_amount, status, beneficiary_duration, pdf, beneficiary_file_results, adminComment, riskComment, cComment, nextPayment, paymentDate, totalPayback } = (loan && loan[0]) || [];
     const ben = (beneficiaryDetails && beneficiaryDetails[0]) || [];
     // const secureUrl = beneficiary_file_results;
 
@@ -119,6 +119,10 @@ function LoanDetail() {
         } else if (userAdmin && userAdmin.role === 'risk_management') {
             data = {
                 riskComment: loanComment,
+            }
+        } else if (userAdmin && userAdmin.role === 'cfo') {
+            data = {
+                cComment: loanComment
             }
         }
 
@@ -267,17 +271,26 @@ function LoanDetail() {
                         <h1 className={classes['loan-detail__heading']}>Risk Manager Comment</h1>
                         {riskComment && <p>{riskComment}</p>}
                     </div>)}
+                    {/* This is for cfo */}
+                    {userAdmin  && (<div className={classes['admin-comments__item']}>
+                        <h1 className={classes['loan-detail__heading']}>CFO</h1>
+                        {cComment && <p>{cComment}</p>}
+                    </div>)}
                 </div>
-                {userAdmin && userAdmin.role !== 'cfo' && (
-                    <>
-                        <h1 className={classes['loan-detail__heading']}>Your Comment</h1>
-                        <div className={classes['loan-detail__box']}>
-                            <div className={classes['loan-detail__box--item2']}>
-                                <textarea rows={10} placeholder='Your comment' className={classes['form-comment']} value={loanComment} onChange={e => setLoanComment(e.target.value)} />
-                            </div>
+                {/* @RESTRICTED TO ADMIN AND RISK BEFORE */}
+                {/* {userAdmin && userAdmin.role !== 'cfo' && ( */}
+                {status && status !== 'ongoing' && (
+                <>
+                    <h1 className={classes['loan-detail__heading']}>Your Comment</h1>
+                    <div className={classes['loan-detail__box']}>
+                        <div className={classes['loan-detail__box--item2']}>
+                            <textarea rows={10} placeholder='Your comment' className={classes['form-comment']} value={loanComment} onChange={e => setLoanComment(e.target.value)} />
                         </div>
-                    </>
+                    </div>
+                </>
                 )}
+                {/* )} */}
+                {/* @END */}
 
                 {status && status !== 'ongoing' && (<div className={classes['loan-detail__btns']}>
                     <button onClick={() => setDeclineModal(true)} type='button'>Decline</button>
