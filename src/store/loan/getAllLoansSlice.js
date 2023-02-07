@@ -29,7 +29,8 @@ const getLoansSlice = createSlice({
         pendingLoans: null,
         declinedLoans: null,
         completedLoans: null,
-        defaultedLoans: null
+        defaultedLoans: null,
+        disbursedLoans: null
     },
     extraReducers: (builder => {
         builder.addCase(loanManagement.pending, state => {
@@ -58,11 +59,16 @@ const getLoansSlice = createSlice({
                 return loan.status === 'completed';
             });
 
+            const disbursedLoans = action.payload && action.payload.loans && action.payload.loans.filter(loan => {
+                return loan.status === 'pending_disbursement';
+            });
+
             state.defaultedLoans = defaultedLns;
             state.ongoingLoans = ongoingLns; // ongoing
             state.pendingLoans = pendingLns;
             state.completedLoans = completedLns;
             state.declinedLoans = declinedLns;
+            state.disbursedLoans = disbursedLoans;
 
             // console.log('In the fulfilled block: ', action.payload.loans);
         });

@@ -37,7 +37,7 @@ function DashBoardLoan() {
 
     // USESELECTOR STATES
     const loans = useSelector(state => state.getAllLoans);
-    const { ongoingLoans, defaultedLoans, completedLoans, declinedLoans, allLoans } = useSelector(state => state.getAllLoans);
+    const { ongoingLoans, defaultedLoans, completedLoans, declinedLoans, allLoans, disbursedLoans, pendingLoans } = useSelector(state => state.getAllLoans);
     const token = useSelector(state => state.auth.token);
     const approvedLoan = useSelector(state => state.approveLoan); // approveLoan
     const declinedLoan = useSelector(state => state.declineLoan);
@@ -71,6 +71,12 @@ function DashBoardLoan() {
                 setFilterBy('completed');
             } else if (state && state.loanType === 'default') {
                 setFilterBy('defaulted');
+            } 
+            else if(state && state.loanType === 'pending_disbursement') {
+                setFilterBy('pending_disbursement');
+            }
+            else if(state && state.loanType === 'pending') {
+                setFilterBy('pending');
             }
         }
 
@@ -88,9 +94,13 @@ function DashBoardLoan() {
             setFilteredArray(completedLoans || []);
         } else if (filterBy === 'declined') {
             setFilteredArray(declinedLoans || []);
+        } else if (filterBy === 'pending_disbursement') {
+            setFilteredArray(disbursedLoans || []);
+        } else if(filterBy === 'pending') {
+            setFilteredArray(pendingLoans || []);
         }
 
-    }, [filterBy, ongoingLoans, defaultedLoans, completedLoans, declinedLoans, allLoans]);
+    }, [filterBy, ongoingLoans, defaultedLoans, completedLoans, declinedLoans, allLoans, disbursedLoans, pendingLoans]);
 
 
     const approveLoanHandler = () => {
@@ -227,6 +237,15 @@ function DashBoardLoan() {
                                     onDecline={() => {
                                         setFilterBy('declined');
                                     }}
+
+                                    pendingNum={pendingLoans && pendingLoans.length}
+                                    onPending={()=> {
+                                        setFilterBy('pending');
+                                    }}
+                                    disburseNum={disbursedLoans && disbursedLoans.length}
+                                    onDisburse={()=> {
+                                        setFilterBy('pending_disbursement');
+                                    }}
                                     onExportTable={onExportTable}
                                 />
                                 <DashTable>
@@ -243,13 +262,14 @@ function DashBoardLoan() {
                                     </tr>
                                     {/* {loans.allLoans && loans.allLoans.map(loan => (<tr key={loan._id} className={classes.loantr}> */}
                                     {filteredArray && filteredArray.map((loan, loanIndex) => (<tr key={loan._id} className={classes.loantr}>
-                                        <td>{loan.createdAt && formatDate(loan.createdAt)}</td>
+                                        <td>{(loan.startsTime && formatDate(loan.startsTime)) || '-'}</td>
                                         <td>{loan.beneficiaryDetails[0]?.firstname} {loan.beneficiaryDetails[0]?.lastname}</td>
                                         <td>{loan._id && `EDI/${loan._id.slice(-3)}`}</td>
                                         {/* <td>{loanIdiy + (loanIndex + 1)}</td> */}
                                         <td>{(loan.beneficiary_amount && formatCurr(loan.beneficiary_amount)) || '-'}</td>
                                         <td>{loan.beneficiary_duration || '-'} months</td>
-                                        <td>{(loan.paymentDate && formatDate(loan.paymentDate)) || '-'}</td>
+                                        <td>{(loan.paymentDate && new Date(loan.paymentDate).toDateString()) || '-'}</td>
+                                        {/* <td>{(loan.paymentDate && formatDate(loan.paymentDate)) || '-'}</td> */}
                                         <td>{(loan.nextPayment && formatCurr(loan.nextPayment)) || '-'} </td>
                                         <td>
                                             {loan.status === 'active' && <span className={classes['success']}>Active</span>}
