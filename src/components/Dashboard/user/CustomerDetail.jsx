@@ -167,7 +167,7 @@ function CustomerDetail() {
                         {loan && loan.length > 0 && (<table className={classes.loan__table}>
                             <thead>
                                 <tr>
-                                    <th>Loan Id</th>
+                                    {/* <th>Loan Id</th> */}
                                     <th>Beneficiary</th>
                                     <th>School</th>
                                     <th>Class</th>
@@ -179,7 +179,7 @@ function CustomerDetail() {
                                 {loan.map((ln, index) => {
                                     return (
                                         <tr key={ln._id}>
-                                            <td>#EDI-{index + 1}</td>
+                                            {/* <td>#EDI-{index + 1}</td> */}
                                             <td>{ln?.beneficiaryDetails[0]?.firstname || '-'} {ln?.beneficiaryDetails[0]?.lastname || '-'}</td>
                                             <td>{ln?.beneficiaryDetails[0]?.school || '-'}</td>
                                             <td>{ln?.beneficiaryDetails[0]?.studentClass || '-'}</td>

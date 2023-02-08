@@ -260,7 +260,11 @@ function LoanDetail() {
                 </div>
                 <h1 className={classes['loan-detail__heading']}>School bill invoice</h1>
                 <div className={classes['loan-detail__box-img']}>
-                    <img src={beneficiary_file_results && beneficiary_file_results[0]?.secure_url} alt='' />
+                    <a href={beneficiary_file_results && beneficiary_file_results[0]?.secure_url} download='school-bill'>
+                        <img src={beneficiary_file_results && beneficiary_file_results[0]?.secure_url} alt='' />
+                    </a>
+                    {/* <img src={beneficiary_file_results && beneficiary_file_results[0]?.secure_url} alt='' /> */}
+                    {/* <img src={user?.idCard[0]?.secure_url} alt='id card'/> */}
                 </div>
                 <div className={classes['admin-comments']}>
                     {userAdmin && userAdmin.role !== 'admin' && (<div className={classes['admin-comments__item']}>
@@ -277,6 +281,7 @@ function LoanDetail() {
                         {cComment && <p>{cComment}</p>}
                     </div>)}
                 </div>
+
                 {/* @RESTRICTED TO ADMIN AND RISK BEFORE */}
                 {/* {userAdmin && userAdmin.role !== 'cfo' && ( */}
                 {status && status !== 'ongoing' && (

@@ -193,8 +193,8 @@ function RecentLoans({ className }) {
                     <thead>
                         <tr>
                             <th>Date</th>
-                            <th>Borrower Name</th>
-                            <th>Loan ID</th>
+                            <th>Customer Name</th>
+                            {/* <th>Loan ID</th> */}
                             <th>Loan Amount</th>
                             <th>Loan Status</th>
                             <th>Action</th>
@@ -208,7 +208,7 @@ function RecentLoans({ className }) {
                                     <td>{loan.beneficiaryDetails[0]?.firstname} {loan.beneficiaryDetails[0]?.lastname}</td>
                                     {/* <td>Abiola Ogunjobi</td> */}
                                     {/* <td>EDI 00{index + 1}</td> */}
-                                    <td>{loan._id && `EDI/${loan._id.slice(-3)}`}</td>
+                                    {/* <td>{loan._id && `EDI/${loan._id.slice(-3)}`}</td> */}
                                     <td>{loan.beneficiary_amount && formatCurr(loan.beneficiary_amount)}</td>
                                     <td>
                                         {loan.status === 'active' && <span className={classes['success']}>Active</span>}
