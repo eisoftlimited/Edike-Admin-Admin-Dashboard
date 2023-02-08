@@ -51,7 +51,13 @@ function RecentLoans({ className }) {
 
             // console.log(response.data);
             setLoading(false);
-            setLoans(response.data && response.data.loans.slice(0, 5));
+            const loans = response.data && response.data.loans.filter(loan => {
+                if(loan.status === 'pending' ||loan.status === 'pending_disbursement') {
+                    return loan;
+                }
+            });
+            setLoans(loans.slice(0, 5));
+            // setLoans(response.data && response.data.loans.slice(0, 5));
         } catch (err) {
             setLoading(false);
             setError(err.response && err.response.data);
