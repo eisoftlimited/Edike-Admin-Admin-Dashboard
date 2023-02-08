@@ -9,7 +9,7 @@ import childrenOnTeer from './../../img/children-on-teer.svg';
 // import vector from './../../img/Vector.svg';
 import vector1 from './../../img/vector1.svg';
 import debitcard from './../../img/debit-card.svg';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { authActions } from '../../store/auth/authSlice';
 
 
@@ -44,6 +44,7 @@ function DashBoardAside({ onSidebarClose }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const user = useSelector(state => state.auth.user);
 
     const onLogout = () => {
         dispatch(authActions.clearToken());
@@ -97,12 +98,12 @@ function DashBoardAside({ onSidebarClose }) {
                 />
                  */}
                 
-                <DashMenuItem
+                {user && user.role === 'cfo' && (<DashMenuItem
                     text={'System Administrators'}
                     icon={user}
                     link={'/dashboard/users'}
                     onCloseSidebar={onSidebarClose}
-                />
+                />)}
                 <DashMenuItem
                     text={'Logout'}
                     icon={logout}
