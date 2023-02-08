@@ -116,7 +116,11 @@ function CustomerDetail() {
                                             <h3>{(customer && customer.firstname) || '-'} {(customer && customer.lastname) || '-'}</h3>
                                         </div>
                                     </td>
-                                    <td>{(customer && customer.residence_address) || '-'}</td>
+                                    <td>
+                                        i. {(customer && customer.residence_address) || '-'}
+                                        <br />
+                                        ii. {(customer && customer.address2) || '-'}
+                                    </td>
                                     <td>{(customer && customer.phone) || '-'}</td>
                                     <td>{(customer && customer.email) || '-'}</td>
                                 </tr>

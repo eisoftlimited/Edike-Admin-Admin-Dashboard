@@ -1,7 +1,7 @@
 import classes from './DashBoardAside.module.scss';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import EdikeLogo from '../UI/EdikeLogo';
-import user from './../../img/user.svg';
+import usericon from './../../img/user.svg';
 import moneystack from './../../img/money-stack.svg';
 import logout from './../../img/logout.svg';
 import grid from './../../img/Grid.svg';
@@ -74,7 +74,7 @@ function DashBoardAside({ onSidebarClose }) {
                 />
                 <DashMenuItem
                     text={'Customers'}
-                    icon={user}
+                    icon={usericon}
                     link={'/dashboard/customers'}
                     onCloseSidebar={onSidebarClose}
                 />
