@@ -330,6 +330,7 @@ function DashBoardMain() {
                                             <i className={`${classes.dots} fas fa-ellipsis-v`} onClick={showDropdownHandler} />
                                             <Options
 
+                                                noView={true}
                                                 status={school.status}
 
                                                 onBlockUser={() => {
@@ -371,6 +372,7 @@ function DashBoardMain() {
                     isModalVisible={showActivateModal}
                     onCloseModal={() => setActivateModal(false)}
                     onConfirmClick={activateUserHandler}
+                    onCancelClick={()=> setActivateModal(false)}
                     infoModal={{
                         msg: `Are you sure you want to activate ${modalInfo} Schools? Once activated, Edike Users wont be able to apply for loan with this school?`
                     }}
@@ -378,6 +380,7 @@ function DashBoardMain() {
                 <BlockModal
                     isModalVisible={showBlockModal}
                     onCloseModal={() => setBlockModal(false)}
+                    onCancelClick={()=> setBlockModal(false)}
                     onConfirmClick={blockUserHandler}
                     infoModal={{
                         msg: `Are you sure you want to block ${modalInfo} Schools? Once blocked, Edike Users wont be able to apply for loan with this school?`
@@ -385,6 +388,7 @@ function DashBoardMain() {
                 />
                 <DeleteModal
                     onConfirmClick={deleteUserHandler}
+                    onCancelClick={()=> setDelModal(false)}
                     isModalVisible={showDelModal}
                     onCloseModal={() => setDelModal(false)}
                     infoModal={{

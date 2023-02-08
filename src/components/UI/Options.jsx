@@ -2,7 +2,7 @@ import classes from './Options.module.scss';
 import Wall from './../../img/Wall.svg';
 import Delete from './../../img/Delete.svg';
 
-function Options({ isRecent, isUser, className, onDeleteUser, onEditUser, onBlockUser, onViewUser, status, onActivateUser, isLoan, isCustomer }) {
+function Options({ isRecent, isUser, className, onDeleteUser, onEditUser, onBlockUser, onViewUser, status, onActivateUser, isLoan, isCustomer, noView }) {
 
     function menuHandler(e) {
         console.log('Menu Item Clicked')
@@ -138,11 +138,11 @@ function Options({ isRecent, isUser, className, onDeleteUser, onEditUser, onBloc
     return (
         <>
             <ul className={`${classes.options} ${className ? className : ''}`} onClick={menuHandler}>
-                <li>
+                {!noView && <li>
                     <div>
                         <button onClick={onViewUser}><i className={`far fa-eye`} /> View</button>
                     </div>
-                </li>
+                </li>}
                 {!isLoan && <li>
                     <div>
                         <button onClick={onEditUser}><i className={`fas fa-pen`} /> Edit</button>
