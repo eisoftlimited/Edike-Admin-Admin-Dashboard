@@ -126,12 +126,11 @@ function CustomerDetail() {
                                 </tr>
                             </tbody>
                         </table>
-                        <h1 style={{marginTop: '3rem'}} className={classes['customer-detail__heading']}>Next of kin Details</h1>
+                        <h1 style={{ marginTop: '3rem' }} className={classes['customer-detail__heading']}>Next of kin Details</h1>
                         <table>
                             <thead>
                                 <tr>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
+                                    <th>Full Name</th>
                                     <th>Address</th>
                                     <th>Phone</th>
                                 </tr>
@@ -140,18 +139,20 @@ function CustomerDetail() {
                                 <tr>
                                     <td>
                                         <div className={classes['td__fullname']}>
-                                            <h3>{(customer && customer.firstname) || '-'} {(customer && customer.lastname) || '-'}</h3>
+                                            <h3>
+                                                {/* {(customer && customer.firstname) || '-'} {(customer && customer.lastname) || '-'} */}
+                                                -
+                                            </h3>
                                         </div>
                                     </td>
                                     <td>
-                                        <div className={classes['td__fullname']}>
-                                            <h3>{(customer && customer.firstname) || '-'} {(customer && customer.lastname) || '-'}</h3>
-                                        </div>
+                                        {/* {(customer && customer.residence_address) || '-'} */}
+                                        -
                                     </td>
                                     <td>
-                                        {(customer && customer.residence_address) || '-'}
+                                        {/* {(customer && customer.phone) || '-'} */}
+                                        -
                                     </td>
-                                    <td>{(customer && customer.phone) || '-'}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -259,6 +260,9 @@ function CustomerDetail() {
                             </tbody>
                         </table>)}
                         {transactions.length === 0 && <NotFoundPlaceholder title='Transactions to Display'>This user has not perform any transaction.</NotFoundPlaceholder>}
+                    </div>
+                    <div className={classes['customer-detail__group']}>
+
                     </div>
                 </div>
             </div>

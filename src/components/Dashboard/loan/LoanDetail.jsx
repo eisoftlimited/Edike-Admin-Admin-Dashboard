@@ -263,8 +263,6 @@ function LoanDetail() {
                     <a href={beneficiary_file_results && beneficiary_file_results[0]?.secure_url} download='school-bill'>
                         <img src={beneficiary_file_results && beneficiary_file_results[0]?.secure_url} alt='' />
                     </a>
-                    {/* <img src={beneficiary_file_results && beneficiary_file_results[0]?.secure_url} alt='' /> */}
-                    {/* <img src={user?.idCard[0]?.secure_url} alt='id card'/> */}
                 </div>
                 <div className={classes['admin-comments']}>
                     {userAdmin && userAdmin.role !== 'admin' && (<div className={classes['admin-comments__item']}>
