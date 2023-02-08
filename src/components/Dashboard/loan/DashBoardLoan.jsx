@@ -253,11 +253,11 @@ function DashBoardLoan() {
                                         <th>Date</th>
                                         <th>Beneficiary</th>
                                         <th>Loan ID</th>
-                                        <th>Loan Amount</th>
-                                        <th>Loan Tenor</th>
+                                        <th>Amount</th>
+                                        <th>Tenor</th>
                                         <th>Next Repayment</th>
                                         <th>Monthly Repayment</th>
-                                        <th>Loan Status</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                     {/* {loans.allLoans && loans.allLoans.map(loan => (<tr key={loan._id} className={classes.loantr}> */}
