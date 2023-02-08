@@ -20,7 +20,7 @@ function UserProfile() {
                     <nav className={classes.user__nav}>
                         <button onClick={()=> setSelectedTab('personal')} className={selectedTab === 'personal' ? classes.active : ''}>Personal Details</button>
                         <button onClick={()=> setSelectedTab('security')} className={selectedTab === 'security' ? classes.active : ''}>Security</button>
-                        <button onClick={()=> setSelectedTab('contact')} className={selectedTab === 'contact' ? classes.active : ''}>Contact Us</button>
+                        {/* <button onClick={()=> setSelectedTab('contact')} className={selectedTab === 'contact' ? classes.active : ''}>Contact Us</button> */}
                     </nav>
                     <PersonalDetail selectedTab={selectedTab} userDetail={user || {}} />
                 </div>
