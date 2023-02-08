@@ -126,6 +126,35 @@ function CustomerDetail() {
                                 </tr>
                             </tbody>
                         </table>
+                        <h1 style={{marginTop: '3rem'}} className={classes['customer-detail__heading']}>Next of kin Details</h1>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Address</th>
+                                    <th>Phone</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div className={classes['td__fullname']}>
+                                            <h3>{(customer && customer.firstname) || '-'} {(customer && customer.lastname) || '-'}</h3>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div className={classes['td__fullname']}>
+                                            <h3>{(customer && customer.firstname) || '-'} {(customer && customer.lastname) || '-'}</h3>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        {(customer && customer.residence_address) || '-'}
+                                    </td>
+                                    <td>{(customer && customer.phone) || '-'}</td>
+                                </tr>
+                            </tbody>
+                        </table>
 
                         <button onClick={() => setDetailModal(true)}>Customer Details</button>
                     </div>
