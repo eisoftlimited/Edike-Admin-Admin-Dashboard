@@ -100,7 +100,7 @@ function DashBoardAside({ onSidebarClose }) {
                 
                 {user && user.role === 'cfo' && (<DashMenuItem
                     text={'System Administrators'}
-                    icon={user}
+                    icon={usericon}
                     link={'/dashboard/users'}
                     onCloseSidebar={onSidebarClose}
                 />)}

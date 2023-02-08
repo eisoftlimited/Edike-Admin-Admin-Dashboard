@@ -20,9 +20,9 @@ function DashBoardNav({ searchPlaceholder='Search', navTitle, onOpenSidebar, onA
                     <h3>{navTitle}</h3>
                 </div>
                 <div className={classes['dashboard-nav__profile']}>
-                    <span className={classes['bell']}>
+                    {/* <span className={classes['bell']}>
                         <i className={`far fa-bell`} />
-                    </span>
+                    </span> */}
                     <Link to='/dashboard/profile' className={classes['user']}>
                         <div className={classes['avatar']}>
                             {

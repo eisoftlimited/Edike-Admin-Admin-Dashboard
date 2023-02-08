@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import { ExportBtn } from '../DashBoardButtons';
 import classes from './LoanNav.module.scss';
 
@@ -22,13 +23,14 @@ function LoanNav({
     completeNum = 0,
     onExportTable }) {
 
-        // pendingLoans
+        
+        const userRole = useSelector(state => state.auth.user);
 
     return (
         <nav className={classes['loan-nav']}>
-            <button onClick={onPending} className={`${classes['loan-nav__link']} ${activeBtn === 'pending' ? classes.active : ''}`}>
+            {userRole && userRole.role !== 'cfo' && (<button onClick={onPending} className={`${classes['loan-nav__link']} ${activeBtn === 'pending' ? classes.active : ''}`}>
                 Pending <span>{pendingNum}</span>
-            </button>
+            </button>)}
             <button onClick={onDisburse} className={`${classes['loan-nav__link']} ${activeBtn === 'pending_disbursement' ? classes.active : ''}`}>
                 Pending Disburstment <span>{disburseNum}</span>
             </button>
