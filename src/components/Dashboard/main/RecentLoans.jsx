@@ -52,7 +52,7 @@ function RecentLoans({ className }) {
             // console.log(response.data);
             setLoading(false);
             const loans = response.data && response.data.loans.filter(loan => {
-                if(loan.status === 'pending' ||loan.status === 'pending_disbursement') {
+                if(loan.status === 'pending' || loan.status === 'pending_disbursement') {
                     return loan;
                 }
             });
