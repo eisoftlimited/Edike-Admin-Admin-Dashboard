@@ -26,8 +26,11 @@ function LoanNav({
 
     return (
         <nav className={classes['loan-nav']}>
-            <button onClick={onAll} className={`${classes['loan-nav__link']} ${activeBtn === 'all' ? classes.active : ''}`}>
-                All <span>{allNum}</span>
+            <button onClick={onPending} className={`${classes['loan-nav__link']} ${activeBtn === 'pending' ? classes.active : ''}`}>
+                Pending <span>{pendingNum}</span>
+            </button>
+            <button onClick={onDisburse} className={`${classes['loan-nav__link']} ${activeBtn === 'pending_disbursement' ? classes.active : ''}`}>
+                Pending Disburstment <span>{disburseNum}</span>
             </button>
             <button onClick={onRunning} className={`${classes['loan-nav__link']} ${activeBtn === 'ongoing' ? classes.active : ''}`}>
                 Running Loans <span>{runningNum}</span>
@@ -35,17 +38,14 @@ function LoanNav({
             <button onClick={onDefault} className={`${classes['loan-nav__link']} ${activeBtn === 'defaulted' ? classes.active : ''}`}>
                 Defaulted <span>{defaultNum}</span>
             </button>
-            <button onClick={onDecline} className={`${classes['loan-nav__link']} ${activeBtn === 'declined' ? classes.active : ''}`}>
+             <button onClick={onDecline} className={`${classes['loan-nav__link']} ${activeBtn === 'declined' ? classes.active : ''}`}>
                 Declined <span>{declinedNum}</span>
-            </button>
-            <button onClick={onPending} className={`${classes['loan-nav__link']} ${activeBtn === 'pending' ? classes.active : ''}`}>
-                Pending <span>{pendingNum}</span>
-            </button>
-            <button onClick={onDisburse} className={`${classes['loan-nav__link']} ${activeBtn === 'pending_disbursement' ? classes.active : ''}`}>
-                Pending Disburstment <span>{disburseNum}</span>
             </button>
             <button className={`${classes['loan-nav__link']} ${activeBtn === 'completed' ? classes.active : ''}`}>
                 Completed <span>{completeNum}</span>
+            </button>
+            <button onClick={onAll} className={`${classes['loan-nav__link']} ${activeBtn === 'all' ? classes.active : ''}`}>
+                All <span>{allNum}</span>
             </button>
             <div>
                 <ExportBtn onExportTable={onExportTable} />
