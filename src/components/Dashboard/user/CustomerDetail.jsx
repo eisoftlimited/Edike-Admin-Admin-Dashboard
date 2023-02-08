@@ -262,7 +262,16 @@ function CustomerDetail() {
                         {transactions.length === 0 && <NotFoundPlaceholder title='Transactions to Display'>This user has not perform any transaction.</NotFoundPlaceholder>}
                     </div>
                     <div className={classes['customer-detail__group']}>
-
+                        <div className={classes.images}>
+                            <div>
+                                <h4>Utility bill</h4>
+                                <img />
+                            </div>
+                            <div>
+                                <h4>Id Card</h4>
+                                <img />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

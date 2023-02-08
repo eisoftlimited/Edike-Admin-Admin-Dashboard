@@ -16,6 +16,29 @@
         &:first-child {
             margin-top: 0;
         }
+
+        .images {
+
+            display: flex;
+
+            & > div {
+                width: 50%;
+                border-right: 1px solid #fafafa;
+
+                &:last-of-type {
+                    border-right: none;
+                }
+
+                h4 {
+                    font-size: 2rem;
+                    text-decoration: underline;
+                }
+
+                img {
+                    height: 100%;
+                }
+            }
+        }
     }
 
     &__heading {
