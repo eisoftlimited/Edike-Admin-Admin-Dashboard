@@ -50,7 +50,7 @@ function ForgotPasswordScreen() {
 
 
     useEffect(() => {
-        if (auth.loggedInMessage.length > 0) {
+        if (auth.loggedInMessage && auth.loggedInMessage.length > 0) {
             navigate('/forgot-password-otp');
         }
     }, [auth, navigate]);
@@ -58,7 +58,7 @@ function ForgotPasswordScreen() {
     return (
         <>
             {auth.loading && <LoadingScreen />}
-            {!auth.loading && auth.error.length > 0 && <ToastComponent />}
+            {!auth.loading && auth.error && auth.error.length > 0 && <ToastComponent />}
             <AccountBackground>
                 <AccountLayout>
                     <AccountAside />

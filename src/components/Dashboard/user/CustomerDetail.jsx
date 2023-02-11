@@ -88,7 +88,8 @@ function CustomerDetail() {
     return (
         <>
             {loading && <LoadingScreen />}
-            <DashBoardNav navTitle={`Customer - ${customer && customer.firstname} ${customer && customer.lastname}`}
+            <DashBoardNav 
+            navTitle={`Customer - ${customer && customer.firstname} ${customer && customer.lastname}`}
                 // onAddSchool={drawerDisplayHandler} 
                 onOpenSidebar={openSideBarHandler}
                 btnText='Add User'
@@ -262,16 +263,16 @@ function CustomerDetail() {
                         <div className={classes.images}>
                             <div>
                                 <h4>Utility bill</h4>
-                                <img />
+                                <img src={null} alt='' />
                             </div>
                             <div>
                                 <h4>Id Card</h4>
-                                <img />
+                                <img src={customer && customer.idcard && customer.idcard[0]?.secure_url} alt='' />
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> 
 
             <ModalDetail
                 info={customer || {}}

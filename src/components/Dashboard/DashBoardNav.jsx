@@ -56,7 +56,7 @@ function DashBoardNav({ searchPlaceholder = 'Search', navTitle, onOpenSidebar, o
                             <span onClick={()=> setDropdownShow(!isDropdownShown)} className={classes.menuDropDownButton}><i className={`fas fa-caret-down`} /></span>
                             {isDropdownShown && (<div className={classes.menuDropDownDiv}>
                                 <button onClick={navigateToProfile}><i className="fa fa-user" /> Profile</button>
-                                <button onClick={onLogout}><i class="fa fa-power-off" /> Logout</button>
+                                <button onClick={onLogout}><i className="fa fa-power-off" /> Logout</button>
                             </div>)}
                         </div>
                     </div>

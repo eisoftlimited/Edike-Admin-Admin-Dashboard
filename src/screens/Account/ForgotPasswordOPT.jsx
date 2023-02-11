@@ -28,6 +28,8 @@ function ForgotPasswordOPT() {
 
     const email = localStorage.getItem('edike-admin-email');
 
+    // const email = 'email';
+
     // =========================
 
     const [countDown, setCountDown] = useState(2 * 60);
