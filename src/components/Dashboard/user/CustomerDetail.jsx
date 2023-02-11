@@ -140,18 +140,15 @@ function CustomerDetail() {
                                     <td>
                                         <div className={classes['td__fullname']}>
                                             <h3>
-                                                {/* {(customer && customer.firstname) || '-'} {(customer && customer.lastname) || '-'} */}
-                                                -
+                                                {(customer && customer.nextofkinfirstname) || '-'} {(customer && customer.nextofkinlastname) || '-'}
                                             </h3>
                                         </div>
                                     </td>
                                     <td>
-                                        {/* {(customer && customer.residence_address) || '-'} */}
-                                        -
+                                        {(customer && customer.nextofkinaddress) || '-'}
                                     </td>
                                     <td>
-                                        {/* {(customer && customer.phone) || '-'} */}
-                                        -
+                                        {(customer && customer.nextofkinphonenumber) || '-'}
                                     </td>
                                 </tr>
                             </tbody>

@@ -29,7 +29,7 @@ function SecurityForm() {
                     // onFocus: focusHandler
                 }}
             />
-            <FormButton className={classes.drawer__btn}>Request Password Update {email}</FormButton>
+            <FormButton className={classes.drawer__btn}>Request Password Update</FormButton>
         </form>
     );
 }
