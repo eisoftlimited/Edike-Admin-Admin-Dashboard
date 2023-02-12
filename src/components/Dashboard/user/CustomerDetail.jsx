@@ -120,7 +120,7 @@ function CustomerDetail() {
                                     <td>
                                         i. {(customer && customer.residence_address) || '-'}
                                         <br />
-                                        ii. {(customer && customer.address2) || '-'}
+                                        ii. {(customer && customer.houseAddress) || '-'}
                                     </td>
                                     <td>{(customer && customer.phone) || '-'}</td>
                                     <td>{(customer && customer.email) || '-'}</td>
