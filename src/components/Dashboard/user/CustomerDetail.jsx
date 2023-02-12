@@ -263,15 +263,22 @@ function CustomerDetail() {
                         <div className={classes.images}>
                             <div>
                                 <h4>Utility bill</h4>
+                                <a href={beneficiary_file_results && beneficiary_file_results[0]?.secure_url} download='utility-bill'>
                                 <img src={customer && customer.houseAddressLink && customer.houseAddressLink[0]?.secure_url} alt='' />
+                                </a>
                             </div>
                             <div>
                                 <h4>Id Card</h4>
+                                <a href={beneficiary_file_results && beneficiary_file_results[0]?.secure_url} download='id-card'>
                                 <img src={customer && customer.idcard && customer.idcard[0]?.secure_url} alt='' />
+                                </a>
                             </div>
                             <div>
                                 <h4>Debit Card</h4>
+                                <a href={beneficiary_file_results && beneficiary_file_results[0]?.secure_url} download='utility-bill'>
                                 <img src={customer && customer.idcard && customer.idcard[0]?.secure_url} alt='' />
+                                </a>
+                                
                             </div>
                         </div>
                     </div>
