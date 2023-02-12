@@ -232,7 +232,7 @@ function CustomerDetail() {
                         {transactions && transactions.length > 0 && (<table className={classes.loan__table}>
                             <thead>
                                 <tr>
-                                    <th>Transaction Id</th>
+                                    <th>Transaction Date</th>
                                     <th>Transaction Type</th>
                                     <th>Description</th>
                                     <th>Amount</th>
@@ -243,7 +243,7 @@ function CustomerDetail() {
                                 {transactions.map((transaction, index) => {
                                     return (
                                         <tr key={transaction._id}>
-                                            <td>#EDI-{index + 1}</td>
+                                            <td>{(transaction.createdAt && new Date(transaction.createdAt).toDateString()) || '-'}</td>
                                             <td>{transaction.channel || '-'}</td>
                                             <td>{transaction.amount === 5000 ? 'Card Tokenization' : 'Matured Loan Repayment'}</td>
                                             <td>{transaction.amount && formatCurr(parseInt(transaction.amount / 100, 10))}</td>
@@ -263,10 +263,14 @@ function CustomerDetail() {
                         <div className={classes.images}>
                             <div>
                                 <h4>Utility bill</h4>
-                                <img src={null} alt='' />
+                                <img src={customer && customer.houseAddressLink && customer.houseAddressLink[0]?.secure_url} alt='' />
                             </div>
                             <div>
                                 <h4>Id Card</h4>
+                                <img src={customer && customer.idcard && customer.idcard[0]?.secure_url} alt='' />
+                            </div>
+                            <div>
+                                <h4>Debit Card</h4>
                                 <img src={customer && customer.idcard && customer.idcard[0]?.secure_url} alt='' />
                             </div>
                         </div>
