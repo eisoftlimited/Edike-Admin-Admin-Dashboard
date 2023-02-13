@@ -15,6 +15,8 @@ import { declineLoanActions, loanDecline } from '../../../store/loan/declineLoan
 import { approveLoanActions, loanApproval } from '../../../store/loan/approveLoanSlice';
 import ModalDetail from '../ModalDetail';
 import { formatCurr } from '../../../utils/currencyFormater';
+import NotFoundPlaceholder from '../user/NotFoundPlaceholder';
+// import avatar from './../../../img/avatar.svg';
 
 // import MyPDF from './LoanPDF';
 
@@ -28,9 +30,10 @@ function LoanDetail() {
     const { loanId, loanmainId } = useParams();
     const { token } = useSelector(state => state.auth);
     const userAdmin = useSelector(state => state.auth.user);
-    const { loan, user } = useSelector(state => state.getSingleLoan);
+    const { loan, user, transaction } = useSelector(state => state.getSingleLoan);
     const { beneficiaryDetails, beneficiary_amount, status, beneficiary_duration, pdf, beneficiary_file_results, adminComment, riskComment, cComment, nextPayment, paymentDate, totalPayback } = (loan && loan[0]) || [];
     const ben = (beneficiaryDetails && beneficiaryDetails[0]) || [];
+    const txtions = transaction || [];
     // const secureUrl = beneficiary_file_results;
 
     // console.log({user});
@@ -209,49 +212,85 @@ function LoanDetail() {
                         </tr>)}
                     </tbody>
                 </table>
-                <h1 className={classes['loan-detail__heading']}>Loan Details</h1>
-                <ul>
-                    <li>
-                        <strong>Loan Amount</strong>
-                        {beneficiary_amount ? formatCurr(beneficiary_amount) : 'N/A'}
-                        {/* N {loan ? loan.beneficiary_amount : 'N/A'} */}
-                    </li>
-                    <li>
-                        <strong>Beneficiary</strong>
-                        {ben.firstname} {ben.lastname}
-                    </li>
-                    <li>
-                        <strong>School</strong>
-                        {ben.school}
-                    </li>
-                    <li>
-                        <strong>Class</strong>
-                        {ben.studentClass}
-                    </li>
-                    <li>
-                        <strong>Loan Tenor</strong>
-                        {beneficiary_duration ? beneficiary_duration : 'N/A'} Months
-                    </li>
-                    <li>
-                        <strong>Monthly Repayment</strong>
-                        {nextPayment && formatCurr(nextPayment)}
-                    </li>
-                    <li>
-                        <strong>Next Repayment Date</strong>
-                        {formatDate && formatDate(paymentDate)}
-                    </li>
-                    <li>
-                        <strong>Total Repayment</strong>
-                        {totalPayback && formatCurr(totalPayback)}
-                    </li>
-                    <li>
-                        <strong>Loan Status</strong>
-                        <span className={classes[status]}>{status ? status : ''}</span>
-                    </li>
-                    <li>
-                        <button onClick={() => setDetailModal(true)}>Customer Details</button>
-                    </li>
-                </ul>
+                <div className={classes.new}>
+                    <div>
+                        <h1 className={classes['loan-detail__heading']}>Loan Details</h1>
+                        <ul>
+                            <li>
+                                <strong>Loan Amount</strong>
+                                {beneficiary_amount ? formatCurr(beneficiary_amount) : 'N/A'}
+                                {/* N {loan ? loan.beneficiary_amount : 'N/A'} */}
+                            </li>
+                            <li>
+                                <strong>Beneficiary</strong>
+                                {ben.firstname} {ben.lastname}
+                            </li>
+                            <li>
+                                <strong>School</strong>
+                                {ben.school}
+                            </li>
+                            <li>
+                                <strong>Class</strong>
+                                {ben.studentClass}
+                            </li>
+                            <li>
+                                <strong>Loan Tenor</strong>
+                                {beneficiary_duration ? beneficiary_duration : 'N/A'} Months
+                            </li>
+                            <li>
+                                <strong>Monthly Repayment</strong>
+                                {nextPayment && formatCurr(nextPayment)}
+                            </li>
+                            <li>
+                                <strong>Next Repayment Date</strong>
+                                {formatDate && formatDate(paymentDate)}
+                            </li>
+                            <li>
+                                <strong>Total Repayment</strong>
+                                {totalPayback && formatCurr(totalPayback)}
+                            </li>
+                            <li>
+                                <strong>Loan Status</strong>
+                                <span className={classes[status]}>{status ? status : ''}</span>
+                            </li>
+                            <li>
+                                <button onClick={() => setDetailModal(true)}>Customer Details</button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className={classes['customer-detail__group']}>
+                        <h3 className={classes['customer-detail__heading']}>Transactions</h3>
+                        {txtions && txtions.length > 0 && (<table className={classes.loan__table}>
+                            <thead>
+                                <tr>
+                                    <th>Transaction Date</th>
+                                    <th>Transaction Type</th>
+                                    <th>Description</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {txtions.map((transaction, index) => {
+                                    return (
+                                        <tr key={transaction._id}>
+                                            <td>{(transaction.createdAt && new Date(transaction.createdAt).toDateString()) || '-'}</td>
+                                            <td>{transaction.channel || '-'}</td>
+                                            <td>{transaction.amount === 5000 ? 'Card Tokenization' : 'Matured Loan Repayment'}</td>
+                                            <td>{transaction.amount && formatCurr(parseInt(transaction.amount / 100, 10))}</td>
+                                            <td>
+                                                <span className={classes['active-loan']}
+                                                    style={{ backgroundColor: `${transaction.status !== 'success' && 'rgba(255, 52, 54, .1)'}`, color: `${transaction.status !== 'success' && '#FF3436'}` }}
+                                                >{transaction.status || '-'}</span>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>)}
+                        {txtions && txtions.length === 0 && <NotFoundPlaceholder title='Transactions to Display'>No transaction carried out on this loan.</NotFoundPlaceholder>}
+                    </div>
+                </div>
                 <h1 className={classes['loan-detail__heading']}>Bank statement PDF</h1>
                 <div className={classes['loan-detail__box']}>
                     <a href={pdf} target={'_blank'} rel='noreferrer noopener' className={classes['loan-detail__box--item1']}>
@@ -274,7 +313,7 @@ function LoanDetail() {
                         {riskComment && <p>{riskComment}</p>}
                     </div>)}
                     {/* This is for cfo */}
-                    {userAdmin  && (<div className={classes['admin-comments__item']}>
+                    {userAdmin && (<div className={classes['admin-comments__item']}>
                         <h1 className={classes['loan-detail__heading']}>CFO</h1>
                         {cComment && <p>{cComment}</p>}
                     </div>)}
@@ -283,14 +322,14 @@ function LoanDetail() {
                 {/* @RESTRICTED TO ADMIN AND RISK BEFORE */}
                 {/* {userAdmin && userAdmin.role !== 'cfo' && ( */}
                 {status && status !== 'ongoing' && (
-                <>
-                    <h1 className={classes['loan-detail__heading']}>Your Comment</h1>
-                    <div className={classes['loan-detail__box']}>
-                        <div className={classes['loan-detail__box--item2']}>
-                            <textarea rows={10} placeholder='Your comment' className={classes['form-comment']} value={loanComment} onChange={e => setLoanComment(e.target.value)} />
+                    <>
+                        <h1 className={classes['loan-detail__heading']}>Your Comment</h1>
+                        <div className={classes['loan-detail__box']}>
+                            <div className={classes['loan-detail__box--item2']}>
+                                <textarea rows={10} placeholder='Your comment' className={classes['form-comment']} value={loanComment} onChange={e => setLoanComment(e.target.value)} />
+                            </div>
                         </div>
-                    </div>
-                </>
+                    </>
                 )}
                 {/* )} */}
                 {/* @END */}

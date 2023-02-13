@@ -29,6 +29,7 @@ function CustomerDetail() {
     const [loan, setLoan] = useState([]);
     const [beneficiary, setBeneficiary] = useState([]);
     const [transactions, setTransactions] = useState([]);
+    const [card, setCard] = useState([]);
 
 
     const [showDetailModal, setDetailModal] = useState(false);
@@ -67,7 +68,8 @@ function CustomerDetail() {
                     setBeneficiary(response.data.all[1].beneficiary);
                     setCustomer(response.data && response.data.all && response.data.all[0].user && response.data.all[0].user[0]);
                     setLoan(response.data.all[2].loan);
-                    setTransactions(response.data.all[3].transaction);
+                    setTransactions(response.data.all[4].transaction);
+                    setCard(response.data.all[3].card);
                 }
 
             } catch (err) {
@@ -84,12 +86,14 @@ function CustomerDetail() {
     }, [token, customerId]);
 
 
+    const cardDetails = card && card[0];
+    const innerCard = cardDetails && cardDetails.card && cardDetails.card[0];
 
     return (
         <>
             {loading && <LoadingScreen />}
-            <DashBoardNav 
-            navTitle={`Customer - ${customer && customer.firstname} ${customer && customer.lastname}`}
+            <DashBoardNav
+                navTitle={`Customer - ${customer && customer.firstname} ${customer && customer.lastname}`}
                 // onAddSchool={drawerDisplayHandler} 
                 onOpenSidebar={openSideBarHandler}
                 btnText='Add User'
@@ -264,26 +268,57 @@ function CustomerDetail() {
                             <div>
                                 <h4>Utility bill</h4>
                                 <a href={customer && customer.houseAddressLink && customer.houseAddressLink[0] && customer.houseAddressLink[0]?.secure_url} download='utility-bill'>
-                                <img src={customer && customer.houseAddressLink && customer.houseAddressLink[0] && customer.houseAddressLink[0]?.secure_url} alt='' />
+                                    <img src={customer && customer.houseAddressLink && customer.houseAddressLink[0] && customer.houseAddressLink[0]?.secure_url} alt='' />
                                 </a>
                             </div>
                             <div>
                                 <h4>Id Card</h4>
                                 <a href={customer && customer.idcard && customer.idcard[0] && customer.idcard[0]?.secure_url} download='id-card'>
-                                <img src={customer && customer.idcard && customer.idcard[0] && customer.idcard[0]?.secure_url} alt='' />
+                                    <img src={customer && customer.idcard && customer.idcard[0] && customer.idcard[0]?.secure_url} alt='' />
                                 </a>
-                            </div>
-                            <div>
-                                <h4>Debit Card</h4>
-                                <a href={customer && customer.idcard && customer.idcard[0]?.secure_url} download='utility-bill'>
-                                <img src={customer && customer.idcard && customer.idcard[0]?.secure_url} alt='' />
-                                </a>
-                                
                             </div>
                         </div>
                     </div>
+                    <div className={classes['customer-detail__group']}>
+                        <h4>Debit Card</h4>
+                        <div className={classes.atm_debit_card}>
+                            <h4>Johnson Blossom</h4>
+                            <p>
+                                {innerCard && innerCard.bin} **** **** {innerCard && innerCard.last4}
+                                <span>{innerCard && `${innerCard.exp_month}/${innerCard.exp_year}`}</span>
+                            </p>
+                        </div>
+                        <ul className={classes.atm_card}>
+                            <li>
+                                <span>Card Type</span>
+                                <strong>{innerCard && innerCard.brand}</strong>
+                            </li>
+                            <li>
+                                <span>Card Number</span>
+                                <strong>{innerCard && innerCard.bin} {innerCard && innerCard.last4}</strong>
+                            </li>
+                            <li>
+                                <span>Card Holder</span>
+                                <strong>{innerCard && innerCard.account_name}</strong>
+                            </li>
+                            <li>
+                                <span>Expires</span>
+                                <strong>{innerCard && `${innerCard.exp_month}/${innerCard.exp_year}`}</strong>
+                            </li>
+                            <li>
+                                <span>Date Added</span>
+                                <strong>
+                                    {cardDetails && cardDetails.createdAt && new Date(cardDetails.createdAt).toLocaleString('en-US', {
+                                        year: 'numeric',
+                                        month: 'numeric',
+                                        day: 'numeric'
+                                    })}
+                                </strong>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div> 
+            </div>
 
             <ModalDetail
                 info={customer || {}}

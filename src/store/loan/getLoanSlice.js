@@ -27,16 +27,19 @@ const getLoanSlice = createSlice({
         loading: false,
         error: '',
         loan: null,
-        user: null
+        user: null,
+        transaction: null
     },
     extraReducers: (builder => {
         builder.addCase(singleLoan.pending, state => {
             state.loading = true;
+            state.transaction = null;
         });
         builder.addCase(singleLoan.fulfilled, (state, action)=> {
             state.loading = false;
             state.user = action.payload && action.payload.all && action.payload.all[0] && action.payload.all[0].user;
             state.loan = action.payload && action.payload.all && action.payload.all[1] && action.payload.all[1].loan;
+            state.transaction = action.payload && action.payload.all && action.payload.all[2] && action.payload.all[2].transaction;
 
             // console.log('In the fulfilled block: ', action.payload && action.payload.all);
 
