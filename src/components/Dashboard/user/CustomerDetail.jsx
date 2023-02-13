@@ -62,10 +62,10 @@ function CustomerDetail() {
                 setLoading(false);
                 // console.lo('All ', response.data);
 
-                if (response.data.all) {
+                if (response.data && response.data.all) {
                     setAll(response.data.all);
                     setBeneficiary(response.data.all[1].beneficiary);
-                    setCustomer(response.data.all[0].user);
+                    setCustomer(response.data && response.data.all && response.data.all[0].user && response.data.all[0].user[0]);
                     setLoan(response.data.all[2].loan);
                     setTransactions(response.data.all[3].transaction);
                 }
@@ -225,7 +225,7 @@ function CustomerDetail() {
                                 })}
                             </tbody>
                         </table>)}
-                        {loan.length === 0 && <NotFoundPlaceholder title='Loans Running'>User has not applied for any loans yet.</NotFoundPlaceholder>}
+                        {loan && loan.length === 0 && <NotFoundPlaceholder title='Loans Running'>User has not applied for any loans yet.</NotFoundPlaceholder>}
                     </div>
                     <div className={classes['customer-detail__group']}>
                         <h3 className={classes['customer-detail__heading']}>Transactions</h3>
@@ -257,7 +257,7 @@ function CustomerDetail() {
                                 })}
                             </tbody>
                         </table>)}
-                        {transactions.length === 0 && <NotFoundPlaceholder title='Transactions to Display'>This user has not perform any transaction.</NotFoundPlaceholder>}
+                        {transactions && transactions.length === 0 && <NotFoundPlaceholder title='Transactions to Display'>This user has not perform any transaction.</NotFoundPlaceholder>}
                     </div>
                     <div className={classes['customer-detail__group']}>
                         <div className={classes.images}>

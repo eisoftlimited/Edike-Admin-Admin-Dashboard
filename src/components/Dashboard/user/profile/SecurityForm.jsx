@@ -1,21 +1,66 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { EDUKE_URL } from "../../../../store/url";
 import FormButton from "../../../Account/FormButton";
 import FormControl from "../../../Account/FormControl";
+import ToastComponent from "../../../UI/ToastComponent";
 import classes from './PersonalDetail.module.scss';
 
 function SecurityForm() {
 
+    const navigate = useNavigate();
+
 
     const [email, setEmail] = useState('');
 
-    const forgotPasswordHandler = e => {
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+    const [data, setData] = useState(null);
+
+    const updatePassword = async e => {
         e.preventDefault();
-        console.log('Forgotting Password.');
-    };
+        const validity = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/.test(email);
+
+        if(!validity) return;
+
+        setLoading(true);
+
+        try {
+            const response = await axios({
+                url: `${EDUKE_URL}/edike/api/v1/auth/admin/forgot-password`,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            setLoading(false);
+            setData(response.data && response.data.msg);
+
+        } catch (err) {
+
+            setLoading(false);
+            setError(err.response && err.response.data && err.response.data.msg);
+            toast.error(err.response && err.response.data && err.response.data.msg);
+            setEmail('');
+        }
+    }
+
+    
+    useEffect(() => {
+        if (data && data.length > 0) {
+            navigate('/update-password-otp');
+        }
+    }, [data, navigate]);
+
 
 
     return (
-        <form onSubmit={forgotPasswordHandler}>
+        <>
+        <ToastComponent />
+        <form onSubmit={updatePassword}>
             <FormControl labelText='Email'
                 isValid={true}
                 inputId='email'
@@ -31,6 +76,7 @@ function SecurityForm() {
             />
             <FormButton className={classes.drawer__btn}>Request Password Update</FormButton>
         </form>
+        </>
     );
 }
 

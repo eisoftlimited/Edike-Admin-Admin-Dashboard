@@ -24,6 +24,7 @@ import LoanDetail from './components/Dashboard/loan/LoanDetail';
 import MainDash from './components/Dashboard/main/MainDash';
 import LoanInterest from './components/Dashboard/loan/LoanInterest';
 import UserProfile from './components/Dashboard/user/profile/UserProfile';
+import UpdatePasswordOPT from './screens/Account/UpdatePasswordOPT';
 
 function App() {
 
@@ -37,7 +38,7 @@ function App() {
     dispatch(authActions.setToken({ token }));
   }, [dispatch]);
 
-  
+
 
 
 
@@ -105,7 +106,7 @@ function App() {
           <Route path={'profile'}
             element={
               // <LoggedInScreen>
-                <UserProfile />
+              <UserProfile />
               // </LoggedInScreen>
             }
           />
@@ -148,6 +149,15 @@ function App() {
           </LoggedOutScreen>
         }
         />
+
+        {/* <Route path={'/update-password-otp'}
+          element={
+            <LoggedInScreen>
+              <UpdatePasswordOPT />
+            </LoggedInScreen>
+          }
+        /> */}
+
         <Route path={'/redirecting-to-sign-in'} element={
           <LoggedOutScreen>
             <RedirectingScreen />

@@ -53,8 +53,10 @@ function RecentLoans({ className }) {
             setLoading(false);
             const loans = response.data && response.data.loans.filter(loan => {
                 if(loan.status === 'pending' || loan.status === 'pending_disbursement') {
-                    return loan;
+                    return true;
                 }
+
+                return false;
             });
             setLoans(loans.slice(0, 5));
             // setLoans(response.data && response.data.loans.slice(0, 5));
@@ -167,6 +169,8 @@ function RecentLoans({ className }) {
 
     // const [placehoderName, setPlaceholderName] = useState('');
     // const [placehoderAmount, setPlaceholderAmount] = useState('');
+
+    console.log({loans});
 
     return (
         <>
