@@ -24,7 +24,7 @@ import LoanDetail from './components/Dashboard/loan/LoanDetail';
 import MainDash from './components/Dashboard/main/MainDash';
 import LoanInterest from './components/Dashboard/loan/LoanInterest';
 import UserProfile from './components/Dashboard/user/profile/UserProfile';
-import UpdatePasswordOPT from './screens/Account/UpdatePasswordOPT';
+// import UpdatePasswordOPT from './screens/Account/UpdatePasswordOPT';
 
 function App() {
 
