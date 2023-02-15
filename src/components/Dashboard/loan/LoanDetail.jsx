@@ -297,9 +297,9 @@ function LoanDetail() {
                         Click to view bank statement in pdf
                     </a>
                 </div>
-                <h1 className={classes['loan-detail__heading']}>School bill invoice</h1>
                 <div className={classes['loan-detail__box-img']}>
                     <a href={beneficiary_file_results && beneficiary_file_results[0]?.secure_url} download='school-bill'>
+                        <h1 className={classes['loan-detail__heading']}>School bill invoice</h1>
                         <img src={beneficiary_file_results && beneficiary_file_results[0]?.secure_url} alt='' />
                     </a>
                 </div>
