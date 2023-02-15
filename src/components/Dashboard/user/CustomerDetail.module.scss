@@ -35,18 +35,32 @@
                     text-decoration: underline;
                     margin-bottom: 2rem;
                     text-align: center;
+                    position: relative;
+                    z-index: 3;
+                    text-decoration: none;
+                    color: #111;
                 }
 
                 a {
                     text-decoration: none;
+                    height: 40rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
                 }
 
                 img {
                     // height: 60rem;
-                    height: 50rem;
+                    height: 100%;
                     width: 100%;
                     border: none;
                     object-fit: cover;
+                    filter: blur(2px);
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 5rem;
                 }
             }
         }
@@ -86,7 +100,7 @@
     .atm_debit_card {
         margin: 3rem 0;
         width: 37rem;
-        height: 22rem;
+        height: 20rem;
         border-radius: .8rem;
         background-color: #47B88F;
         position: relative;
@@ -119,6 +133,7 @@
             text-align: left !important;
             width: 100%;
             margin-top: 3rem;
+            color: #fff !important;
         }
 
         p{
@@ -140,11 +155,11 @@
             text-align: center;
             display: inline-block;
             position: absolute;
-            // bottom: 2rem;
-            // right: 2rem;
-            left: 50%;
-            bottom: 4rem;
-            transform: translateX(-50%);
+            bottom: 2rem;
+            left: 2rem;
+            // left: 50%;
+            // bottom: 4rem;
+            // transform: translateX(-50%);
             z-index: 3;
         }
 

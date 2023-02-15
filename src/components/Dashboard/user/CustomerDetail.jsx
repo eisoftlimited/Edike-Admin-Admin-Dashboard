@@ -266,25 +266,24 @@ function CustomerDetail() {
                     <div className={classes['customer-detail__group']}>
                         <div className={classes.images}>
                             <div>
-                                <h4>Utility bill</h4>
-                                <a href={customer && customer.houseAddressLink && customer.houseAddressLink[0] && customer.houseAddressLink[0]?.secure_url} download='utility-bill'>
+                                <a href={customer && customer.houseAddressLink && customer.houseAddressLink[0] && customer.houseAddressLink[0]?.secure_url} target={'_blank'} rel='noreferrer noopener'>
+                                    <h4>Utility bill</h4>
                                     <img src={customer && customer.houseAddressLink && customer.houseAddressLink[0] && customer.houseAddressLink[0]?.secure_url} alt='' />
                                 </a>
                             </div>
                             <div>
-                                <h4>Id Card</h4>
-                                <a href={customer && customer.idcard && customer.idcard[0] && customer.idcard[0]?.secure_url} download='id-card'>
+                                <a href={customer && customer.idcard && customer.idcard[0] && customer.idcard[0]?.secure_url} target={'_blank'} rel='noreferrer noopener'>
+                                    <h4>Id Card</h4>
                                     <img src={customer && customer.idcard && customer.idcard[0] && customer.idcard[0]?.secure_url} alt='' />
                                 </a>
                             </div>
                             <div>
-                                <h4>Debit Card</h4>
                                 <div className={classes.atm_debit_card}>
                                     <h4>{(innerCard && innerCard.account_name) || (customer && `${customer.firstname} ${customer.lastname}`)}</h4>
                                     <p>
                                         {innerCard && innerCard.bin} **** **** {innerCard && innerCard.last4}
                                     </p>
-                                    <span>EXP <br />{innerCard && `${innerCard.exp_month}/${innerCard.exp_year}`}</span>
+                                    <span>EXP: {innerCard && `${innerCard.exp_month}/${innerCard.exp_year}`}</span>
                                     <div className={classes.cardType}>{innerCard && innerCard.brand}</div>
                                 </div>
                             </div>
