@@ -31,11 +31,15 @@
                 }
 
                 h4 {
-                    font-size: 2rem;
+                    font-size: 3rem;
+                    font-weight: 700;
                     text-decoration: underline;
                     margin-bottom: 2rem;
                     text-align: center;
-                    position: relative;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
                     z-index: 3;
                     text-decoration: none;
                     color: #111;
@@ -51,16 +55,15 @@
                 }
 
                 img {
-                    // height: 60rem;
                     height: 100%;
                     width: 100%;
                     border: none;
                     object-fit: cover;
-                    filter: blur(2px);
+                    filter: blur(3px);
                     position: absolute;
                     top: 0;
                     left: 0;
-                    width: 5rem;
+                    // width: 5rem;
                     border: 1px solid #111;
                 }
             }
