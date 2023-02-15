@@ -31,9 +31,9 @@ function LoanNav({
             {userRole && userRole.role !== 'cfo' && (<button onClick={onPending} className={`${classes['loan-nav__link']} ${activeBtn === 'pending' ? classes.active : ''}`}>
                 Pending <span>{pendingNum}</span>
             </button>)}
-            <button onClick={onDisburse} className={`${classes['loan-nav__link']} ${activeBtn === 'pending_disbursement' ? classes.active : ''}`}>
+            {userRole && userRole.role !== 'risk_management' &&<button onClick={onDisburse} className={`${classes['loan-nav__link']} ${activeBtn === 'pending_disbursement' ? classes.active : ''}`}>
                 Pending Disburstment <span>{disburseNum}</span>
-            </button>
+            </button>}
             <button onClick={onRunning} className={`${classes['loan-nav__link']} ${activeBtn === 'ongoing' ? classes.active : ''}`}>
                 Running Loans <span>{runningNum}</span>
             </button>
