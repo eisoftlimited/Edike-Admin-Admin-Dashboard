@@ -277,9 +277,21 @@ function CustomerDetail() {
                                     <img src={customer && customer.idcard && customer.idcard[0] && customer.idcard[0]?.secure_url} alt='' />
                                 </a>
                             </div>
+                            <div>
+                                <h4>Debit Card</h4>
+                                <div className={classes.atm_debit_card}>
+                                    <h4>{(innerCard && innerCard.account_name) || (customer && `${customer.firstname} ${customer.lastname}`)}</h4>
+                                    <p>
+                                        {innerCard && innerCard.bin} **** **** {innerCard && innerCard.last4}
+                                    </p>
+                                    <span>EXP <br />{innerCard && `${innerCard.exp_month}/${innerCard.exp_year}`}</span>
+                                    <div className={classes.cardType}>{innerCard && innerCard.brand}</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div className={classes['customer-detail__group']}>
+
+                    {false && <div className={classes['customer-detail__group']}>
                         <h4>Debit Card</h4>
                         <div className={classes.atm_debit_card}>
                             <h4>{(innerCard && innerCard.account_name) || (customer && `${customer.firstname} ${customer.lastname}`)}</h4>
@@ -316,7 +328,7 @@ function CustomerDetail() {
                                 </strong>
                             </li>
                         </ul>
-                    </div>
+                    </div>}
                 </div>
             </div>
 

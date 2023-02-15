@@ -298,7 +298,7 @@ function LoanDetail() {
                     </a>
                 </div>
                 <div className={classes['loan-detail__box-img']}>
-                    <a href={beneficiary_file_results && beneficiary_file_results[0]?.secure_url} download='school-bill'>
+                    <a href={beneficiary_file_results && beneficiary_file_results[0]?.secure_url} target={'_blank'} rel='noreferrer noopener' >
                         <h1 className={classes['loan-detail__heading']}>School bill invoice</h1>
                         <img src={beneficiary_file_results && beneficiary_file_results[0]?.secure_url} alt='' />
                     </a>

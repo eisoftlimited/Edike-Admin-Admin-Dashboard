@@ -23,7 +23,7 @@
             gap: 2rem;
 
             & > div {
-                width: calc((100% - 2rem) / 2) ;
+                width: calc((100% - 4rem) / 3) ;
                 // border-right: 1px solid #fafafa;
 
                 &:last-of-type {
@@ -95,7 +95,8 @@
         padding: 2rem 3rem;
         display: flex;
         flex-direction: column;
-        justify-content: flex-end;
+        // justify-content: flex-end;
+        text-decoration: none;
 
 
         &::after {
@@ -114,15 +115,46 @@
             font-size: 1.8rem;
             margin-bottom: 1rem;
             font-weight: 600;
+            text-decoration: none !important;
+            text-align: left !important;
+            width: 100%;
+            margin-top: 3rem;
         }
 
         p{
+            position: absolute;
+            top: 50%;
+            left: 3rem;
+            transform: translateY(-50%);
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            position: relative;
+            font-size: 2rem;
+            letter-spacing: 5px;
             z-index: 2;
+        }
+
+        span {
+            font-size: 1.5rem;
+            text-align: center;
+            display: inline-block;
+            position: absolute;
+            // bottom: 2rem;
+            // right: 2rem;
+            left: 50%;
+            bottom: 4rem;
+            transform: translateX(-50%);
+            z-index: 3;
+        }
+
+        .cardType {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 3;
+            font-size: 1.5rem;
+            font-weight: 700;
         }
     }
     
