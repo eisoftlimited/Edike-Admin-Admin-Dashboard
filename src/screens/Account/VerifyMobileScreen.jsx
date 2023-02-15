@@ -27,31 +27,31 @@ function VerifyMobileScreen() {
     // const inputRef = useRef();
 
     const [otp, setOtp] = useState(undefArray);
-    
+
     const [countDown, setCountDown] = useState(2 * 60);
     const timerId = useRef();
 
     // console.log(countDown, ' in the verify password.');
 
-    useEffect(()=> {
-        timerId.current  = setInterval(()=> {
+    useEffect(() => {
+        timerId.current = setInterval(() => {
             setCountDown(prev => prev - 1);
         }, 1000);
 
-        return ()=> clearInterval(timerId.current);
+        return () => clearInterval(timerId.current);
     }, []);
 
-    useEffect(()=> {
-        if(countDown <= 0) {
+    useEffect(() => {
+        if (countDown <= 0) {
             clearInterval(timerId.current);
         }
     }, [countDown]);
 
-    const formatTime = (time)=> {
+    const formatTime = (time) => {
         let minutes = Math.floor(time / 60);
         let seconds = Math.floor(time - minutes * 60);
-        if(minutes < 10) minutes = '0' + minutes;
-        if(seconds < 10) seconds = '0' + seconds;
+        if (minutes < 10) minutes = '0' + minutes;
+        if (seconds < 10) seconds = '0' + seconds;
 
         return `${minutes}:${seconds}`
     };
@@ -60,7 +60,7 @@ function VerifyMobileScreen() {
     useEffect(() => {
         if (!!auth.token) {
             console.log('Navigating to dashboard.');
-            navigate('/dashboard', {replace: true});
+            navigate('/dashboard', { replace: true });
         }
     }, [auth.token, navigate]);
 

@@ -43,8 +43,8 @@ function LoanNav({
              <button onClick={onDecline} className={`${classes['loan-nav__link']} ${activeBtn === 'declined' ? classes.active : ''}`}>
                 Declined <span>{declinedNum}</span>
             </button>
-            <button className={`${classes['loan-nav__link']} ${activeBtn === 'completed' ? classes.active : ''}`}>
-                Completed <span>{completeNum}</span>
+            <button onClick={onComplete} className={`${classes['loan-nav__link']} ${activeBtn === 'completed' ? classes.active : ''}`}>
+                Completed <span>{completeNum}</span> {activeBtn}
             </button>
             <button onClick={onAll} className={`${classes['loan-nav__link']} ${activeBtn === 'all' ? classes.active : ''}`}>
                 All <span>{allNum}</span>

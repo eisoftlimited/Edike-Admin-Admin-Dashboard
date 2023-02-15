@@ -67,15 +67,15 @@ function DashBoardLoan() {
         if (state && state.loanType) {
             if (state.loanType === 'running') {
                 setFilterBy('ongoing');
-            } else if (state && state.loanType === 'settled') {
+            } else if (state && state.loanType === 'completed') {
                 setFilterBy('completed');
+            } else if (state && state.loanType === 'settled') {
+                setFilterBy('settled');
             } else if (state && state.loanType === 'default') {
                 setFilterBy('defaulted');
-            } 
-            else if(state && state.loanType === 'pending_disbursement') {
+            } else if(state && state.loanType === 'pending_disbursement') {
                 setFilterBy('pending_disbursement');
-            }
-            else if(state && state.loanType === 'pending') {
+            } else if(state && state.loanType === 'pending') {
                 setFilterBy('pending');
             }
         }
@@ -246,6 +246,12 @@ function DashBoardLoan() {
                                     onDisburse={()=> {
                                         setFilterBy('pending_disbursement');
                                     }}
+
+                                    onComplete={()=> {
+                                        setFilterBy('completed');
+                                    }}
+                                    completeNum={completedLoans && completedLoans.length}
+
                                     onExportTable={onExportTable}
                                 />
                                 <DashTable>
