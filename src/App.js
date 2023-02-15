@@ -24,7 +24,8 @@ import LoanDetail from './components/Dashboard/loan/LoanDetail';
 import MainDash from './components/Dashboard/main/MainDash';
 import LoanInterest from './components/Dashboard/loan/LoanInterest';
 import UserProfile from './components/Dashboard/user/profile/UserProfile';
-// import UpdatePasswordOPT from './screens/Account/UpdatePasswordOPT';
+import UpdatePasswordOPT from './screens/Account/UpdatePasswordOPT';
+import UpdatePasswordScreen from './screens/Account/UpdatePassword';
 
 function App() {
 
@@ -105,9 +106,9 @@ function App() {
           />
           <Route path={'profile'}
             element={
-              // <LoggedInScreen>
-              <UserProfile />
-              // </LoggedInScreen>
+              <LoggedInScreen>
+                <UserProfile />
+              </LoggedInScreen>
             }
           />
           <Route path={'loans/:loanId/:loanmainId'}
@@ -149,14 +150,22 @@ function App() {
           </LoggedOutScreen>
         }
         />
-
-        {/* <Route path={'/update-password-otp'}
+        
+        <Route path={'/update-password-otp'}
           element={
             <LoggedInScreen>
               <UpdatePasswordOPT />
             </LoggedInScreen>
           }
-        /> */}
+        />
+
+        <Route path={'/update-password'}
+          element={
+            <LoggedInScreen>
+              <UpdatePasswordScreen />
+            </LoggedInScreen>
+          }
+        />
 
         <Route path={'/redirecting-to-sign-in'} element={
           <LoggedOutScreen>

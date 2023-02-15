@@ -282,7 +282,7 @@ function CustomerDetail() {
                     <div className={classes['customer-detail__group']}>
                         <h4>Debit Card</h4>
                         <div className={classes.atm_debit_card}>
-                            <h4>Johnson Blossom</h4>
+                            <h4>{(innerCard && innerCard.account_name) || (customer && `${customer.firstname} ${customer.lastname}`)}</h4>
                             <p>
                                 {innerCard && innerCard.bin} **** **** {innerCard && innerCard.last4}
                                 <span>{innerCard && `${innerCard.exp_month}/${innerCard.exp_year}`}</span>

@@ -71,13 +71,13 @@ const authSlice = createSlice({
             state.loading = false;
             state.loggedInMessage = action.payload && action.payload.msg;
 
-            // console.log('In the fulfilled',action.payload);
+            console.log('In the fulfilled signin: ',action.payload);
 
         })
         builder.addCase(signUserIn.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload && action.payload.msg;
-            // console.log('In the rejected: ',action.payload);
+            console.log('In the rejected signin: ',action.payload);
         })
 
         // ACTIVATE
@@ -93,6 +93,8 @@ const authSlice = createSlice({
             localStorage.setItem('edike-admin-token', action.payload.token);
             // localStorage.setItem('expires-in', JSON.stringify(Date.now() + (1.9 * 60 * 60 * 1000)));
             // console.log(action.payload);
+
+            console.log('In the fuilfilled: ',action.payload);
         })
         builder.addCase(activateUser.rejected, (state, action) => {
             state.loading = false;

@@ -22,7 +22,7 @@ import { EDUKE_URL } from "../../store/url";
 function CharItem({ isValid, text }) {
     return (
         <li style={{ color: `${isValid ? '#68C38C' : '#66666699'}` }}>{text} {isValid && <i className={`fas fa-check`} style={{ color: '#68C38C', marginLeft: '.4rem' }} />}</li>
-    )
+    );
 }
 
 function ValidityBar({ isValid }) {
@@ -32,12 +32,11 @@ function ValidityBar({ isValid }) {
     );
 }
 
-function ResetPasswordScreen() {
+function UpdatePasswordScreen() {
     const dispatch = useDispatch();
     const auth = useSelector(state => state.auth);
     const navigate = useNavigate();
 
-    const [updateLoading, setUpdateLoading] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isEmailValid, setIsEmailValid] = useState(true);
@@ -129,41 +128,65 @@ function ResetPasswordScreen() {
         }
     };
 
-   
+    const [updateLoading,setUpdateLoading] = useState(false);
+    const [updateMsg, setUpdateMsg] = useState('');
+    const [updateError, setUpdateError] = useState('');
 
-    const resetPasswordHandler = e => {
+    async function updateNow(data) {
+        setUpdateLoading(true);
+        try {
+
+            const response = await axios({
+                url: `${EDUKE_URL}/edike/api/v1/auth/admin/reset-password`,
+                method: 'POST',
+                data,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            setUpdateLoading(false);
+            setUpdateMsg(response.data && response.data.msg);
+            console.log(response.data);
+
+        } catch(err) {
+            setUpdateLoading(false);
+            setUpdateError(err.response && err.response.data && err.response.data.msg);
+        }
+    }
+
+
+    const resetPasswordHandler = async e => {
         e.preventDefault();
 
-        // if (isEmailValid && isPasswordValid) {
             const data = { password, email };
-            // console.log(data);
-            dispatch(resetPassword(data));
-        // }
+            
+            false && dispatch(resetPassword(data));
+
+            await updateNow(data);
     };
 
-    
     useEffect(() => {
 
-        if (auth.loggedInMessage === 'Your new password has been updated.') {
-            localStorage.removeItem('edike-admin-email');
+        if (updateMsg && updateMsg === 'Your new password has been updated.') {
             navigate('/redirecting-to-sign-in');
         }
 
-        if (auth.error && auth.error.length > 0) {
-            toast.error(auth.error);
+        if (updateError && updateError.length > 0) {
+            toast.error(updateError);
             setEmail('');
             setPassword('');
         }
-    }, [auth, navigate]);
+    }, [updateMsg, updateError, navigate]);
 
 
 
-
+    
 
     return (
         <>
-            {auth.loading && <LoadingScreen />}
-            {!auth.loading && auth.error && auth.error.length > 0 && <ToastComponent />}
+            {updateLoading && <LoadingScreen />}
+            {!updateLoading && updateError && updateError.length > 0 && <ToastComponent />}
             <AccountBackground>
                 <AccountLayout>
                     <AccountAside />
@@ -212,7 +235,7 @@ function ResetPasswordScreen() {
                             <FormButton
                             // disabled={isOverallValidity}
                             >Reset Password</FormButton>
-                            <FormQuestion>Remember you login details? <Link to='/sign-in'>Sign In</Link></FormQuestion>
+                            {/* <FormQuestion>Remember you login details? <Link to='/sign-in'>Sign In</Link></FormQuestion> */}
                         </form>
                     </AccountMain>
                 </AccountLayout>
@@ -221,4 +244,4 @@ function ResetPasswordScreen() {
     );
 }
 
-export default ResetPasswordScreen;
+export default UpdatePasswordScreen;

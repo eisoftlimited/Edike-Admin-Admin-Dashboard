@@ -23,7 +23,7 @@ function SecurityForm() {
         e.preventDefault();
         const validity = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/.test(email);
 
-        if(!validity) return;
+        if (!validity) return;
 
         setLoading(true);
 
@@ -31,6 +31,9 @@ function SecurityForm() {
             const response = await axios({
                 url: `${EDUKE_URL}/edike/api/v1/auth/admin/forgot-password`,
                 method: 'POST',
+                data: {
+                    email
+                },
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -38,6 +41,7 @@ function SecurityForm() {
 
             setLoading(false);
             setData(response.data && response.data.msg);
+            toast.success(response.data && response.data.msg);
 
         } catch (err) {
 
@@ -48,34 +52,48 @@ function SecurityForm() {
         }
     }
 
-    
+
     useEffect(() => {
+
+        let timeout;
+
         if (data && data.length > 0) {
-            navigate('/update-password-otp');
+
+            setTimeout(() => {
+                navigate('/update-password-otp', {
+                    state: email
+                });
+            }, 2000)
+
         }
+
+        return ()=> {
+            clearTimeout(timeout);
+        }
+
     }, [data, navigate]);
 
 
 
     return (
         <>
-        <ToastComponent />
-        <form onSubmit={updatePassword}>
-            <FormControl labelText='Email'
-                isValid={true}
-                inputId='email'
-                inputControls={{
-                    type: 'text',
-                    placeholder: 'Enter Email here...',
-                    name: 'email',
-                    value: email,
-                    onChange: e => setEmail(e.target.value),
-                    // onBlur: textOnBlurHandler,
-                    // onFocus: focusHandler
-                }}
-            />
-            <FormButton className={classes.drawer__btn}>Request Password Update</FormButton>
-        </form>
+            <ToastComponent />
+            <form onSubmit={updatePassword}>
+                <FormControl labelText='Email'
+                    isValid={true}
+                    inputId='email'
+                    inputControls={{
+                        type: 'text',
+                        placeholder: 'Enter Email here...',
+                        name: 'email',
+                        value: email,
+                        onChange: e => setEmail(e.target.value),
+                        // onBlur: textOnBlurHandler,
+                        // onFocus: focusHandler
+                    }}
+                />
+                <FormButton className={classes.drawer__btn}>Request Password Update</FormButton>
+            </form>
         </>
     );
 }

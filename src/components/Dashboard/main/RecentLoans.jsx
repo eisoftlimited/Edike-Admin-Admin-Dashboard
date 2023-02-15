@@ -170,8 +170,6 @@ function RecentLoans({ className }) {
     // const [placehoderName, setPlaceholderName] = useState('');
     // const [placehoderAmount, setPlaceholderAmount] = useState('');
 
-    console.log({loans});
-
     return (
         <>
             <LoanDeclineModal

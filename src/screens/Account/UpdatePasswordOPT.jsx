@@ -15,20 +15,23 @@ import './Account.scss';
 import LoadingScreen from '../../components/UI/LoadingScreen';
 import ToastComponent from '../../components/UI/ToastComponent';
 import { toast } from 'react-toastify';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { EDUKE_URL } from "../../store/url";
 import axios from "axios";
 
 function UpdatePasswordOPT() {
+
+    const location = useLocation();
+
+    const email = location.state;
+
     const undefArray = [undefined, undefined, undefined, undefined, undefined, undefined];
     const dispatch = useDispatch();
-    const auth = useSelector(state => state.auth);
+    // const auth = useSelector(state => state.auth);
     const navigate = useNavigate();
 
     const [otp, setOtp] = useState(undefArray);
 
-
-    const email = localStorage.getItem('edike-admin-email');
 
     // const email = 'email';
 
@@ -36,7 +39,8 @@ function UpdatePasswordOPT() {
 
     const [countDown, setCountDown] = useState(2 * 60);
     const timerId = useRef();
-    
+
+
     useEffect(() => {
         timerId.current = setInterval(() => {
             setCountDown(prev => prev - 1);
@@ -60,27 +64,6 @@ function UpdatePasswordOPT() {
         return `${minutes}:${seconds}`
     };
 
-    // ========================
-
-    // console.log({otp});
-
-
-
-
-
-    useEffect(() => {
-        if (auth.loggedInMessage === 'Verification Successful') { //Verification Successful
-            navigate('/reset-password', { replace: true })
-        }
-    }, [auth.loggedInMessage, navigate]);
-
-    useEffect(() => {
-        if (auth.error.length > 0) {
-            toast.error(auth.error);
-        }
-    }, [auth]);
-
-
     const setOtpHandler = e => {
 
         if (e.target.value.length >= 1) {
@@ -98,13 +81,12 @@ function UpdatePasswordOPT() {
     };
 
     const resendForgotPasswordCodeHandler = () => {
-        const email = localStorage.getItem('edike-admin-email');
-        setCountDown(2 * 60);
-        
+        // const email = localStorage.getItem('edike-admin-email');
+        // setCountDown(2 * 60);
 
-        console.log('Resend');
-        // console.log({otp});
-        dispatch(resendAdminForgotPassword({ email }));
+
+        // console.log('Resend');
+        // dispatch(resendAdminForgotPassword({ email }));
     };
 
 
@@ -117,14 +99,9 @@ function UpdatePasswordOPT() {
     const [activeUser, setActiveUser] = useState('');
     // const [activeMsg, setActiveMsg] = useState('');
 
-    const activateHandler = async e => {
-        e.preventDefault(); 
 
-        const email = localStorage.getItem('edike-admin-email');
-        const data = { otpToken: otp.join(''), email };
-
+    async function activateIt(data) {
         setActivateLoading(true);
-
         try {
             setActivateLoading(false);
             const response = await axios({
@@ -137,37 +114,41 @@ function UpdatePasswordOPT() {
             });
 
             setActivateMsg(response.data && response.data.msg);
-            
-            /*
-            state.loggedInMessage = action.payload && action.payload.msg;
-            state.user = action.payload && action.payload.user;
-            state.token = action.payload && action.payload.token;
-            */ 
+
+            console.log(response.data);
+
 
         } catch (err) {
             setActivateLoading(false);
             setActivateError(err.response && err.response.data && err.response.data.msg);
             toast.error(err.response && err.response.data && err.response.data.msg);
-            setEmail('');
         }
+    }
 
+    const activateHandler = async e => {
+        e.preventDefault();
+
+        const data = { otpToken: otp.join(''), email };
+
+        await activateIt(data);
 
         setOtp(undefArray);
     };
 
 
     useEffect(() => {
-        if (activateMsg === 'Verification Successful') { //Verification Successful
-            navigate('/reset-password', { replace: true })
+        if (activateMsg && activateMsg === 'Verification Successful') { //Verification Successful
+            navigate('/update-password', { replace: true })
         }
     }, [activateMsg, navigate]);
+
+
 
     useEffect(() => {
         if (activateError && activateError.length > 0) {
             toast.error(activateError);
         }
-    }, [auth]);
-
+    }, [activateError]);
 
 
 
@@ -176,7 +157,7 @@ function UpdatePasswordOPT() {
         <>
             {activateLoading && <LoadingScreen />}
             <ToastComponent />
-            {!!auth.token === false && (<AccountBackground>
+            {true && (<AccountBackground>
                 <AccountLayout>
                     <AccountAside />
                     <AccountMain>
@@ -202,7 +183,7 @@ function UpdatePasswordOPT() {
                                 <FormButton style={{ color: '#47B88F', backgroundColor: '#fafafa' }} type='button' onClick={resendForgotPasswordCodeHandler}>Resend Code</FormButton>
                                 <FormButton disabled={otp.includes(undefined)}>Submit</FormButton>
                             </div>
-                            <FormQuestion>Remember you login details? <Link to='/sign-in'>Sign In</Link></FormQuestion>
+                            {/* <FormQuestion>Remember you login details? <Link to='/sign-in'>Sign In</Link></FormQuestion> */}
                         </form>
                     </AccountMain>
                 </AccountLayout>
