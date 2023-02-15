@@ -44,7 +44,7 @@ function LoanNav({
                 Declined <span>{declinedNum}</span>
             </button>
             <button onClick={onComplete} className={`${classes['loan-nav__link']} ${activeBtn === 'completed' ? classes.active : ''}`}>
-                Completed <span>{completeNum}</span> {activeBtn}
+                Completed <span>{completeNum}</span>
             </button>
             <button onClick={onAll} className={`${classes['loan-nav__link']} ${activeBtn === 'all' ? classes.active : ''}`}>
                 All <span>{allNum}</span>
