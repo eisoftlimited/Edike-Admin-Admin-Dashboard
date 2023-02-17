@@ -101,7 +101,7 @@ function VerifyMobileScreen() {
         const email = localStorage.getItem('edike-admin-email');
 
         const data = { otpToken: otp.join(''), email };
-        // console.log(data);
+        console.log(data);
         dispatch(activateUser(data));
         setOtp(undefArray);
     };
