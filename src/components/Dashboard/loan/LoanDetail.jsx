@@ -16,6 +16,8 @@ import { approveLoanActions, loanApproval } from '../../../store/loan/approveLoa
 import ModalDetail from '../ModalDetail';
 import { formatCurr } from '../../../utils/currencyFormater';
 import NotFoundPlaceholder from '../user/NotFoundPlaceholder';
+import { completeLoanActions, loanComplete } from '../../../store/loan/completeLoanSlice';
+import TextEditor from '../../UI/TextEditor';
 // import avatar from './../../../img/avatar.svg';
 
 // import MyPDF from './LoanPDF';
@@ -44,6 +46,7 @@ function LoanDetail() {
 
     const [showActivateModal, setActivateModal] = useState(false);
     const [showDeclineModal, setDeclineModal] = useState(false);
+    const [showCompleteModal, setCompleteModal] = useState(false);
 
     const [showDetailModal, setDetailModal] = useState(false);
 
@@ -51,6 +54,7 @@ function LoanDetail() {
 
     const approvedLoan = useSelector(state => state.approveLoan);
     const declinedLoan = useSelector(state => state.declineLoan);
+    const completeLoan = useSelector(state => state.completeLoan);
 
 
     useEffect(() => {
@@ -89,12 +93,28 @@ function LoanDetail() {
             }, 5000);
         }
 
+        if (completeLoan.error && completeLoan.error.length > 0) {
+            toast.error(<p>{completeLoan.error}</p>);
+
+            interval = setTimeout(() => {
+                dispatch(completeLoanActions.resetCompleteState());
+            }, 5000);
+        }
+
+        if (completeLoan.declineLoanMsg && completeLoan.declineLoanMsg.length > 0) {
+            toast.success(<p>{completeLoan.declineLoanMsg}</p>);
+
+            interval = setTimeout(() => {
+                dispatch(completeLoanActions.resetCompleteState());
+            }, 5000);
+        }
+
 
         return () => {
             clearTimeout(interval);
         }
 
-    }, [approvedLoan, declinedLoan, dispatch]);
+    }, [approvedLoan, declinedLoan, completeLoan, dispatch]);
 
     // console.log({token});
 
@@ -102,8 +122,42 @@ function LoanDetail() {
         dispatch(singleLoan({ token, id: loanId, idMain: loanmainId }));
     }, [dispatch, token, loanId, loanmainId, status]);
 
+
+    function formatDate(userDate) {
+
+        const formatValue = (value) => {
+            const tempVal = value < 10 ? `0${value}` : `${value}`;
+            return tempVal;
+        };
+
+        const d = new Date(userDate);
+
+        const year = `${d.getFullYear()}`.slice(2, 4);
+        const month = formatValue(d.getMonth() + 1);
+        const day = formatValue(d.getDay() + 1);
+
+        return `${month}.${day}.${year}`;
+    }
+
+    const [declineComment, setDeclineComment] = useState('');
+    const declineLoanHandler = () => {
+        setDeclineModal(false);
+
+        // console.log(declineComment);
+        // return;
+
+        // if(!token) {
+        //     return;
+        // }
+
+        dispatch(loanDecline({ token, id: loanmainId, message: declineComment }));
+    };
+
     const approveLoanHandler = () => {
         setActivateModal(false);
+
+        console.log(loanComment);
+        return;
 
         if (!status) {
             return;
@@ -134,33 +188,12 @@ function LoanDetail() {
         });
     };
 
-    const declineLoanHandler = () => {
-        setDeclineModal(false);
+    const [completeComment, setCompleteComment] = useState('');
 
-        // if(!token) {
-        //     return;
-        // }
-
-        dispatch(loanDecline({ token, id: loanmainId }));
+    const completeLoanHandler = () => {
+        setCompleteModal(false);
+        dispatch(loanComplete({ id: loanmainId, message: completeComment, token }));
     };
-
-
-    function formatDate(userDate) {
-
-        const formatValue = (value) => {
-            const tempVal = value < 10 ? `0${value}` : `${value}`;
-            return tempVal;
-        };
-
-        const d = new Date(userDate);
-
-        const year = `${d.getFullYear()}`.slice(2, 4);
-        const month = formatValue(d.getMonth() + 1);
-        const day = formatValue(d.getDay() + 1);
-
-        return `${month}.${day}.${year}`;
-    }
-
 
     return (
         <>
@@ -183,7 +216,9 @@ function LoanDetail() {
                 showSearchNav={false}
             />
             <div className={classes['loan-detail']}>
-                <Link to='/dashboard/loans' style={{ fontSize: '3rem', display: 'inline-block', marginBottom: '1.5rem', color: '#111' }}><i className="fas fa-long-arrow-left"></i></Link>
+                <Link to='/dashboard/loans' style={{ fontSize: '3rem', display: 'inline-block', marginBottom: '1.5rem', color: '#111' }}>
+                    <i className="fas fa-long-arrow-left"></i>
+                </Link>
                 <h1 className={classes['loan-detail__heading']}>Customer Details</h1>
                 <table>
                     <thead>
@@ -254,7 +289,8 @@ function LoanDetail() {
                                 <span className={classes[status]}>{status ? status : ''}</span>
                             </li>
                             <li>
-                                <button onClick={() => setDetailModal(true)}>Customer Details</button>
+                                <button style={{ width: 'auto' }} onClick={() => setDetailModal(true)}>Customer Details</button>
+                                <div style={{ flex: 1 }} />
                             </li>
                         </ul>
                     </div>
@@ -319,30 +355,79 @@ function LoanDetail() {
                     </div>)}
                 </div>
 
-                {/* @RESTRICTED TO ADMIN AND RISK BEFORE */}
-                {/* {userAdmin && userAdmin.role !== 'cfo' && ( */}
+                {/* APPROVE SECTION */}
                 {status && status !== 'ongoing' && (
                     <>
-                        <h1 className={classes['loan-detail__heading']}>Your Comment</h1>
+                        <h1 className={classes['loan-detail__heading']}>Approve Comment</h1>
                         <div className={classes['loan-detail__box']}>
                             <div className={classes['loan-detail__box--item2']}>
-                                <textarea rows={10} placeholder='Your comment' className={classes['form-comment']} value={loanComment} onChange={e => setLoanComment(e.target.value)} />
+                                {/* <textarea rows={10}
+                                    placeholder='Your comment'
+                                    className={classes['form-comment']}
+                                    value={loanComment}
+                                    onChange={e => setLoanComment(e.target.value)}
+                                /> */}
+                                <TextEditor
+                                    onChange={setLoanComment}
+                                />
                             </div>
                         </div>
+                        <button className={classes.btn__success} onClick={() => setActivateModal(true)} type='button'>Approve</button>
                     </>
                 )}
-                {/* )} */}
-                {/* @END */}
 
-                {status && status !== 'ongoing' && (<div className={classes['loan-detail__btns']}>
+                <>
+                    <h1 className={classes['loan-detail__heading']}>Decline Comment</h1>
+                    <div className={classes['loan-detail__box']}>
+                        <div className={classes['loan-detail__box--item2']}>
+                            <textarea rows={10}
+                                placeholder='Decline comment'
+                                className={classes['form-comment']}
+                                value={declineComment}
+                                onChange={e => setDeclineComment(e.target.value)}
+                            />
+                        </div>
+                    </div>
+                    <button className={classes.btn__danger} onClick={() => setDeclineModal(true)} type='button'>Decline</button>
+                </>
+
+                {(userAdmin && userAdmin.role === 'cfo') && status !== 'completed' && (<>
+                    <h1 className={classes['loan-detail__heading']}>Complete Comment</h1>
+                    <div className={classes['loan-detail__box']}>
+                        <div className={classes['loan-detail__box--item2']}>
+                            <textarea rows={10}
+                                placeholder='Complete comment'
+                                className={classes['form-comment']}
+                                value={completeComment}
+                                onChange={e => setCompleteComment(e.target.value)}
+                            />
+                        </div>
+                    </div>
+                    <button className={classes.btn__info} onClick={() => setCompleteModal(true)} type='button'>Complete</button>
+                </>)}
+
+                {status && status !== 'ongoing' && false && (<div className={classes['loan-detail__btns']}>
                     <button onClick={() => setDeclineModal(true)} type='button'>Decline</button>
                     <button onClick={() => setActivateModal(true)} type='button'>Approve</button>
+                    <button onClick={() => setCompleteModal(true)} type='button'>Complete</button>
                 </div>)}
                 <LoanDeclineModal
                     onCloseModal={() => setDeclineModal(false)}
                     isModalVisible={showDeclineModal}
                     onConfirmClick={declineLoanHandler}
                     onCancelClick={() => setDeclineModal(false)}
+                    loanInfo={{
+                        user: user && `${user[0].firstname} ${user[0].lastname}`,
+                        amount: beneficiary_amount && formatCurr(beneficiary_amount)
+                    }}
+                />
+                {/* THIS IS FOR COMPLETED LOANS */}
+                <LoanDeclineModal
+                    isComplete={true}
+                    onCloseModal={() => setCompleteModal(false)}
+                    isModalVisible={showCompleteModal}
+                    onConfirmClick={completeLoanHandler}
+                    onCancelClick={() => setCompleteModal(false)}
                     loanInfo={{
                         user: user && `${user[0].firstname} ${user[0].lastname}`,
                         amount: beneficiary_amount && formatCurr(beneficiary_amount)
@@ -360,9 +445,7 @@ function LoanDetail() {
                         amount: beneficiary_amount && formatCurr(beneficiary_amount)
                     }}
                 />
-
                 <ModalDetail onClose={() => setDetailModal(false)} info={user ? user[0] : {}} isModalVisible={showDetailModal} />
-
             </div>
         </>
     );

@@ -37,7 +37,7 @@ function DashBoardLoan() {
 
     // USESELECTOR STATES
     const loans = useSelector(state => state.getAllLoans);
-    const { ongoingLoans, defaultedLoans, completedLoans, declinedLoans, allLoans, disbursedLoans, pendingLoans } = useSelector(state => state.getAllLoans);
+    const { ongoingLoans, defaultedLoans, completedLoans, declinedLoans, allLoans, disbursedLoans, pendingLoans, pendingAppLoans } = useSelector(state => state.getAllLoans);
     const token = useSelector(state => state.auth.token);
     const approvedLoan = useSelector(state => state.approveLoan); // approveLoan
     const declinedLoan = useSelector(state => state.declineLoan);
@@ -64,19 +64,30 @@ function DashBoardLoan() {
 
     useEffect(() => {
 
-        if (state && state.loanType) {
-            if (state.loanType === 'running') {
-                setFilterBy('ongoing');
-            } else if (state && state.loanType === 'completed') {
-                setFilterBy('completed');
-            } else if (state && state.loanType === 'settled') {
-                setFilterBy('settled');
-            } else if (state && state.loanType === 'default') {
-                setFilterBy('defaulted');
-            } else if(state && state.loanType === 'pending_disbursement') {
-                setFilterBy('pending_disbursement');
-            } else if(state && state.loanType === 'pending') {
-                setFilterBy('pending');
+        // if (state && state.loanType) {
+        //     if (state.loanType === 'running') {
+        //         setFilterBy('ongoing');
+        //     } else if (state && state.loanType === 'completed') {
+        //         setFilterBy('completed');
+        //     } else if (state && state.loanType === 'settled') {
+        //         setFilterBy('settled');
+        //     } else if (state && state.loanType === 'default') {
+        //         setFilterBy('defaulted');
+        //     } else if (state && state.loanType === 'pending_disbursement') {
+        //         setFilterBy('pending_disbursement');
+        //     } else if (state && state.loanType === 'pending') {
+        //         setFilterBy('pending');
+        //     }
+        // }
+
+        if (state && state.filterType) {
+            if (state.filterType === 'running') {
+                document.getElementById('running').click();
+            } else if (state && state.filterType === 'settled') {
+                document.getElementById('settled').click();
+            } else if (state && state.filterType === 'default') {
+                // document.getElementById('default').click();\
+                document.getElementById('def')?.click();
             }
         }
 
@@ -96,11 +107,13 @@ function DashBoardLoan() {
             setFilteredArray(declinedLoans || []);
         } else if (filterBy === 'pending_disbursement') {
             setFilteredArray(disbursedLoans || []);
-        } else if(filterBy === 'pending') {
+        } else if (filterBy === 'pending') {
             setFilteredArray(pendingLoans || []);
+        } else if (filterBy === 'pending_approval') {
+            setFilteredArray(pendingAppLoans || []);
         }
 
-    }, [filterBy, ongoingLoans, defaultedLoans, completedLoans, declinedLoans, allLoans, disbursedLoans, pendingLoans]);
+    }, [filterBy, ongoingLoans, defaultedLoans, completedLoans, declinedLoans, allLoans, disbursedLoans, pendingLoans, pendingAppLoans]);
 
 
     const approveLoanHandler = () => {
@@ -239,18 +252,23 @@ function DashBoardLoan() {
                                     }}
 
                                     pendingNum={pendingLoans && pendingLoans.length}
-                                    onPending={()=> {
+                                    onPending={() => {
                                         setFilterBy('pending');
                                     }}
                                     disburseNum={disbursedLoans && disbursedLoans.length}
-                                    onDisburse={()=> {
+                                    onDisburse={() => {
                                         setFilterBy('pending_disbursement');
                                     }}
 
-                                    onComplete={()=> {
+                                    onComplete={() => {
                                         setFilterBy('completed');
                                     }}
                                     completeNum={completedLoans && completedLoans.length}
+
+                                    onPendingApp={() => {
+                                        setFilterBy('pending_approval');
+                                    }}
+                                    pendingAppNum={pendingAppLoans && pendingAppLoans.length}
 
                                     onExportTable={onExportTable}
                                 />
@@ -270,7 +288,7 @@ function DashBoardLoan() {
                                     {filteredArray && filteredArray.map((loan, loanIndex) => (<tr key={loan._id} className={classes.loantr}>
                                         <td>{(loan.startsTime && formatDate(loan.startsTime)) || '-'}</td>
                                         <td>{loan.beneficiaryDetails[0]?.firstname} {loan.beneficiaryDetails[0]?.lastname}</td>
-                                        
+
                                         {filterBy === 'all' && <td>{loanIdiy + (filteredArray.length - (loanIndex + 1))}</td>}
                                         <td>{(loan.beneficiary_amount && formatCurr(loan.beneficiary_amount)) || '-'}</td>
                                         <td>{loan.beneficiary_duration || '-'} months</td>

@@ -2,19 +2,26 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
 import { EDUKE_URL } from "../url";
 
-export const loanComplete = createAsyncThunk('completeLoan/loanComplete', async ({token, id}, {rejectWithValue})=> {
+export const loanComplete = createAsyncThunk('completeLoan/loanComplete', async ({ token, id, message }, { rejectWithValue }) => {
+    
+    console.log({token});
+    
     try {
         const response = await axios({
-            url: `${EDUKE_URL}/edike/api/v1/loans/admin/decline/${id}`,
+            url: `${EDUKE_URL}/edike/api/v1/loans/admin/complete/${id}`,
+            // url: `${EDUKE_URL}/edike/api/v1/loans/admin/complete`,
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'x-admin-auth-token': token
-            }
+                'x-auth-admin-token': token
+            },
+            // data: {
+            //     eComment: message
+            // }
         });
 
         return response.data;
-    } catch(err) {
+    } catch (err) {
         return rejectWithValue(err.response.data);
     }
 });
@@ -27,21 +34,29 @@ const completeLoanSlice = createSlice({
         error: '',
         loan: null
     },
+    reducers: {
+        resetCompleteState: state => {
+            state.loading = false;
+            state.error = '';
+            state.loan = '';
+        }
+    },
     extraReducers: (builder => {
         builder.addCase(loanComplete.pending, state => {
             state.loading = true;
+            state.error = '';
         });
-        builder.addCase(loanComplete.fulfilled, (state, action)=> {
+        builder.addCase(loanComplete.fulfilled, (state, action) => {
             state.loading = false;
             state.loan = action.payload && action.payload;
 
-            // console.log('In the fulfilled block: ', action.payload);
+            console.log('In the fulfilled block: ', action.payload);
         });
-        builder.addCase(loanComplete.rejected, (state, action)=> {
+        builder.addCase(loanComplete.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload && action.payload.msg;
 
-            // console.log('In the rejected block: ', action.payload);
+            console.log('In the rejected block: ', action.payload);
         })
     })
 });

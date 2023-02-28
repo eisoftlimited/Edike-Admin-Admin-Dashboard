@@ -60,7 +60,7 @@ function LoanCard({ state, image, loanType }) {
     return (
         <div onClick={()=> navigate('/dashboard/loans', {
             state: {
-                filterType: loanType
+                filterType: state
             }
         })} className={classes['dashboard-loan']}>
             <span className={classes['dashboard-loan__label']}>{val} Loans</span>
@@ -77,11 +77,10 @@ function LoanCard({ state, image, loanType }) {
 }
 
 
-function LoanCards() {
+function LoanCards({onChangeFilter}) {
     return ( 
         <div className={classes['dashboard-loan__container']}>
             <LoanCard state={'running'} image={nairaOrange} loanType='get-total-running' />
-            {/* <LoanCard state={'pending'} image={nairaOrange} loanType='get-total-pending' /> */}
             <LoanCard state={'settled'} image={nairaGreen} loanType='get-total-complete' />
             <LoanCard state={'default'} image={nairaRed} loanType='get-total-default' />
         </div>

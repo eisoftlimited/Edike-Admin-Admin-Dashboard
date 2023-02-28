@@ -23,6 +23,7 @@
         font-size: 2rem;
         font-weight: 700;
         color: #3F434A;
+        margin-top: 2rem;
     }
 
     table {
@@ -182,6 +183,10 @@
                 background-color: #FF3436;
             }
 
+            &:nth-child(2) {
+                background-color: #F9AC3B;
+            }
+
             &:last-child {
                 background-color: #47B88F;
             }
@@ -223,6 +228,32 @@
             font-weight: 600;
         }
     }
+
+    button {
+        width: 13.4rem;
+        height: 4rem;
+        display: inline-block;
+        padding: .8rem;
+        font-size: 1.6rem;
+        font-weight: 500;
+        border-radius: 1rem;
+        color: #fff;
+        margin-left: auto !important;
+        cursor: pointer;
+    
+        &.btn__danger {
+            background-color: #FF3436;
+        }
+    
+        &.btn__info {
+            background-color: #F9AC3B;
+        }
+    
+        &.btn__success {
+            background-color: #47B88F;
+        }
+    }
+    
 }
 
 .form-comment {
@@ -269,3 +300,4 @@
         margin-top: 1rem;
     }
 }
+

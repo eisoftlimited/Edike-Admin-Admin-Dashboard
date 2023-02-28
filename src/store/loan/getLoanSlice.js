@@ -43,7 +43,7 @@ const getLoanSlice = createSlice({
 
             // console.log('In the fulfilled block: ', action.payload && action.payload.all);
 
-            console.log('User data: ', state.user, 'Loan data: ', state.loan);
+            // console.log('User data: ', state.user, 'Loan data: ', state.loan);
         });
         builder.addCase(singleLoan.rejected, (state, action)=> {
             state.loading = false;

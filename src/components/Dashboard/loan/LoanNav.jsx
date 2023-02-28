@@ -14,6 +14,7 @@ function LoanNav({
     onDisburse,
     onPending,
     onComplete,
+    onPendingApp,
     allNum = 0,
     runningNum = 0,
     defaultNum = 0,
@@ -21,6 +22,7 @@ function LoanNav({
     disburseNum = 0,
     pendingNum = 0,
     completeNum = 0,
+    pendingAppNum = 0,
     onExportTable }) {
 
         
@@ -31,19 +33,22 @@ function LoanNav({
             {userRole && userRole.role !== 'cfo' && (<button onClick={onPending} className={`${classes['loan-nav__link']} ${activeBtn === 'pending' ? classes.active : ''}`}>
                 Pending <span>{pendingNum}</span>
             </button>)}
-            {userRole && userRole.role !== 'risk_management' &&<button onClick={onDisburse} className={`${classes['loan-nav__link']} ${activeBtn === 'pending_disbursement' ? classes.active : ''}`}>
+            {userRole && userRole.role === 'cfo' &&<button onClick={onDisburse} className={`${classes['loan-nav__link']} ${activeBtn === 'pending_disbursement' ? classes.active : ''}`}>
                 Pending Disburstment <span>{disburseNum}</span>
             </button>}
-            <button onClick={onRunning} className={`${classes['loan-nav__link']} ${activeBtn === 'ongoing' ? classes.active : ''}`}>
+            {userRole && userRole.role === 'risk_management' &&<button onClick={onPendingApp} className={`${classes['loan-nav__link']} ${activeBtn === 'pending_disbursement' ? classes.active : ''}`}>
+                Pending Approval <span>{pendingAppNum}</span>
+            </button>}
+            <button id='running' onClick={onRunning} className={`${classes['loan-nav__link']} ${activeBtn === 'ongoing' ? classes.active : ''}`}>
                 Running Loans <span>{runningNum}</span>
             </button>
-            <button onClick={onDefault} className={`${classes['loan-nav__link']} ${activeBtn === 'defaulted' ? classes.active : ''}`}>
+            <button id='def' onClick={onDefault} className={`${classes['loan-nav__link']} ${activeBtn === 'defaulted' ? classes.active : ''}`}>
                 Defaulted <span>{defaultNum}</span>
             </button>
              <button onClick={onDecline} className={`${classes['loan-nav__link']} ${activeBtn === 'declined' ? classes.active : ''}`}>
                 Declined <span>{declinedNum}</span>
             </button>
-            <button onClick={onComplete} className={`${classes['loan-nav__link']} ${activeBtn === 'completed' ? classes.active : ''}`}>
+            <button id='settled' onClick={onComplete} className={`${classes['loan-nav__link']} ${activeBtn === 'completed' ? classes.active : ''}`}>
                 Completed <span>{completeNum}</span>
             </button>
             <button onClick={onAll} className={`${classes['loan-nav__link']} ${activeBtn === 'all' ? classes.active : ''}`}>
