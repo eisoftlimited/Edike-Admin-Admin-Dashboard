@@ -377,7 +377,7 @@ function LoanDetail() {
                 </div>
                 {/* Fo ongoing, defaulted and completed status, comment box should not show. */}
                 {/* APPROVE SECTION */}
-                {(status && status !== 'ongoing' && status !== 'defaulted' && status !== 'completed') && (
+                {(status && status !== 'ongoing' && status !== 'defaulted' && status !== 'completed' && status !== 'declined') && (
                     <>
                         <h1 className={classes['loan-detail__heading']}>Comment</h1>
                         <div className={classes['loan-detail__box']}>
