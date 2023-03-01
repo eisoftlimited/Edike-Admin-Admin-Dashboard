@@ -238,19 +238,22 @@
         font-weight: 500;
         border-radius: 1rem;
         color: #fff;
-        margin-left: auto !important;
+        // margin-left: auto !important;
         cursor: pointer;
     
         &.btn__danger {
             background-color: #FF3436;
+            margin-left: 0;
         }
     
         &.btn__info {
             background-color: #F9AC3B;
+            margin-left: 0;
         }
     
         &.btn__success {
             background-color: #47B88F;
+            margin-left: 0;
         }
     }
     

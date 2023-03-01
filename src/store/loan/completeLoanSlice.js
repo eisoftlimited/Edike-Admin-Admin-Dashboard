@@ -2,22 +2,18 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
 import { EDUKE_URL } from "../url";
 
-export const loanComplete = createAsyncThunk('completeLoan/loanComplete', async ({ token, id, message }, { rejectWithValue }) => {
+export const loanComplete = createAsyncThunk('completeLoan/loanComplete', async ({ token, id }, { rejectWithValue }) => {
     
     console.log({token});
     
     try {
         const response = await axios({
             url: `${EDUKE_URL}/edike/api/v1/loans/admin/complete/${id}`,
-            // url: `${EDUKE_URL}/edike/api/v1/loans/admin/complete`,
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'x-auth-admin-token': token
-            },
-            // data: {
-            //     eComment: message
-            // }
+            }
         });
 
         return response.data;

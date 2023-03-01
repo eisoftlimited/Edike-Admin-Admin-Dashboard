@@ -9,6 +9,7 @@ import { deleteUserReducer } from './customer/deleteCustomerSlice';
 import { getAllUsersReducer } from './customer/getAllUserSlice';
 import { approveLoanReducer } from './loan/approveLoanSlice';
 import { completeLoanReducer } from './loan/completeLoanSlice';
+import { declineDueCardReducer } from './loan/declineDueToCard';
 import { declineLoanReducer } from './loan/declineLoanSlice';
 import { getLoansReducer } from './loan/getAllLoansSlice';
 import { getLoanReducer } from './loan/getLoanSlice';
@@ -48,6 +49,7 @@ const store = configureStore({
         getSingleLoan: getLoanReducer,
         approveLoan: approveLoanReducer,
         declineLoan: declineLoanReducer,
+        declineDueCard: declineDueCardReducer,
         completeLoan: completeLoanReducer,
         // CUSTOMERS SLICES
         getAllCustomers: getAllCustomersReducer,

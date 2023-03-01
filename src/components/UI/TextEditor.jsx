@@ -19,7 +19,7 @@ export default function TextEditor({ onChange }) {
                 onEditorChange={val => onChange(val)}
                 initialValue=''
                 init={{
-                    height: 400,
+                    height: 300,
                     menubar: false,
                     plugins: [
                         'advlist', 'autolink', 'lists', 'link', 'image', 'charmap',

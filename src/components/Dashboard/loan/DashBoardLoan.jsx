@@ -82,11 +82,10 @@ function DashBoardLoan() {
 
         if (state && state.filterType) {
             if (state.filterType === 'running') {
-                document.getElementById('running').click();
+                document.getElementById('running')?.click();
             } else if (state && state.filterType === 'settled') {
-                document.getElementById('settled').click();
+                document.getElementById('settled')?.click();
             } else if (state && state.filterType === 'default') {
-                // document.getElementById('default').click();\
                 document.getElementById('def')?.click();
             }
         }

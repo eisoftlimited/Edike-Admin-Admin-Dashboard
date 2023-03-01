@@ -18,6 +18,7 @@ import { formatCurr } from '../../../utils/currencyFormater';
 import NotFoundPlaceholder from '../user/NotFoundPlaceholder';
 import { completeLoanActions, loanComplete } from '../../../store/loan/completeLoanSlice';
 import TextEditor from '../../UI/TextEditor';
+import { declineDueCardActions, declineDueToCardRequest } from '../../../store/loan/declineDueToCard';
 // import avatar from './../../../img/avatar.svg';
 
 // import MyPDF from './LoanPDF';
@@ -47,6 +48,7 @@ function LoanDetail() {
     const [showActivateModal, setActivateModal] = useState(false);
     const [showDeclineModal, setDeclineModal] = useState(false);
     const [showCompleteModal, setCompleteModal] = useState(false);
+    const [showDeclineCardModal, setDeclineCardModal] = useState(false);
 
     const [showDetailModal, setDetailModal] = useState(false);
 
@@ -55,6 +57,7 @@ function LoanDetail() {
     const approvedLoan = useSelector(state => state.approveLoan);
     const declinedLoan = useSelector(state => state.declineLoan);
     const completeLoan = useSelector(state => state.completeLoan);
+    const declineDueCard = useSelector(state => state.declineDueCard);
 
 
     useEffect(() => {
@@ -109,12 +112,28 @@ function LoanDetail() {
             }, 5000);
         }
 
+        // FOR DECLINE DUE TO CARD
+        if(declineDueCard.data && declineDueCard.data.length > 0) {
+            toast.success(<p>{declineDueCard.data}</p>);
+
+            interval = setTimeout(() => {
+                dispatch(declineDueCardActions.resetLoanDueCardState());
+            }, 5000);
+        }
+        if (declineDueCard.error && declineDueCard.error.length > 0) {
+            toast.error(<p>{declineDueCard.error}</p>);
+
+            interval = setTimeout(() => {
+                dispatch(declineDueCardActions.resetLoanDueCardState());
+            }, 5000);
+        }
+
 
         return () => {
             clearTimeout(interval);
         }
 
-    }, [approvedLoan, declinedLoan, completeLoan, dispatch]);
+    }, [approvedLoan, declinedLoan, completeLoan, declineDueCard, dispatch]);
 
     // console.log({token});
 
@@ -139,27 +158,21 @@ function LoanDetail() {
         return `${month}.${day}.${year}`;
     }
 
-    const [declineComment, setDeclineComment] = useState('');
     const declineLoanHandler = () => {
         setDeclineModal(false);
 
-        // console.log(declineComment);
-        // return;
-
-        // if(!token) {
-        //     return;
-        // }
-
-        dispatch(loanDecline({ token, id: loanmainId, message: declineComment }));
+        if (!loanComment || loanComment.length === 0) {
+            toast.info(<p>Please enter a comment to proceed.</p>)
+            return;
+        }
+        dispatch(loanDecline({ token, id: loanmainId, message: loanComment }));
     };
 
     const approveLoanHandler = () => {
         setActivateModal(false);
 
-        console.log(loanComment);
-        return;
-
-        if (!status) {
+        if (!loanComment || loanComment.length === 0) {
+            toast.info(<p>Please enter a comment to proceed.</p>)
             return;
         }
 
@@ -188,12 +201,20 @@ function LoanDetail() {
         });
     };
 
-    const [completeComment, setCompleteComment] = useState('');
-
     const completeLoanHandler = () => {
         setCompleteModal(false);
-        dispatch(loanComplete({ id: loanmainId, message: completeComment, token }));
+        dispatch(loanComplete({ id: loanmainId, token }));
     };
+
+    const declineDueCardHandler = () => {
+        setDeclineCardModal(false);
+
+        if (!loanComment || loanComment.length === 0) {
+            toast.info(<p>Please enter a comment to proceed.</p>)
+            return;
+        }
+        dispatch(declineDueToCardRequest({ token, id: loanmainId, message: loanComment }));
+    }
 
     return (
         <>
@@ -335,7 +356,7 @@ function LoanDetail() {
                 </div>
                 <div className={classes['loan-detail__box-img']}>
                     <a href={beneficiary_file_results && beneficiary_file_results[0]?.secure_url} target={'_blank'} rel='noreferrer noopener' >
-                        <h1 className={classes['loan-detail__heading']}>School bill invoice</h1>
+                        <h1 className={classes['loan-detail__heading']}>Click to view school bill invoice</h1>
                         <img src={beneficiary_file_results && beneficiary_file_results[0]?.secure_url} alt='' />
                     </a>
                 </div>
@@ -354,63 +375,38 @@ function LoanDetail() {
                         {cComment && <p>{cComment}</p>}
                     </div>)}
                 </div>
-
+                {/* Fo ongoing, defaulted and completed status, comment box should not show. */}
                 {/* APPROVE SECTION */}
-                {status && status !== 'ongoing' && (
+                {(status && status !== 'ongoing' && status !== 'defaulted' && status !== 'completed') || (
                     <>
-                        <h1 className={classes['loan-detail__heading']}>Approve Comment</h1>
+                        <h1 className={classes['loan-detail__heading']}>Comment</h1>
                         <div className={classes['loan-detail__box']}>
                             <div className={classes['loan-detail__box--item2']}>
-                                {/* <textarea rows={10}
-                                    placeholder='Your comment'
-                                    className={classes['form-comment']}
-                                    value={loanComment}
-                                    onChange={e => setLoanComment(e.target.value)}
-                                /> */}
-                                <TextEditor
-                                    onChange={setLoanComment}
-                                />
+                                <TextEditor onChange={setLoanComment} />
                             </div>
                         </div>
-                        <button className={classes.btn__success} onClick={() => setActivateModal(true)} type='button'>Approve</button>
                     </>
                 )}
 
-                <>
-                    <h1 className={classes['loan-detail__heading']}>Decline Comment</h1>
-                    <div className={classes['loan-detail__box']}>
-                        <div className={classes['loan-detail__box--item2']}>
-                            <textarea rows={10}
-                                placeholder='Decline comment'
-                                className={classes['form-comment']}
-                                value={declineComment}
-                                onChange={e => setDeclineComment(e.target.value)}
-                            />
-                        </div>
-                    </div>
-                    <button className={classes.btn__danger} onClick={() => setDeclineModal(true)} type='button'>Decline</button>
-                </>
-
-                {(userAdmin && userAdmin.role === 'cfo') && status !== 'completed' && (<>
-                    <h1 className={classes['loan-detail__heading']}>Complete Comment</h1>
-                    <div className={classes['loan-detail__box']}>
-                        <div className={classes['loan-detail__box--item2']}>
-                            <textarea rows={10}
-                                placeholder='Complete comment'
-                                className={classes['form-comment']}
-                                value={completeComment}
-                                onChange={e => setCompleteComment(e.target.value)}
-                            />
-                        </div>
-                    </div>
-                    <button className={classes.btn__info} onClick={() => setCompleteModal(true)} type='button'>Complete</button>
-                </>)}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    {(status && status !== 'ongoing' && status !== 'defaulted' && status !== 'completed') || (
+                        <>
+                            <button className={classes.btn__success} onClick={() => setActivateModal(true)} type='button'>Approve</button>
+                            <button className={classes.btn__danger} onClick={() => setDeclineModal(true)} type='button'>Decline</button>
+                        </>
+                    )}
+                    {((userAdmin && userAdmin.role === 'cfo') && (status && status !== 'completed')) || (<>
+                        <button style={{ width: 'auto' }} className={classes.btn__danger} onClick={() => setDeclineCardModal(true)} type='button'>Decline due to card</button>
+                        <button className={classes.btn__info} onClick={() => setCompleteModal(true)} type='button'>Complete</button>
+                    </>)}
+                </div>
 
                 {status && status !== 'ongoing' && false && (<div className={classes['loan-detail__btns']}>
                     <button onClick={() => setDeclineModal(true)} type='button'>Decline</button>
                     <button onClick={() => setActivateModal(true)} type='button'>Approve</button>
                     <button onClick={() => setCompleteModal(true)} type='button'>Complete</button>
                 </div>)}
+
                 <LoanDeclineModal
                     onCloseModal={() => setDeclineModal(false)}
                     isModalVisible={showDeclineModal}
@@ -428,6 +424,18 @@ function LoanDetail() {
                     isModalVisible={showCompleteModal}
                     onConfirmClick={completeLoanHandler}
                     onCancelClick={() => setCompleteModal(false)}
+                    loanInfo={{
+                        user: user && `${user[0].firstname} ${user[0].lastname}`,
+                        amount: beneficiary_amount && formatCurr(beneficiary_amount)
+                    }}
+                />
+
+                {/* THIS IS FOR DECLINE DUE TO CARD. */}
+                <LoanDeclineModal
+                    onCloseModal={() => setDeclineCardModal(false)}
+                    isModalVisible={showDeclineCardModal}
+                    onConfirmClick={declineDueCardHandler}
+                    onCancelClick={() => setDeclineCardModal(false)}
                     loanInfo={{
                         user: user && `${user[0].firstname} ${user[0].lastname}`,
                         amount: beneficiary_amount && formatCurr(beneficiary_amount)
