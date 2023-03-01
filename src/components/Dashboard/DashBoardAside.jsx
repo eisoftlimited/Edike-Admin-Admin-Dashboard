@@ -90,13 +90,12 @@ function DashBoardAside({ onSidebarClose }) {
                     link={'/dashboard/loans'}
                     onCloseSidebar={onSidebarClose}
                 />
-                
-                {/* <DashMenuItem
-                    text={'Debit Cards'}
+                <DashMenuItem
+                    text={'Transaction Logs'}
                     icon={debitcard}
+                    link={'#a'}
                     onCloseSidebar={onSidebarClose}
                 />
-                 */}
                 
                 {user && user.role === 'cfo' && (<DashMenuItem
                     text={'System Administrators'}
