@@ -203,10 +203,10 @@ function CustomerDetail() {
                         {loan && loan.length > 0 && (<table className={classes.loan__table}>
                             <thead>
                                 <tr>
-                                    {/* <th>Loan Id</th> */}
                                     <th>Beneficiary</th>
                                     <th>School</th>
                                     <th>Class</th>
+                                    <th>Loan Id</th>
                                     <th>Loan Amount</th>
                                     <th>Loan Status</th>
                                 </tr>
@@ -215,10 +215,10 @@ function CustomerDetail() {
                                 {loan.map((ln, index) => {
                                     return (
                                         <tr key={ln._id}>
-                                            {/* <td>#EDI-{index + 1}</td> */}
                                             <td>{ln?.beneficiaryDetails[0]?.firstname || '-'} {ln?.beneficiaryDetails[0]?.lastname || '-'}</td>
                                             <td>{ln?.beneficiaryDetails[0]?.school || '-'}</td>
                                             <td>{ln?.beneficiaryDetails[0]?.studentClass || '-'}</td>
+                                            <td>{ln?.loan_reference}</td>
                                             <td>{(ln.beneficiary_amount && formatCurr(ln.beneficiary_amount)) || '-'}</td>
                                             <td>
                                                 {/* <span className={classes['active-loan']}>Active</span> */}
