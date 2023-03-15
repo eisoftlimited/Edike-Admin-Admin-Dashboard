@@ -23,6 +23,7 @@ import { deleteSchoolReducer } from './schools/deleteSchool';
 import { updateSchoolReducer } from './schools/editSchool';
 import { getSchoolsReducer } from './schools/getAllSchoolSlice';
 import { getSchoolReducer } from './schools/getSchoolSlice';
+import { transactionsReducer } from './transaction/getTransactionsSlice';
 
 const store = configureStore({
     reducer: {
@@ -37,7 +38,7 @@ const store = configureStore({
         activateSchool: activateSchoolReducer,
         // BANK SLICES
         getBanks: bankListReducer,
-        verifyBank: verifyAccNumberReducer, 
+        verifyBank: verifyAccNumberReducer,
         // USER/CUSTOMER SLICES
         createUser: addUserReducer,
         getAllUsers: getAllUsersReducer,
@@ -54,7 +55,9 @@ const store = configureStore({
         // CUSTOMERS SLICES
         getAllCustomers: getAllCustomersReducer,
         blockCustomer: blockCustomerReducer,
-        activateCustomer: activateCustomerReducer
+        activateCustomer: activateCustomerReducer,
+        // TRANSACTIONS SLICES
+        getAllTransactions: transactionsReducer
 
     },
     middleware: getDefaultMiddleware =>

@@ -275,7 +275,7 @@ function DashBoardLoan() {
                                     <tr className={classes.loantr}>
                                         <th>Date</th>
                                         <th>Beneficiary</th>
-                                        {filterBy === 'all' && <th>Loan ID</th>}
+                                        {(filterBy === 'all' || true) && <th>Loan ID</th>}
                                         <th>Amount</th>
                                         <th>Tenor</th>
                                         <th>Next Repayment</th>
@@ -288,7 +288,7 @@ function DashBoardLoan() {
                                         <td>{(loan.startsTime && formatDate(loan.startsTime)) || '-'}</td>
                                         <td>{loan.beneficiaryDetails[0]?.firstname} {loan.beneficiaryDetails[0]?.lastname}</td>
 
-                                        {filterBy === 'all' && <td>{loanIdiy + (filteredArray.length - (loanIndex + 1))}</td>}
+                                        {(filterBy === 'all' || true) && <td>{loan.loan_reference}</td>}
                                         <td>{(loan.beneficiary_amount && formatCurr(loan.beneficiary_amount)) || '-'}</td>
                                         <td>{loan.beneficiary_duration || '-'} months</td>
                                         <td>{(loan.paymentDate && new Date(loan.paymentDate).toDateString()) || '-'}</td>

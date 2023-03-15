@@ -93,7 +93,7 @@ function DashBoardAside({ onSidebarClose }) {
                 <DashMenuItem
                     text={'Transaction Logs'}
                     icon={debitcard}
-                    link={'#a'}
+                    link={'/dashboard/transactions'}
                     onCloseSidebar={onSidebarClose}
                 />
                 

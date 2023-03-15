@@ -389,14 +389,14 @@ function LoanDetail() {
                 )}
 
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    {(status && status !== 'ongoing' && status !== 'defaulted' && status !== 'completed' && status !== 'declined') && (
+                    {(status && (status === 'ongoing' && status === 'defaulted' && status === 'completed' && status === 'declined')) && (
                         <>
                             <button className={classes.btn__success} onClick={() => setActivateModal(true)} type='button'>Approve</button>
                             <button className={classes.btn__danger} onClick={() => setDeclineModal(true)} type='button'>Decline</button>
                         </>
                     )}
                     {((userAdmin && userAdmin.role === 'cfo') && (status && status !== 'completed' && status !== 'declined')) && (<>
-                        <button style={{ width: 'auto' }} className={classes.btn__danger} onClick={() => setDeclineCardModal(true)} type='button'>Decline due to card</button>
+                        {status !== 'ongoing' && status !== 'defaulted' && <button style={{ width: 'auto' }} className={classes.btn__danger} onClick={() => setDeclineCardModal(true)} type='button'>Decline due to card</button>}
                         <button className={classes.btn__info} onClick={() => setCompleteModal(true)} type='button'>Complete</button>
                     </>)}
                 </div>

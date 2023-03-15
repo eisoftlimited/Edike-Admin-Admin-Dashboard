@@ -280,6 +280,7 @@ function CustomerDash() {
                         <tr>
                             <th></th>
                             <th>Customer Name</th>
+                            <th>Customer Id</th>
                             <th>Address</th>
                             <th>Phone</th>
                             <th>Date</th>
@@ -302,10 +303,11 @@ function CustomerDash() {
                                         </section>
                                     </div>
                                 </td>
+                                <td className={classes['table-data']}>{user.customer_reference}</td>
                                 <td className={classes['table-data']}>{user.residence_address ? user.residence_address : '-'}</td>
                                 <td className={classes['table-data']}>{user.phone || '-'}</td>
                                 <td className={classes['table-data']}>{user.createdAt && formatDate(user.createdAt)}</td>
-                                <td className={classes['table-data']}>
+                                <td className={`${classes['table-data']} ${classes.droptd}`}>
                                     <div>
                                         {user.status === 'active' && <span className={classes['success']}>Active</span>}
                                         {user.status === 'blocked' && <span className={classes['danger']}>Blocked</span>}

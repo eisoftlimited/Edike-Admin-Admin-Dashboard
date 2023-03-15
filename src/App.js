@@ -26,6 +26,7 @@ import LoanInterest from './components/Dashboard/loan/LoanInterest';
 import UserProfile from './components/Dashboard/user/profile/UserProfile';
 import UpdatePasswordOPT from './screens/Account/UpdatePasswordOPT';
 import UpdatePasswordScreen from './screens/Account/UpdatePassword';
+import DashboardTransaction from './components/Dashboard/transaction/DashboardTransaction';
 
 function App() {
 
@@ -87,6 +88,13 @@ function App() {
             element={
               <LoggedInScreen>
                 <DashBoardMain />
+              </LoggedInScreen>
+            }
+          />
+          <Route path={'transactions'}
+            element={
+              <LoggedInScreen>
+                <DashboardTransaction />
               </LoggedInScreen>
             }
           />
