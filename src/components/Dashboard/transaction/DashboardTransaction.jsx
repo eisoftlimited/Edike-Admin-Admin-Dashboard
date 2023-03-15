@@ -13,7 +13,7 @@ function DashboardTransaction() {
     const token = useSelector(state => state.auth.token);
     const transactions = useSelector(state => state.getAllTransactions.data);
 
-    useEffect(()=> {
+    useEffect(() => {
         dispatch(getTransactionsRequest(token));
     }, [dispatch, token]);
 
@@ -43,32 +43,36 @@ function DashboardTransaction() {
                 btnText='Add User'
                 showSearchNav={false}
             />
-           
+
             <div className={classes.tabcontainer}>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Transaction Id</th>
-                        <th>Date</th>
-                        <th>Loan Id</th>
-                        <th>Customer Id</th>
-                        <th>Amount</th>
-                        <th>Channel</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {transactions && transactions.map(transaction => (
-                        <tr key={transaction._id}>
-                            <td title={transaction.reference}>{transaction.reference?.slice(0,15)}...</td>
-                            <td>{transaction.createdAt && formatDate(transaction.createdAt)}</td>
-                            <td>{transaction.loan_ref}</td>
-                            <td>{transaction.cus_ref}</td>
-                            <td>{transaction.amount && formatCurr(transaction.amount)}</td>
-                            <td>Card</td>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Transaction Id</th>
+                            <th>Date</th>
+                            <th>Loan Id</th>
+                            <th>Customer Id</th>
+                            <th>Customer Name</th>
+                            <th>Customer Email</th>
+                            <th>Amount</th>
+                            <th>Channel</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {transactions && transactions.map(transaction => (
+                            <tr key={transaction._id}>
+                                <td className={classes['table-data']} title={transaction.reference}>{transaction.reference?.slice(0, 10)}...</td>
+                                <td className={classes['table-data']}>{transaction.createdAt && formatDate(transaction.createdAt)}</td>
+                                <td className={classes['table-data']}>{transaction.loan_ref}</td>
+                                <td className={classes['table-data']}>{transaction.cus_ref}</td>
+                                <td className={classes['table-data']}>{transaction.cus_name}</td>
+                                <td className={classes['table-data']} title={transaction.cus_email}>{transaction.cus_email?.slice(0, 15)}</td>
+                                <td className={classes['table-data']}>{transaction.amount && formatCurr(transaction.amount)}</td>
+                                <td className={classes['table-data']}>Card</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
         </div>
     );
