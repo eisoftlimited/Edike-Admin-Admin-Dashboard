@@ -184,6 +184,22 @@ function DashBoardLoan() {
 
     // console.log({ filterBy, filteredArray });
 
+    // function formatDate(userDate) {
+
+    //     const formatValue = (value) => {
+    //         const tempVal = value < 10 ? `0${value}` : `${value}`;
+    //         return tempVal;
+    //     };
+
+    //     const d = new Date(userDate);
+
+    //     const year = `${d.getFullYear()}`.slice(2, 4);
+    //     const month = formatValue(d.getMonth() + 1);
+    //     const day = formatValue(d.getDay() + 1);
+
+    //     return `${month}.${day}.${year}`;
+    // }
+
     function formatDate(userDate) {
 
         const formatValue = (value) => {
@@ -277,9 +293,11 @@ function DashBoardLoan() {
                                         <th>Beneficiary</th>
                                         {(filterBy === 'all' || true) && <th>Loan ID</th>}
                                         <th>Amount</th>
-                                        <th>Tenor</th>
-                                        <th>Next Repayment</th>
-                                        <th>Monthly Repayment</th>
+                                        <th style={{textAlign: 'center'}}>Tenor</th>
+                                        <th>Monthly Pymt</th>
+                                        <th style={{textAlign: 'center'}}>Paid</th>
+                                        <th>Balance</th>
+                                        <th>Next Pymt</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -290,10 +308,11 @@ function DashBoardLoan() {
 
                                         {(filterBy === 'all' || true) && <td>{loan.loan_reference}</td>}
                                         <td>{(loan.beneficiary_amount && formatCurr(loan.beneficiary_amount)) || '-'}</td>
-                                        <td>{loan.beneficiary_duration || '-'} months</td>
-                                        <td>{(loan.paymentDate && new Date(loan.paymentDate).toDateString()) || '-'}</td>
-                                        {/* <td>{(loan.paymentDate && formatDate(loan.paymentDate)) || '-'}</td> */}
+                                        <td style={{textAlign: 'center'}}>{loan.beneficiary_duration || '-'} months</td>
                                         <td>{(loan.nextPayment && formatCurr(loan.nextPayment)) || '-'} </td>
+                                        <td style={{textAlign: 'center'}}>{loan.accessTime && formatCurr(loan.accessTime)}</td>
+                                        <td>{loan.paymentBalance && formatCurr(loan.paymentBalance)}</td>
+                                        <td>{(loan.paymentDate && formatDate(loan.paymentDate)) || '-'}</td>
                                         <td>
                                             {loan.status === 'active' && <span className={classes['success']}>Active</span>}
                                             {loan.status === 'pending' && <span className={classes['pending']}>Pending</span>}
