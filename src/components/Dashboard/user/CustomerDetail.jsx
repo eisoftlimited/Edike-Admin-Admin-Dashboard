@@ -93,7 +93,7 @@ function CustomerDetail() {
         <>
             {loading && <LoadingScreen />}
             <DashBoardNav
-                navTitle={`Customer - ${customer && customer.firstname} ${customer && customer.lastname} (${customer.customer_reference})`}
+                navTitle={`Customer - ${customer && customer.firstname} ${customer && customer.lastname} (${customer && customer.customer_reference})`}
                 // onAddSchool={drawerDisplayHandler} 
                 onOpenSidebar={openSideBarHandler}
                 btnText='Add User'
