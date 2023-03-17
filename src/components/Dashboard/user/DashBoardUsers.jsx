@@ -177,7 +177,7 @@ function DashBoardUsers() {
 
         const year = `${d.getFullYear()}`.slice(2, 4);
         const month = formatValue(d.getMonth() + 1);
-        const day = formatValue(d.getDay() + 1);
+        const day = formatValue(d.getDate());
 
         return `${month}.${day}.${year}`;
     }

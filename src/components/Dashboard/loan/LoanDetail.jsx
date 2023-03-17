@@ -336,9 +336,7 @@ function LoanDetail() {
                                             <td>{transaction.amount === 5000 ? 'Card Tokenization' : 'Matured Loan Repayment'}</td>
                                             <td>{transaction.amount && formatCurr(parseInt(transaction.amount / 100, 10))}</td>
                                             <td>
-                                                <span className={classes['active-loan']}
-                                                    style={{ backgroundColor: `${transaction.status !== 'success' && 'rgba(255, 52, 54, .1)'}`, color: `${transaction.status !== 'success' && '#FF3436'}` }}
-                                                >{transaction.status || '-'}</span>
+                                                <span className={classes[transaction.status]}>{transaction.status || '-'}</span>
                                             </td>
                                         </tr>
                                     );

@@ -95,7 +95,7 @@
         margin-bottom: 3rem;
 
         display: flex;
-        
+
         // style={{width: '100%', height: '100%'}} s
 
         a {
@@ -135,7 +135,7 @@
         padding-top: 2rem;
         border-top: 1px solid #E8E9EB;
 
-        
+
         // font-size: 4rem;
         // font-weight: 700;
         // height: 30rem;
@@ -194,29 +194,30 @@
     }
 
     span {
+        padding: .6rem 1rem;
 
         &.completed,
         &.success {
             color: #49C96D;
-            // background-color: rgba(#49C96D, .1);
+            background-color: rgba(#49C96D, .1);
         }
 
-        
 
+        &.failed,
         &.defaulted,
         &.danger {
             color: #FF3436;
-            // background-color: rgba(#FF3436, .1);
+            background-color: rgba(#FF3436, .1);
         }
 
         &.ongoing,
         &.pending {
             color: #F9AC3B;
-            // background-color: rgba(#F9AC3B, .1);
+            background-color: rgba(#F9AC3B, .1);
         }
 
         &.pending_disbursement {
-            // background-color: rgba(#964B00, .1);
+            background-color: rgba(#964B00, .1);
             color: #964B00;
             height: 3.3rem;
             width: 10rem;
@@ -224,7 +225,7 @@
 
         &.defaulted {
             color: #FF3436;
-            // background-color: rgba(#FF3436, .1);
+            background-color: rgba(#FF3436, .1);
             font-weight: 600;
         }
     }
@@ -240,23 +241,23 @@
         color: #fff;
         // margin-left: auto !important;
         cursor: pointer;
-    
+
         &.btn__danger {
             background-color: #FF3436;
             margin-left: 0;
         }
-    
+
         &.btn__info {
             background-color: #F9AC3B;
             margin-left: 0;
         }
-    
+
         &.btn__success {
             background-color: #47B88F;
             margin-left: 0;
         }
     }
-    
+
 }
 
 .form-comment {
@@ -281,7 +282,7 @@
         flex: 1;
         background-color: #fff;
         border: 1px solid #ccc;
-        
+
         .loan-detail__heading {
             font-size: 1.6rem;
             margin-bottom: 1rem;
@@ -290,7 +291,7 @@
         p {
             font-size: 1.6rem;
         }
-    }    
+    }
 }
 
 .new {
@@ -303,4 +304,3 @@
         margin-top: 1rem;
     }
 }
-

@@ -31,7 +31,7 @@ function DashboardTransaction() {
 
         const year = `${d.getFullYear()}`.slice(2, 4);
         const month = formatValue(d.getMonth() + 1);
-        const day = formatValue(d.getDay() + 1);
+        const day = formatValue(d.getDate());
 
         return `${month}.${day}.${year}`;
     }
@@ -57,24 +57,30 @@ function DashboardTransaction() {
                             <th>Date</th>
                             <th>Customer Name</th>
                             <th>Customer Email</th>
-                            <th style={{textAlign: 'center'}}>Customer Id</th>
-                            <th style={{textAlign: 'center'}}>Loan Id</th>
+                            <th style={{ textAlign: 'center' }}>Customer Id</th>
+                            <th style={{ textAlign: 'center' }}>Loan Id</th>
                             <th>Tranx Id</th>
                             <th>Amount</th>
                             <th>Channel</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         {transactions && transactions.map(transaction => (
                             <tr key={transaction._id}>
-                                <td className={classes['table-data']}>{transaction.createdAt && formatDate(transaction.createdAt)}</td>
+                                <td className={classes['table-data']}>{transaction.date && formatDate(transaction.date)}</td>
                                 <td className={classes['table-data']}>{transaction.cus_name}</td>
-                                <td className={classes['table-data']} title={transaction.cus_email}>{transaction.cus_email?.slice(0, 15)}</td>
-                                <td style={{textAlign: 'center'}} className={classes['table-data']}>{transaction.cus_ref}</td>
-                                <td style={{textAlign: 'center'}} className={classes['table-data']}>{transaction.loan_ref}</td>
-                                <td className={classes['table-data']} title={transaction.reference}>{transaction.reference?.slice(0, 10)}...</td>
+                                <td className={classes['table-data']} title={transaction.cus_email}>{transaction.cus_email}</td>
+                                <td style={{ textAlign: 'center' }} className={classes['table-data']}>{transaction.cus_ref}</td>
+                                <td style={{ textAlign: 'center' }} className={classes['table-data']}>{transaction.loan_ref}</td>
+                                <td className={classes['table-data']} title={transaction.reference}>{transaction.reference}</td>
                                 <td className={classes['table-data']}>{transaction.amount && formatCurr(transaction.amount)}</td>
-                                <td className={classes['table-data']}>Card</td>
+                                <td className={classes['table-data']}>{transaction.type}</td>
+                                <td className={classes['table-data']}>
+                                    <span style={{ color: transaction.verified ? 'green' : 'red' }}>
+                                        {`${transaction.verified}`}
+                                        </span>
+                                </td>
                             </tr>
                         ))}
                     </tbody>

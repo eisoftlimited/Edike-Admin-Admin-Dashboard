@@ -22,8 +22,8 @@
             flex-wrap: wrap;
             gap: 2rem;
 
-            & > div {
-                width: calc((100% - 4rem) / 3) ;
+            &>div {
+                width: calc((100% - 4rem) / 3);
                 // border-right: 1px solid #fafafa;
 
                 &:last-of-type {
@@ -142,7 +142,7 @@
             transform: translate(0, 0) !important;
         }
 
-        p{
+        p {
             position: absolute;
             top: 50%;
             left: 3rem;
@@ -178,7 +178,7 @@
             font-weight: 700;
         }
     }
-    
+
 }
 
 
@@ -186,12 +186,13 @@ table {
     border-collapse: collapse;
     width: 100%;
 
-    th{
+    th {
         border-bottom: 1px solid #E8E9EB;
         text-align: left;
     }
 
-    th, td {
+    th,
+    td {
         font-weight: 500;
         font-size: 1.4rem;
         padding: 1rem 0;
@@ -225,8 +226,8 @@ table {
         padding: .6rem 1rem;
         display: inline-block;
         font-size: 1.2rem;
-        color: #9acd32;
-        background-color: rgba(#9acd32, .05);
+        color: #F9AC3B;
+        background-color: rgba(#F9AC3B, .05);
     }
 
     .pending-loan {
@@ -240,44 +241,53 @@ table {
     .pending_disbursement-loan {
         background-color: rgba(#964B00, .1);
         color: #964B00;
-        height: 3.3rem; 
+        height: 3.3rem;
         width: 10rem;
         padding: .5rem;
     }
 
-    /*
-    &.success {
-            color: #49C96D;
-            background-color: rgba( #49C96D, .1);
-        }
+    .declined-loan {
+        padding: .6rem 1rem;
+        display: inline-block;
+        font-size: 1.2rem;
+        color: #FF3436;
+        background-color: rgba(#FF3436, .1);
+    }
 
-        &.danger {
-            color: #FF3436;
-            background-color: rgba( #FF3436, .1);
-        }
-        &.pending {
-            color: #F9AC3B;
-            background-color: rgba(#F9AC3B, .1);
-        }
 
-        &.pending_disbursement {
-            background-color: rgba(#964B00, .1);
-            color: #964B00;
-            height: 3.3rem; 
-            width: 10rem;
-        }
+    .completed-loan {
+        padding: .6rem 1rem;
+        display: inline-block;
+        font-size: 1.2rem;
+        color: #49C96D;
+        background-color: rgba(#49C96D, .1);
+    }
 
-        .defaulted {
-            color: #FF3436;
-            background-color: rgba( #FF3436, .1);
-            font-weight: 600;
-        }
-    */
+
+    &.pending {
+        color: #F9AC3B;
+        background-color: rgba(#F9AC3B, .1);
+    }
+
+    &.pending_disbursement {
+        background-color: rgba(#964B00, .1);
+        color: #964B00;
+        height: 3.3rem;
+        width: 10rem;
+    }
+
+    .defaulted {
+        color: #FF3436;
+        background-color: rgba(#FF3436, .1);
+        font-weight: 600;
+    }
+
 
     &.loan__table {
         width: 100%;
 
-        th, td {
+        th,
+        td {
             width: calc(100% / 6);
         }
     }

@@ -211,7 +211,7 @@ function DashBoardLoan() {
 
         const year = `${d.getFullYear()}`.slice(2, 4);
         const month = formatValue(d.getMonth() + 1);
-        const day = formatValue(d.getDay() + 1);
+        const day = formatValue(d.getDate());
 
         return `${month}.${day}.${year}`;
     }
@@ -289,7 +289,7 @@ function DashBoardLoan() {
                                 />
                                 <DashTable>
                                     <tr className={classes.loantr}>
-                                        <th>Date</th>
+                                        <th>Date (Start period)</th>
                                         <th>Beneficiary</th>
                                         {(filterBy === 'all' || true) && <th>Loan ID</th>}
                                         <th>Amount</th>
@@ -298,6 +298,9 @@ function DashBoardLoan() {
                                         <th style={{textAlign: 'center'}}>Paid</th>
                                         <th>Balance</th>
                                         <th>Next Pymt</th>
+                                        <th>1st Due date</th>
+                                        <th>2nd Due date</th>
+                                        <th>3rd Due date</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -309,10 +312,13 @@ function DashBoardLoan() {
                                         {(filterBy === 'all' || true) && <td>{loan.loan_reference}</td>}
                                         <td>{(loan.beneficiary_amount && formatCurr(loan.beneficiary_amount)) || '-'}</td>
                                         <td style={{textAlign: 'center'}}>{loan.beneficiary_duration || '-'} months</td>
-                                        <td>{(loan.nextPayment && formatCurr(loan.nextPayment)) || '-'} </td>
+                                        <td>{loan.nextPayment === '---' ? '---' : (loan.nextPayment && formatCurr(loan.nextPayment)) || '-'} </td>
                                         <td style={{textAlign: 'center'}}>{loan.accessTime && formatCurr(loan.accessTime)}</td>
                                         <td>{loan.paymentBalance && formatCurr(loan.paymentBalance)}</td>
-                                        <td>{(loan.paymentDate && formatDate(loan.paymentDate)) || '-'}</td>
+                                        <td>{loan.paymentDate === '---' ? '---' : (loan.paymentDate && formatDate(loan.paymentDate)) || '-'}</td>
+                                        <td>{loan.firstdue === '---' ? '---' : (loan.firstdue && formatDate(loan.firstdue))}</td>
+                                        <td>{loan.seconddue === '---' ? '---' : (loan.seconddue && formatDate(loan.seconddue)) }</td>
+                                        <td>{loan.thirddue === '---' ? '---' : (loan.thirddue && formatDate(loan.thirddue)) }</td>
                                         <td>
                                             {loan.status === 'active' && <span className={classes['success']}>Active</span>}
                                             {loan.status === 'pending' && <span className={classes['pending']}>Pending</span>}

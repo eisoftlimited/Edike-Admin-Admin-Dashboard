@@ -222,7 +222,9 @@ function CustomerDetail() {
                                             <td>{(ln.beneficiary_amount && formatCurr(ln.beneficiary_amount)) || '-'}</td>
                                             <td>
                                                 {/* <span className={classes['active-loan']}>Active</span> */}
-                                                <span className={classes[ln.status + '-loan']}>{ln.status && ln.status.split('_').join(' ')}</span>
+                                                <span className={classes[ln.status + '-loan']}>
+                                                    {ln.status && ln.status.split('_').join(' ')}
+                                                </span>
                                             </td>
                                         </tr>
                                     );
