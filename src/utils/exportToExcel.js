@@ -106,11 +106,29 @@ updatedAt
         contentColumn = [
             { label: "Date", value: (row) => row.createdAt },
             { label: "Beneficiary", value: (row) => row.beneficiaryDetails ? `${row.beneficiaryDetails[0].firstname} ${row.beneficiaryDetails[0].lastname}` : '-' },
+            { label: "Loan ID", value: (row) => row.loan_reference},
             { label: "Amount", value: (row) => row.beneficiary_amount },
             { label: "Loan Tenor", value: (row)=> `${row.beneficiary_duration} months`},
-            { label: "Next Payment", value: (row)=> row.paymentDate},
             { label: "Monthly Repayment", value: (row)=> row.nextPayment},
+            { label: "Paid", value: (row)=> row.accessTime},
+            { label: "Balance", value: (row)=> row.paymentBalance},
+            { label: "Next Payment", value: (row)=> row.paymentDate},
+            { label: "First Due Date", value: (row)=> row.firstdue},
+            { label: "Second Due Date", value: (row)=> row.seconddue},
+            { label: "Third Due Date", value: (row)=> row.thirddue},
             { label: "Status", value: (row) => row.status },
+        ];
+    } else if (fileName === 'Transactions') {
+        contentColumn = [
+            { label: "Date", value: (row) => row.date },
+            { label: "Customer Name", value: (row) => row.cus_name},
+            { label: "Customer Email", value: (row) => row.cus_email},
+            { label: "Customer ID", value: (row) => row.cus_ref},
+            { label: "Loan ID", value: (row) => row.loan_ref},
+            { label: "Transaction ID", value: (row) => row.reference},
+            { label: "Amount", value: (row) => row.amount},
+            { label: "Channel", value: (row) => row.type},
+            { label: "Status", value: (row) => row.verified},
         ];
     }
 
@@ -128,7 +146,7 @@ updatedAt
         writeMode: "writeFile", // The available parameters are 'WriteFile' and 'write'. This setting is optional. Useful in such cases https://docs.sheetjs.com/docs/solutions/output#example-remote-file
         writeOptions: {}, // Style options from https://docs.sheetjs.com/docs/api/write-options
         RTL: false, // Display the columns from right-to-left (the default value is false)
-    }
+    };
 
     xlsx(data, settings)
 }
