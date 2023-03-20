@@ -95,6 +95,7 @@ updatedAt
         ];
     } else if (fileName === 'Customers') {
         contentColumn = [
+            { label: "Customer Id", value: (row) => row.customer_reference },
             { label: "Customer Name", value: (row) => row.firstname + row.lastname },
             { label: "Customer Email", value: (row) => row.email },
             { label: "Location", value: (row) => row.residence_address },
