@@ -362,7 +362,7 @@ function LoanDetail() {
                 <div className={classes['admin-comments']}>
                     {userAdmin && userAdmin.role !== 'admin' && (<div className={classes['admin-comments__item']}>
                         <h1 className={classes['loan-detail__heading']}>Admin Comment</h1>
-                        {adminComment && <div dangerouslySetInnerHTML={{__html: adminComment}} />}
+                        {adminComment && <div dangerouslySetInnerHTML={{__html: htmlParse(adminComment)}}></div>}
                     </div>)}
                     {(userAdmin && (userAdmin.role !== 'admin' && userAdmin.role !== 'risk_management')) && (<div className={classes['admin-comments__item']}>
                         <h1 className={classes['loan-detail__heading']}>Risk Manager Comment</h1>
@@ -396,8 +396,6 @@ function LoanDetail() {
                 </> : status === 'ongoing' && null}
                 {(status && status === 'ongoing' && userAdmin && userAdmin.role === 'cfo') && <button className={classes.btn__info} onClick={() => setCompleteModal(true)} type='button'>Complete</button>}
                 </div>
-
-
 
                 <LoanDeclineModal
                     onCloseModal={() => setDeclineModal(false)}
