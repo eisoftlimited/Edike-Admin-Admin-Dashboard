@@ -366,12 +366,12 @@ function LoanDetail() {
                     </div>)}
                     {(userAdmin && (userAdmin.role !== 'admin' && userAdmin.role !== 'risk_management')) && (<div className={classes['admin-comments__item']}>
                         <h1 className={classes['loan-detail__heading']}>Risk Manager Comment</h1>
-                        {riskComment && <p>{htmlParse(riskComment)}</p>}
+                        {riskComment && <div dangerouslySetInnerHTML={{__html: htmlParse(riskComment)}}></div>}
                     </div>)}
                     {/* This is for cfo */}
                     {userAdmin && (<div className={classes['admin-comments__item']}>
                         <h1 className={classes['loan-detail__heading']}>CFO</h1>
-                        {cComment && <p>{htmlParse(cComment)}</p>}
+                        {cComment && <div dangerouslySetInnerHTML={{__html: htmlParse(cComment)}}></div>}
                     </div>)}
                 </div>
                 {/* Fo ongoing, defaulted and completed status, comment box should not show. */}
