@@ -34,12 +34,10 @@ function DashboardTransaction() {
         const day = formatValue(d.getDate());
 
         return `${month}.${day}.${year}`;
-    }
+    } 
 
     return (
         <div className={classes['dashboard']}>
-
-
             <DashBoardNav navTitle='Transaction Management'
                 // onAddSchool={drawerDisplayHandler} 
                 onOpenSidebar={openSideBarHandler}
