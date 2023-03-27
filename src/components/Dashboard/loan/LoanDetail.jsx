@@ -217,6 +217,11 @@ function LoanDetail() {
         dispatch(declineDueToCardRequest({ token, id: loanmainId, message: loanComment }));
     }
 
+    const actionButtons = <>
+        <button className={classes.btn__success} onClick={() => setActivateModal(true)} type='button'>Approve</button>
+        <button className={classes.btn__danger} onClick={() => setDeclineModal(true)} type='button'>Decline</button>
+    </>;
+
     return (
         <>
             {/* DECLINED SCHOOLS TOAST COMPONENTS */}
@@ -362,16 +367,16 @@ function LoanDetail() {
                 <div className={classes['admin-comments']}>
                     {userAdmin && userAdmin.role !== 'admin' && (<div className={classes['admin-comments__item']}>
                         <h1 className={classes['loan-detail__heading']}>Admin Comment</h1>
-                        {adminComment && <div dangerouslySetInnerHTML={{__html: htmlParse(adminComment)}}></div>}
+                        {adminComment && <div dangerouslySetInnerHTML={{ __html: htmlParse(adminComment) }}></div>}
                     </div>)}
                     {(userAdmin && (userAdmin.role !== 'admin' && userAdmin.role !== 'risk_management')) && (<div className={classes['admin-comments__item']}>
                         <h1 className={classes['loan-detail__heading']}>Risk Manager Comment</h1>
-                        {riskComment && <div dangerouslySetInnerHTML={{__html: htmlParse(riskComment)}}></div>}
+                        {riskComment && <div dangerouslySetInnerHTML={{ __html: htmlParse(riskComment) }}></div>}
                     </div>)}
                     {/* This is for cfo */}
                     {userAdmin && (<div className={classes['admin-comments__item']}>
                         <h1 className={classes['loan-detail__heading']}>CFO</h1>
-                        {cComment && <div dangerouslySetInnerHTML={{__html: htmlParse(cComment)}}></div>}
+                        {cComment && <div dangerouslySetInnerHTML={{ __html: htmlParse(cComment) }}></div>}
                     </div>)}
                 </div>
                 {/* Fo ongoing, defaulted and completed status, comment box should not show. */}
@@ -388,13 +393,16 @@ function LoanDetail() {
                 )}
 
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                   {/*  */}
-                {(status && status === 'pending') ? <>
-                    <button className={classes.btn__success} onClick={() => setActivateModal(true)} type='button'>Approve</button>
-                    <button className={classes.btn__danger} onClick={() => setDeclineModal(true)} type='button'>Decline</button>
-                    <button style={{ width: 'auto' }} className={classes.btn__danger} onClick={() => setDeclineCardModal(true)} type='button'>Decline due to card</button>
-                </> : status === 'ongoing' && null}
-                {(status && status === 'ongoing' && userAdmin && userAdmin.role === 'cfo') && <button className={classes.btn__info} onClick={() => setCompleteModal(true)} type='button'>Complete</button>}
+                    {/*  */}
+                    {(status && (status === 'pending' || status === 'pending_approval' || status === 'pending_disbursement') && status !== 'declined') ? <>
+                        {actionButtons}
+
+                    </> : status === 'ongoing' && null}
+
+
+                    {(status && status === 'ongoing' && userAdmin && userAdmin.role === 'cfo') && <button className={classes.btn__info} onClick={() => setCompleteModal(true)} type='button'>Complete</button>}
+                    {(userAdmin && userAdmin.role === 'cfo') && <button style={{ width: 'auto' }} className={classes.btn__danger} onClick={() => setDeclineCardModal(true)} type='button'>Decline due to card</button>}
+
                 </div>
 
                 <LoanDeclineModal
