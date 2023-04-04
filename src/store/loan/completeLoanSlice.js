@@ -44,7 +44,7 @@ const completeLoanSlice = createSlice({
         });
         builder.addCase(loanComplete.fulfilled, (state, action) => {
             state.loading = false;
-            state.loan = action.payload && action.payload;
+            state.loan = action.payload && action.payload.msg;
 
             console.log('In the fulfilled block: ', action.payload);
         });

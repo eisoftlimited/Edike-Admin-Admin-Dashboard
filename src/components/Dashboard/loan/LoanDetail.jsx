@@ -105,7 +105,7 @@ function LoanDetail() {
             }, 5000);
         }
 
-        if (completeLoan.declineLoanMsg && completeLoan.declineLoanMsg.length > 0) {
+        if (completeLoan.loan && completeLoan.loan.length > 0) {
             toast.success(<p>{completeLoan.declineLoanMsg}</p>);
 
             interval = setTimeout(() => {
@@ -128,7 +128,6 @@ function LoanDetail() {
                 dispatch(declineDueCardActions.resetLoanDueCardState());
             }, 5000);
         }
-
 
         return () => {
             clearTimeout(interval);
@@ -204,7 +203,9 @@ function LoanDetail() {
 
     const completeLoanHandler = () => {
         setCompleteModal(false);
-        dispatch(loanComplete({ id: loanmainId, token }));
+        dispatch(loanComplete({ id: loanmainId, token })).then(() => {
+            navigate('/dashboard/loans');
+        });;
     };
 
     const declineDueCardHandler = () => {

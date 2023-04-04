@@ -30,19 +30,29 @@
     }
 
     table {
+        // min-width: auto !important;
 
-        thead {
-            position: sticky;
-            top: 10rem;
-            left: 0;
-            width: 100%;
-        }
+        // thead {
+        //     position: sticky;
+        //     top: 10rem;
+        //     left: 0;
+        //     width: 100%;
 
-        tr td, tr th {
+
+        //     tr {
+        //         display: flex;
+        //         align-items: center;
+        //         justify-content: space-between;
+        //     }
+
+        // }
+
+        tr td,
+        tr th {
             font-weight: 500;
             font-size: 1.4rem;
 
-            
+
         }
 
 
@@ -57,6 +67,7 @@
 }
 
 .loantr {
+
     th,
     td {
         width: 15%;
@@ -78,15 +89,15 @@
             justify-content: center;
             display: block;
             position: relative;
-            
-                .dropdown {
-                    position: absolute;
-                    top: 3rem;
-                    right: 0;
-                    z-index: 5; 
-                    // display: block;
-                }
-            
+
+            .dropdown {
+                position: absolute;
+                top: 3rem;
+                right: 0;
+                z-index: 5;
+                // display: block;
+            }
+
         }
     }
 
@@ -104,14 +115,14 @@
 
         &.success {
             color: #49C96D;
-            background-color: rgba( #49C96D, .1);
+            background-color: rgba(#49C96D, .1);
         }
 
         &.danger {
             color: #FF3436;
-            background-color: rgba( #FF3436, .1);
+            background-color: rgba(#FF3436, .1);
         }
-        
+
         &.pending {
             color: #F9AC3B;
             background-color: rgba(#F9AC3B, .1);
@@ -120,13 +131,13 @@
         &.pending_disbursement {
             background-color: rgba(#964B00, .1);
             color: #964B00;
-            height: 3.3rem; 
+            height: 3.3rem;
             width: 10rem;
         }
 
         &.defaulted {
             color: #FF3436;
-            background-color: rgba( #FF3436, .1);
+            background-color: rgba(#FF3436, .1);
             font-weight: 600;
         }
     }
@@ -144,3 +155,28 @@
 }
 
 
+.table__container {
+    // max-width: 70rem;
+
+    // overflow-x: scroll;
+}
+
+.stickyHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: yellow;
+    padding: 3rem;
+    display: none;
+
+
+    div {
+        font-weight: 500;
+        font-size: 1.6rem;
+        color: #8A9099;
+        text-align: left;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+
+}
