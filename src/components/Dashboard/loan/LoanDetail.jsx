@@ -382,7 +382,7 @@ function LoanDetail() {
                 </div>
                 {/* Fo ongoing, defaulted and completed status, comment box should not show. */}
                 {/* APPROVE SECTION */}
-                {(status && status !== 'ongoing' && status !== 'defaulted' && status !== 'completed' && status !== 'declined') && (
+                {(status && status !== 'ongoing' && status !== 'defaulted' && status !== 'completed' && status !== 'declinedd') && (
                     <>
                         <h1 className={classes['loan-detail__heading']}>Comment</h1>
                         <div className={classes['loan-detail__box']}>
@@ -401,7 +401,7 @@ function LoanDetail() {
                     </> : status === 'ongoing' && null}
 
 
-                    {(status && (status === 'ongoing' || status === 'defaulted') && userAdmin && userAdmin.role === 'cfo') && <button className={classes.btn__info} onClick={() => setCompleteModal(true)} type='button'>Complete</button>}
+                    {(status && (status === 'ongoing' || status === 'defaulted' || status === 'declined') && userAdmin && userAdmin.role === 'cfo') && <button className={classes.btn__info} onClick={() => setCompleteModal(true)} type='button'>Complete</button>}
                     {(userAdmin && userAdmin.role === 'cfo') && <button style={{ width: 'auto' }} className={classes.btn__danger} onClick={() => setDeclineCardModal(true)} type='button'>Decline due to card</button>}
 
                 </div>
