@@ -218,8 +218,8 @@ function LoanDetail() {
     }
 
     const actionButtons = <>
-        <button className={classes.btn__success} onClick={() => setActivateModal(true)} type='button'>Approve</button>
-        <button className={classes.btn__danger} onClick={() => setDeclineModal(true)} type='button'>Decline</button>
+        <button className={`${classes.btn__success} ${classes.btnbtn}`} onClick={() => setActivateModal(true)} type='button'>Approve</button>
+        <button className={`${classes.btn__danger} ${classes.btnbtn}`} onClick={() => setDeclineModal(true)} type='button'>Decline</button>
     </>;
 
     return (
@@ -405,8 +405,8 @@ function LoanDetail() {
 
 
 
-                    {(status && (status === 'ongoing' || status === 'defaulted' || status === 'declined') && userAdmin && userAdmin.role === 'cfo') && <button className={classes.btn__info} onClick={() => setCompleteModal(true)} type='button'>Complete</button>}
-                    {(userAdmin && userAdmin.role === 'cfo') && <button style={{ width: 'auto' }} className={classes.btn__danger} onClick={() => setDeclineCardModal(true)} type='button'>Decline due to card</button>}
+                    {(status && (status === 'ongoing' || status === 'defaulted' || status === 'declined') && userAdmin && userAdmin.role === 'cfo') && <button className={`${classes.btn__info} ${classes.btnbtn}`} onClick={() => setCompleteModal(true)} type='button'>Complete</button>}
+                    {(userAdmin && userAdmin.role === 'cfo') && <button style={{ width: 'auto' }} className={`${classes.btn__danger} ${classes.btnbtn}`} onClick={() => setDeclineCardModal(true)} type='button'>Decline due to card</button>}
 
                 </div>
 
