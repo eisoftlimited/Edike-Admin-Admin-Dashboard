@@ -52,7 +52,6 @@ function LoanDetail() {
     const [showDeclineCardModal, setDeclineCardModal] = useState(false);
 
     const [showDetailModal, setDetailModal] = useState(false);
-
     const [loanComment, setLoanComment] = useState('');
 
     const approvedLoan = useSelector(state => state.approveLoan);
@@ -399,6 +398,11 @@ function LoanDetail() {
                         {actionButtons}
 
                     </> : status === 'ongoing' && null}
+
+
+
+                    {/* <button className={classes.btn__success} onClick={() => setActivateModal(true)} type='button'>Approve</button> */}
+
 
 
                     {(status && (status === 'ongoing' || status === 'defaulted' || status === 'declined') && userAdmin && userAdmin.role === 'cfo') && <button className={classes.btn__info} onClick={() => setCompleteModal(true)} type='button'>Complete</button>}
