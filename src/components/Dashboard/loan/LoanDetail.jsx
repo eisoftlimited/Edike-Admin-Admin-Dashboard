@@ -405,8 +405,13 @@ function LoanDetail() {
 
 
 
-                    {(status && (status === 'ongoing' || status === 'defaulted' || status === 'declined') && userAdmin && userAdmin.role === 'cfo') && <button className={`${classes.btn__info} ${classes.btnbtn}`} onClick={() => setCompleteModal(true)} type='button'>Complete</button>}
-                    {(userAdmin && userAdmin.role === 'cfo') && <button style={{ width: 'auto' }} className={`${classes.btn__danger} ${classes.btnbtn}`} onClick={() => setDeclineCardModal(true)} type='button'>Decline due to card</button>}
+                    {(status && ((status === 'ongoing' || status === 'defaulted') && status !== 'declined') && userAdmin && userAdmin.role === 'cfo') &&
+                        <button className={`${classes.btn__info} ${classes.btnbtn}`}
+                            onClick={() => setCompleteModal(true)} type='button'>Complete</button>}
+                    {(userAdmin && userAdmin.role === 'cfo') && (status && status !== 'declined') &&
+                        <button style={{ width: 'auto' }}
+                            className={`${classes.btn__danger} ${classes.btnbtn}`}
+                            onClick={() => setDeclineCardModal(true)} type='button'>Decline due to card</button>}
 
                 </div>
 
