@@ -350,6 +350,7 @@ function DashBoardLoan() {
                                             <th>Date (Start period)</th>
                                             <th>Beneficiary</th>
                                             {(filterBy === 'all' || true) && <th>Loan ID</th>}
+                                            <th>User ID</th>
                                             <th>Amount</th>
                                             <th style={{ textAlign: 'center' }}>Tenor</th>
                                             <th>Monthly Pymt</th>
@@ -369,6 +370,7 @@ function DashBoardLoan() {
                                             <td>{loan.beneficiaryDetails[0]?.firstname} {loan.beneficiaryDetails[0]?.lastname}</td>
 
                                             {(filterBy === 'all' || true) && <td>{loan.loan_reference}</td>}
+                                            <td>{loan?.userLoan?.[0]}</td>
                                             <td>{(loan.beneficiary_amount && formatCurr(loan.beneficiary_amount)) || '-'}</td>
                                             <td style={{ textAlign: 'center' }}>{loan.beneficiary_duration || '-'} months</td>
                                             <td>{loan.nextPayment === '---' ? '---' : (loan.nextPayment && formatCurr(loan.nextPayment)) || '-'} </td>
@@ -393,25 +395,14 @@ function DashBoardLoan() {
                                             </td>
                                             <td style={{ textAlign: 'center' }}>
                                                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                                    <div
-                                                        // onClick={e => {
-                                                        //     const optionsList = e.currentTarget.nextElementSibling;
-                                                        //     if (optionsList.style.display === 'none') {
-                                                        //         optionsList.style.display = 'block';
-                                                        //     } else {
-                                                        //         optionsList.style.display = 'none';
-                                                        //     }
-
-                                                        // }}
-                                                        className={classes.dots}
-                                                    >
+                                                    <div className={classes.dots}>
                                                         {false && <i className={`fas fa-ellipsis-v`} />}
                                                         <span
                                                             style={{ marginRight: 0 }}
                                                             onClick={() => {
                                                                 navigate(`/dashboard/loans/${loan.createdBy}/${loan._id}`, {
                                                                     state: {
-                                                                        loanId: loanIdiy + (loanIndex + 1)
+                                                                        loanId: loan.loan_reference
                                                                     }
                                                                 });
                                                             }}
@@ -432,9 +423,10 @@ function DashBoardLoan() {
                                                         }}
 
                                                         onViewUser={() => {
+
                                                             navigate(`/dashboard/loans/${loan.createdBy}/${loan._id}`, {
                                                                 state: {
-                                                                    loanId: loanIdiy + (loanIndex + 1)
+                                                                    loanId: loan.loan_reference
                                                                 }
                                                             });
                                                         }}

@@ -44,6 +44,8 @@ function LoanDetail() {
 
     const { state } = useLocation();
 
+    // console.log({state});
+
     const dispatch = useDispatch();
 
     const [showActivateModal, setActivateModal] = useState(false);
