@@ -370,7 +370,7 @@ function DashBoardLoan() {
                                             <td>{loan.beneficiaryDetails[0]?.firstname} {loan.beneficiaryDetails[0]?.lastname}</td>
 
                                             {(filterBy === 'all' || true) && <td>{loan.loan_reference}</td>}
-                                            <td>{loan?.userLoan?.[0]}</td>
+                                            <td style={{color: '#3F434A'}}>{loan?.userLoan?.[0]}</td>
                                             <td>{(loan.beneficiary_amount && formatCurr(loan.beneficiary_amount)) || '-'}</td>
                                             <td style={{ textAlign: 'center' }}>{loan.beneficiary_duration || '-'} months</td>
                                             <td>{loan.nextPayment === '---' ? '---' : (loan.nextPayment && formatCurr(loan.nextPayment)) || '-'} </td>

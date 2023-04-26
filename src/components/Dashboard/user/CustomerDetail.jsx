@@ -158,7 +158,6 @@ function CustomerDetail() {
                                 </tr>
                             </tbody>
                         </table>
-
                         <button onClick={() => setDetailModal(true)}>Customer Details</button>
                     </div>
                     <div className={classes['customer-detail__group']}>

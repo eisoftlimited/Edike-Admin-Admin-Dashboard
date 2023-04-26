@@ -108,6 +108,7 @@ updatedAt
             { label: "Date", value: (row) => row.createdAt },
             { label: "Beneficiary", value: (row) => row.beneficiaryDetails ? `${row.beneficiaryDetails[0].firstname} ${row.beneficiaryDetails[0].lastname}` : '-' },
             { label: "Loan ID", value: (row) => row.loan_reference},
+            { label: "Customer ID", value: (row) => row?.userLoan?.[0]},
             { label: "Amount", value: (row) => row.beneficiary_amount },
             { label: "Loan Tenor", value: (row)=> `${row.beneficiary_duration} months`},
             { label: "Monthly Repayment", value: (row)=> row.nextPayment},
